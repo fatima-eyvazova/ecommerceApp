@@ -1,15 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { increment, decrement } from "../redux/slices/counterSlice";
-import { RootState } from "../redux/types";
-import { ProductCard } from "../components";
+import { increment, decrement } from "../../redux/slices/counterSlice";
+import { RootState } from "../../redux/types";
+import { ProductCard } from "../../components";
+import MainLayout from "../../layout/MainLayout";
 
 const Home = () => {
   const count = useSelector((state: RootState) => state.counter.value);
   const dispatch = useDispatch();
 
   return (
-    <div>
+    <MainLayout>
       <div>
         <button
           aria-label="Increment value"
@@ -26,7 +27,7 @@ const Home = () => {
         </button>
       </div>
       <ProductCard name="Shirt" price={200} />
-    </div>
+    </MainLayout>
   );
 };
 
