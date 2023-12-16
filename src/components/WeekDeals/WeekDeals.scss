@@ -1,0 +1,66 @@
+.week-deals {
+  background-color: #f5f5f5;
+  padding-top: 75px;
+  padding-bottom: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .container {
+    width: 80%;
+    .section-title {
+      text-align: center;
+      h2 {
+        &::before {
+          content: "";
+          background-color: #454545;
+          bottom: 0;
+          height: 2px;
+          left: 0;
+          margin: 0 auto;
+          position: absolute;
+          right: 0;
+          transition: all 0.4s ease 0s;
+          width: 240px;
+        }
+        font-size: 22px;
+        color: #454545;
+        font-weight: 700;
+        padding-bottom: 19px;
+        position: relative;
+        text-transform: uppercase;
+      }
+    }
+    .timer {
+      text-align: center;
+      margin-top: 25px;
+      margin-bottom: 30px;
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        .item {
+          display: flex;
+          flex-direction: column;
+          padding: 10px 18px;
+          border: 2px solid rgb(240, 237, 237);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+          .number {
+            font-size: 25px;
+            font-weight: 600;
+            color: #545454;
+          }
+          .text {
+            font-weight: 400;
+            color: #5d5d5d;
+          }
+        }
+      }
+    }
+    .products-swiper {
+      display: flex;
+      gap: 20px;
+    }
+  }
+}

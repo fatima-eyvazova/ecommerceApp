@@ -1,3 +1,10 @@
 export { default as ProductCard } from "./ProductCard/ProductCard";
 export { default as Header } from "./Header/Header";
 export { default as Footer } from "./Footer/Footer";
+export { default as ProductsTab } from "./ProductsTab/ProductsTab";
+export { default as Innovations } from "./Innovations/Innovations";
+export { default as BannerSwiper } from "./BannerSwiper/BannerSwiper";
+export { default as BannerCard } from "./BannerCard/BannerCard";
+export { default as WeekDeals } from "./WeekDeals/WeekDeals";
+export { default as Services } from "./Services/Services";
+export { default as Testimonials } from "./Testimonials/Testimonials";

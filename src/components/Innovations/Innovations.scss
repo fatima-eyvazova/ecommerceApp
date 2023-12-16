@@ -1,0 +1,63 @@
+.innovations-section {
+  background-color: #ffffff;
+  padding-top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .container {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .discount-wrapper {
+      padding: 48px 0 0;
+      text-align: center;
+      .title {
+        color: #454545;
+        letter-spacing: 0.2px;
+        font-size: 22px;
+        font-family: Arimo, sans-serif;
+        font-style: normal;
+        font-weight: 400;
+      }
+      .info {
+        color: #26c6d0;
+        font-size: 40px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        line-height: 48px;
+        margin: 15px 0 23px;
+      }
+      .description {
+        color: #454545;
+        font-size: 17px;
+        letter-spacing: 0.2px;
+        line-height: 28px;
+        margin: 0 auto 47px;
+        width: 69%;
+      }
+      .overview-btn {
+        &:hover {
+          background-color: #454545;
+          color: #ffffff;
+        }
+        background-color: #26c6d1;
+        color: #ffffff;
+        border-radius: 5px;
+        padding: 15px 25px 15px;
+        display: inline-block;
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease 0s;
+      }
+    }
+    .discount-img {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
