@@ -4,8 +4,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 
-import DealProduct from "../DealProduct/DealProduct";
 import "../WeekDeals/WeekDeals.scss";
+import DiscountProduct from "../DiscountProduct/DiscountProduct";
 
 const WeekDeals = () => {
   const [remainingTime, setRemainingTime] = useState({
@@ -90,19 +90,19 @@ const WeekDeals = () => {
             className="mySwiper"
           >
             <SwiperSlide className="slide">
-              <DealProduct />
+              <DiscountProduct />
             </SwiperSlide>
             <SwiperSlide>
-              <DealProduct />
+              <DiscountProduct />
             </SwiperSlide>
             <SwiperSlide>
-              <DealProduct />
+              <DiscountProduct />
             </SwiperSlide>
             <SwiperSlide>
-              <DealProduct />
+              <DiscountProduct />
             </SwiperSlide>
             <SwiperSlide>
-              <DealProduct />
+              <DiscountProduct />
             </SwiperSlide>
           </Swiper>
         </div>

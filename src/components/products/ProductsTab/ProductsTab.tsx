@@ -7,7 +7,7 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 
 import "../ProductsTab/ProductsTab.scss";
-import { ProductCard } from "..";
+import { ProductCard } from "../..";
 
 const ProductsTab = () => {
   return (

@@ -1,9 +1,9 @@
 import { FaRegEye, FaRegStar } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 
-import "../DealProduct/DealProduct.scss";
+import "../DiscountProduct/DiscountProduct.scss";
 
-const DealProduct = () => {
+const DiscountProduct = () => {
   return (
     <div className="deal-product">
       <div className="item">
@@ -50,4 +50,4 @@ const DealProduct = () => {
   );
 };
 
-export default DealProduct;
+export default DiscountProduct;
