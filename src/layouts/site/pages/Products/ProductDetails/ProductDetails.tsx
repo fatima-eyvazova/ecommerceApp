@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, SyntheticEvent } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { type Swiper as SwiperRef } from "swiper";
+
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -23,17 +25,17 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 
-import MainLayout from "../../../layout/MainLayout";
 import "./ProductDetails.scss";
-import { Comments, SwiperProducts } from "../../../components";
+import { Comments, SwiperProducts, MainLayout } from "../../../components";
 
 const ProductDetails: React.FC = () => {
   const [value, setValue] = useState<string>("1");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
-  const swiper1Ref = useRef<any>(null);
-  const swiper2Ref = useRef<any>();
-  const handleChange = (event: ChangeEvent<{}>, newValue: string) => {
+  const swiper1Ref = useRef<SwiperRef | null>(null);
+  const swiper2Ref = useRef();
+  const handleChange = (_event: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
@@ -66,6 +68,8 @@ const ProductDetails: React.FC = () => {
             <div className="images-swiper" style={{ width: "50vw" }}>
               <Swiper
                 style={{
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
                   "--swiper-navigation-color": "#fff",
                   "--swiper-pagination-color": "#fff",
                 }}

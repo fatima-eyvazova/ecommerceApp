@@ -4,6 +4,7 @@ import { LuMinus } from "react-icons/lu";
 import { MdDelete } from "react-icons/md";
 
 import "./BasketItem.scss";
+
 const BasketItem = () => {
   return (
     <tbody>

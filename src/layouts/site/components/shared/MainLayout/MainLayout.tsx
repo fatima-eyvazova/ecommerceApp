@@ -1,4 +1,4 @@
-import { Footer, Header } from "../components";
+import { Footer, Header } from "../..";
 
 interface Props {
   children: JSX.Element | JSX.Element[];

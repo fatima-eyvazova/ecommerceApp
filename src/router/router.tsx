@@ -8,7 +8,7 @@ import {
   Products,
   Register,
   Wishlist,
-} from "../pages";
+} from "../layouts/site/pages";
 import { ROUTES } from "./routeNames";
 
 const router = createBrowserRouter([

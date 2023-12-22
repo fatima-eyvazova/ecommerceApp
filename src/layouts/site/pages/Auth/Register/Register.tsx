@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 
-import MainLayout from "../../../layout/MainLayout";
+import { MainLayout } from "../../../components";
 import "../Register/Register.scss";
 
 const Register = () => {

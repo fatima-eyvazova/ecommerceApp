@@ -3,9 +3,11 @@ export { default as SwiperProducts } from "./products/SwiperProducts/SwiperProdu
 export { default as WeekDeals } from "./products/WeekDeals/WeekDeals";
 export { default as Featured } from "./products/Featured/Featured";
 export { default as ProductsTab } from "./products/ProductsTab/ProductsTab";
+export { default as BasketItem } from "./products/BasketItem/BasketItem";
 
 export { default as Header } from "./shared/Header/Header";
 export { default as Footer } from "./shared/Footer/Footer";
+export { default as MainLayout } from "./shared/MainLayout/MainLayout";
 
 export { default as Innovations } from "./misc/Innovations/Innovations";
 export { default as Services } from "./misc/Services/Services";
@@ -15,5 +17,3 @@ export { default as Comments } from "./misc/Comments/Comments";
 
 export { default as BannerSwiper } from "./banner/BannerSwiper/BannerSwiper";
 export { default as BannerCard } from "./banner/BannerCard/BannerCard";
-
-export { default as BasketItem } from "./BasketItem/BasketItem";
