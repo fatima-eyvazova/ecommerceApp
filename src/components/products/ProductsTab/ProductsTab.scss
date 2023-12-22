@@ -1,5 +1,5 @@
 .products-tab {
-  background-color: gray;
+  background-color: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,12 +8,5 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    .mySwiper {
-      .slider {
-      }
-      .swiper-pagination {
-        display: none;
-      }
-    }
   }
 }

@@ -2,18 +2,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
   .container {
     width: 90%;
     display: flex;
     .swiper {
-      .mySwiper {
+      .swiper-banner {
         .swiper-slide {
-          width: 1000px !important;
+          width: 1150px !important;
+          height: 450px;
           .slider {
             img {
               position: relative;
-              width: 95%;
-              height: 398px;
+              width: 85%;
+              height: 430px;
             }
             .slider-content {
               position: absolute;
@@ -97,12 +100,12 @@
     }
     .banner-discount {
       img {
-        width: 308px;
-        height: 424px;
+        width: 297px;
+        height: 450px;
         position: relative;
       }
       .banner-content {
-        top: 50%;
+        top: 55%;
         right: 7%;
         padding: 20px;
         position: absolute;

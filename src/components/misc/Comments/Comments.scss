@@ -1,0 +1,166 @@
+.comments {
+  width: 100vw;
+  border-radius: 5px;
+  padding: 40px 30px;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 40px 30px;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 80vw;
+    .nav {
+      width: 100%;
+      padding: 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      border-bottom: 2px solid #c2c6cc;
+      margin: 0 0 10px;
+      .comment {
+        list-style: none;
+        .comment-count {
+          &::after {
+            height: 0;
+            content: " ";
+            display: block;
+            right: 0;
+            background: rgb(69, 69, 69);
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+          }
+          font-size: 15px;
+          margin-right: 12px;
+          font-size: 16px;
+          text-transform: capitalize;
+          line-height: 24px;
+          color: #2a2e2e;
+          font-weight: 600;
+        }
+      }
+      .login {
+        list-style: none;
+
+        span {
+          position: relative;
+          .login-icon {
+            color: #f05f70;
+            font-size: 23px;
+            top: -3px;
+            position: absolute;
+            right: 10px;
+          }
+        }
+        select {
+          all: unset;
+          option {
+            all: unset;
+          }
+        }
+        .icon {
+          position: absolute;
+          right: 12%;
+          font-size: 20px;
+        }
+      }
+    }
+    .posts {
+      .compose-wrapper {
+        margin: 20px 0px;
+        display: flex;
+        gap: 20px;
+        .avatar {
+          display: flex;
+          background-color: rgb(69, 69, 69);
+          width: 52px;
+          height: 52px;
+          align-items: center;
+          justify-content: center;
+          border-radius: 16px;
+          color: #fff;
+          p {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 36px;
+            line-height: 1.2;
+          }
+        }
+        .textarea-wrapper {
+          position: relative;
+          textarea {
+            border-radius: 16px;
+            min-height: 170px;
+            max-width: 74vw;
+            padding: 20px;
+            font-size: 15px;
+            color: #2a2e2e;
+            cursor: text;
+            line-height: 1.4;
+            width: 80vw;
+            resize: none;
+            border: 2px solid #ccc;
+            padding: 10px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+          }
+          .post-actions {
+            position: absolute;
+            bottom: 20px;
+            width: 74vw;
+            padding-bottom: 4px;
+            background: 0 0;
+            padding: 6px 0px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 2px solid #ccc;
+
+            .left {
+              top: 6px;
+              left: 6px;
+              display: flex;
+              flex-direction: row;
+              height: 24px;
+
+              .icon-gif-picture {
+                border-right: 2px solid #dbdfe4;
+                margin: 0 5px 0;
+                .icon {
+                  font-size: 24px;
+                  color: #b0afaf;
+                  margin-right: 10px;
+                }
+              }
+              .text-editor-buttons {
+                .icon {
+                  font-size: 23px;
+                  color: #b0afaf;
+                  margin-right: 10px;
+                }
+              }
+            }
+            .right {
+              button {
+                border-radius: 14px;
+                font-style: normal;
+                font-weight: 700;
+                font-size: 15px;
+                line-height: 1;
+                color: #fff;
+                padding: 7px 15px;
+                background-color: #2a2e2e;
+                margin-top: 1px;
+                margin-right: 9px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

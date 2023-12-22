@@ -4,4 +4,6 @@ export const ROUTES = {
   productDetails: "/products/:productId",
   login: "login",
   register: "register",
+  wishlist: "wishlist",
+  basket: "basket",
 } as const;

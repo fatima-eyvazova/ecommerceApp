@@ -23,12 +23,12 @@ const ProductCard = () => {
     <div className="product-card">
       <div className="container">
         <div className="product-image">
-          <img src="src/assets/images/product-img.webp" alt="product" />
+          <img src="/src/assets/images/product-img.webp" alt="product" />
         </div>
         <div className="product-action">
           <FaRegEye className="eye" />
         </div>
-        <div className="product-content">
+        <div className="product-item-content">
           <h4>Variable Product</h4>
           <div className="product-price-cart">
             <div className="rating-price">

@@ -18,7 +18,7 @@ const BannerSwiper = () => {
       <div className="container">
         <div className="swiper">
           <Swiper
-            className="mySwiper"
+            className="swiper-banner"
             spaceBetween={30}
             effect={"fade"}
             navigation={true}

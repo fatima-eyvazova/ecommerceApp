@@ -3,12 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { increment, decrement } from "../../redux/slices/counterSlice";
 import { RootState } from "../../redux/types";
 import {
-  ProductsTab,
   Innovations,
   BannerSwiper,
   BannerCard,
   WeekDeals,
   Services,
+  Testimonials,
+  Featured,
+  Blogs,
+  ProductsTab,
 } from "../../components";
 import MainLayout from "../../layout/MainLayout";
 import "../Home/Home.scss";
@@ -36,12 +39,13 @@ const Home = () => {
             Decrement
           </button>
         </div>
-
-        {/* <ProductCard name="Shirt" price={200} /> */}
         <ProductsTab />
         <Innovations />
         <WeekDeals />
         <Services />
+        <Testimonials />
+        <Featured />
+        <Blogs />
       </div>
     </MainLayout>
   );

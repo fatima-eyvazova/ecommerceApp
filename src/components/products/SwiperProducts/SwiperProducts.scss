@@ -1,0 +1,16 @@
+.swiper-product {
+  background-color: #f5f5f5;
+  padding-top: 75px;
+  padding-bottom: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .swiper-wrapper {
+    width: 80vw;
+    display: flex;
+    gap: 30px;
+  }
+  .swiper-pagination {
+    display: none;
+  }
+}

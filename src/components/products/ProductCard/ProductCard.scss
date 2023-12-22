@@ -2,6 +2,7 @@
   .container {
     position: relative;
     width: 300px;
+
     .product-image {
       img {
         width: 300px;
@@ -10,6 +11,12 @@
       }
     }
     .product-action {
+      &:hover {
+        background-color: #26c6d0;
+        .eye {
+          color: #fff;
+        }
+      }
       position: absolute;
       right: 20px;
       top: 20px;
@@ -23,7 +30,7 @@
       cursor: pointer;
       font-size: 18px;
     }
-    .product-content {
+    .product-item-content {
       background-color: #fff;
       padding: 17px 20px 26px;
       margin-top: -4px;
@@ -54,6 +61,12 @@
           }
         }
         .product-cart {
+          &:hover {
+            background-color: #26c6d0;
+            .cart-icon {
+              color: #fff;
+            }
+          }
           background-color: #ebebeb;
           border-radius: 50px;
           color: #444;
@@ -66,6 +79,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          transition: all 0.3s ease-out 0s;
           cursor: pointer;
 
           .cart-icon {

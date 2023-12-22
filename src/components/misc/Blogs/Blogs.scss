@@ -1,0 +1,124 @@
+.blogs {
+  background-color: rgba(0, 0, 0, 0);
+  padding-top: 75px;
+  padding-bottom: 130px;
+  .section-title {
+    margin-bottom: 75px;
+    text-align: center;
+    h2 {
+      &::before {
+        content: "";
+        height: 2px;
+        left: 0;
+        bottom: 0;
+        margin: 0 auto;
+        position: absolute;
+        right: 0;
+        transition: all 0.4s ease 0s;
+        width: 11%;
+        background-color: #454545;
+      }
+      font-size: 22px;
+      font-weight: 700;
+      padding-bottom: 19px;
+      position: relative;
+      text-transform: uppercase;
+      color: #454545;
+    }
+  }
+  .container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .content {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      justify-content: space-between;
+      width: 80%;
+
+      .blog-wrapper {
+        position: relative;
+        width: 50%;
+        display: flex;
+        cursor: pointer;
+
+        &::before {
+          z-index: -1;
+          border: 1px solid #f0f0f0;
+          bottom: -50px;
+          content: "";
+          left: 100px;
+          position: absolute;
+          right: -4px;
+          top: -50px;
+          transition: all 0.3s ease 0s;
+        }
+
+        &:hover img {
+          transform: scale(1.1);
+        }
+
+        &:hover::before {
+          z-index: -1;
+          border: 1px solid #26c6d0;
+        }
+
+        .blog-img {
+          z-index: 9;
+          overflow: hidden;
+          width: 410px;
+
+          img {
+            transition: all 1.5s ease 0s;
+          }
+        }
+
+        .blog-content {
+          z-index: 9;
+          padding: 40px 40px 40px 30px;
+
+          span {
+            color: #454545;
+            font-size: 22px;
+            font-weight: 700;
+            text-transform: uppercase;
+          }
+
+          h3 {
+            &:hover {
+              color: #26c6d0;
+              transition: transform 0.3s ease-in-out;
+            }
+
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            line-height: 24px;
+            text-transform: uppercase;
+            margin: 18px 0 38px;
+            cursor: pointer;
+          }
+
+          .blog-btn {
+            &:hover {
+              color: #454545;
+            }
+
+            text-transform: uppercase;
+            font-size: 15px;
+            font-weight: 700;
+            color: #26c6d0;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
