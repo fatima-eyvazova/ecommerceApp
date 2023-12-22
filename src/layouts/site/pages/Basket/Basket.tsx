@@ -1,10 +1,17 @@
 // react-router-dom
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { BasketItem } from "../../components";
-
 import "./Basket.scss";
+import { RootState } from "../../../../redux/types";
+
 function Basket() {
+  const basketProducts = useSelector(
+    (state: RootState) => state.basket.basketProducts
+  );
+  const total = useSelector((state: RootState) => state.basket.total);
+
   return (
     <div className="basket">
       <div className="basket-container">
@@ -27,8 +34,9 @@ function Basket() {
                       <th>Remove</th>
                     </tr>
                   </thead>
-                  <BasketItem />
-                  <BasketItem />
+                  {basketProducts.map((product) => (
+                    <BasketItem key={product.id} {...product} />
+                  ))}
                 </table>
               </div>
               <div className="continue-clear">
@@ -47,7 +55,7 @@ function Basket() {
             <div className="grand-totall">
               <h5>
                 <span className="total-text">Grand Total: </span>
-                <span className="money">$400.00</span>
+                <span className="money">${total?.toFixed(2) || 0}</span>
               </h5>
               <Link to="/cekout" className="checkout">
                 Proceed to Checkout

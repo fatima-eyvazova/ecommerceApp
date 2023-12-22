@@ -4,8 +4,9 @@ import { LuMinus } from "react-icons/lu";
 import { MdDelete } from "react-icons/md";
 
 import "./BasketItem.scss";
+import { BasketProduct } from "../../../../../redux/types";
 
-const BasketItem = () => {
+const BasketItem = ({ name, price, quantity, subtotal }: BasketProduct) => {
   return (
     <tbody>
       <tr>
@@ -15,23 +16,21 @@ const BasketItem = () => {
             alt="product"
           />
         </td>
-        <td className="product-name">
-          Variable Product - sm / yellow / Cotton
-        </td>
+        <td className="product-name">{name}</td>
         <td className="product-price-cart">
-          <span className="money">$400.00</span>
+          <span className="money">${price}</span>
         </td>
         <td className="product-quantity">
           <div className="cart-plus-minus">
             <LuMinus className="minus-icon" />
             <span className="count">
-              <span>1</span>
+              <span>{quantity}</span>
             </span>
             <GoPlus className="plus-icon" />
           </div>
         </td>
         <td className="product-subtotal">
-          <span className="money">$400.00</span>
+          <span className="money">${subtotal}</span>
         </td>
         <td className="product-remove">
           <MdDelete style={{ fontSize: "18px" }} />

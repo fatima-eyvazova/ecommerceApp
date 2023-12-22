@@ -1,8 +1,10 @@
 import { FaRegUserCircle } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { Link } from "react-router-dom";
 
 import "../Header/Header.scss";
 import Navbar from "../Navbar/Navbar";
+import { ROUTES } from "../../../../../router/routeNames";
 
 const Header = () => {
   return (
@@ -19,9 +21,9 @@ const Header = () => {
             <div className="login">
               <FaRegUserCircle className="user-icon" />
             </div>
-            <div className="cart">
+            <Link to={ROUTES.basket} className="cart">
               <HiOutlineShoppingBag className="cart-icon" />
-            </div>
+            </Link>
           </div>
         </div>
       </div>
