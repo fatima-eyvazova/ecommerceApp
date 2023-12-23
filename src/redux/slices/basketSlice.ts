@@ -17,7 +17,10 @@ export const basketSlice = createSlice({
   name: "basket",
   initialState,
   reducers: {
-    addToBasket: (state, action: PayloadAction<BasketProduct>) => {
+    addToBasket: (
+      state,
+      action: PayloadAction<Omit<BasketProduct, "subtotal">>
+    ) => {
       const found = state.basketProducts.find(
         (item) => item.id === action.payload.id
       );
@@ -25,8 +28,9 @@ export const basketSlice = createSlice({
       let subtotal = found?.subtotal;
 
       if (found && found.quantity) {
-        if (action.payload.quantity && action.payload.quantity > 1) {
+        if (action.payload.quantity > 1) {
           found.quantity += action.payload.quantity;
+          // TO-DO
           subtotal = found.quantity * found.price;
           state.total += found.price * action.payload.quantity;
         } else if (action.payload.quantity === 1 && found.subtotal) {
@@ -36,7 +40,7 @@ export const basketSlice = createSlice({
         }
       } else {
         subtotal = action.payload.price;
-        if (action.payload.quantity && action.payload.quantity > 1) {
+        if (action.payload.quantity > 1) {
           subtotal = action.payload.price * action.payload.quantity;
         }
 

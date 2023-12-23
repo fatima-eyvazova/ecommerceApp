@@ -3,7 +3,13 @@ import { IoIosArrowForward } from "react-icons/io";
 
 import "./Wishlist.scss";
 import { ProductCard } from "../../components";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/types";
+
 const Wishlist = () => {
+  const wishlistProduct = useSelector(
+    (state: RootState) => state.wishList.wishListProducts
+  );
   return (
     <div className="wishlist">
       <div className="wishlist-container">
@@ -23,17 +29,9 @@ const Wishlist = () => {
         </div>
         <div className="wishlist-items">
           <div className="wishlist-items-container">
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
+            {wishlistProduct.map((product) => (
+              <ProductCard {...product} key={product.id} />
+            ))}
           </div>
         </div>
       </div>

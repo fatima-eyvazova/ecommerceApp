@@ -1,6 +1,8 @@
 import { GoSearch } from "react-icons/go";
+import { Link } from "react-router-dom";
 
 import "../Navbar/Navbar.scss";
+import { ROUTES } from "../../../../../router/routeNames";
 
 const Navbar = () => {
   return (
@@ -11,7 +13,9 @@ const Navbar = () => {
             <li>home</li>
             <li>about</li>
             <li>products</li>
-            <li>pages</li>
+            <li>
+              <Link to={ROUTES.wishlist}>pages</Link>
+            </li>
             <li>blog</li>
             <li>contact</li>
           </ul>

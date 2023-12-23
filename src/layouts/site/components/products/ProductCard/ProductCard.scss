@@ -4,13 +4,15 @@
     width: 300px;
 
     .product-image {
+      background-color: #fff;
       img {
         width: 300px;
-        height: 280px;
         transition: all 1.5s ease 0s;
+        object-fit: contain;
       }
     }
     .product-action {
+      display: block;
       &:hover {
         background-color: #26c6d0;
         .eye {
@@ -29,6 +31,12 @@
       color: #444;
       cursor: pointer;
       font-size: 18px;
+    }
+    .prduct-heart {
+      position: absolute;
+      cursor: pointer;
+      top: 74px;
+      right: 33px;
     }
     .product-item-content {
       background-color: #fff;
