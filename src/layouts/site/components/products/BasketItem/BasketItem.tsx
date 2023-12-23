@@ -4,9 +4,34 @@ import { LuMinus } from "react-icons/lu";
 import { MdDelete } from "react-icons/md";
 
 import "./BasketItem.scss";
-import { BasketProduct } from "../../../../../redux/types";
+import { useDispatch } from "react-redux";
+import {
+  addToBasket,
+  removeItem,
+} from "../../../../../redux/slices/basketSlice";
 
-const BasketItem = ({ name, price, quantity, subtotal }: BasketProduct) => {
+type Props = {
+  id: string | number;
+  name: string;
+  price: number;
+  quantity: number;
+  subtotal: number;
+};
+
+const BasketItem = ({ id, name, price, quantity, subtotal }: Props) => {
+  const dispatch = useDispatch();
+
+  const handleIncreaseQuantity = () => {
+    dispatch(addToBasket({ id, name, price, quantity: 1 }));
+  };
+
+  const handleDecreaseQuantity = () => {
+    dispatch(addToBasket({ id, name, price, quantity: -1 }));
+  };
+
+  const removeItemFromBasket = () => {
+    dispatch(removeItem({ id, subtotal }));
+  };
   return (
     <tbody>
       <tr>
@@ -22,17 +47,17 @@ const BasketItem = ({ name, price, quantity, subtotal }: BasketProduct) => {
         </td>
         <td className="product-quantity">
           <div className="cart-plus-minus">
-            <LuMinus className="minus-icon" />
+            <LuMinus className="minus-icon" onClick={handleDecreaseQuantity} />
             <span className="count">
               <span>{quantity}</span>
             </span>
-            <GoPlus className="plus-icon" />
+            <GoPlus className="plus-icon" onClick={handleIncreaseQuantity} />
           </div>
         </td>
         <td className="product-subtotal">
           <span className="money">${subtotal}</span>
         </td>
-        <td className="product-remove">
+        <td className="product-remove" onClick={removeItemFromBasket}>
           <MdDelete style={{ fontSize: "18px" }} />
         </td>
       </tr>

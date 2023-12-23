@@ -1,16 +1,22 @@
 // react-router-dom
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { BasketItem } from "../../components";
 import "./Basket.scss";
 import { RootState } from "../../../../redux/types";
+import { clearBasket } from "../../../../redux/slices/basketSlice";
 
 function Basket() {
   const basketProducts = useSelector(
     (state: RootState) => state.basket.basketProducts
   );
   const total = useSelector((state: RootState) => state.basket.total);
+  const dispatch = useDispatch();
+
+  const clearBasketItems = () => {
+    dispatch(clearBasket());
+  };
 
   return (
     <div className="basket">
@@ -45,10 +51,8 @@ function Basket() {
                     Continue Shopping
                   </Link>
                 </div>
-                <div className="basket-clear">
-                  <Link to="/" className="basket-link">
-                    Clear Shopping Cart
-                  </Link>
+                <div className="basket-clear" onClick={clearBasketItems}>
+                  <span className="basket-link">Clear Shopping Cart</span>
                 </div>
               </div>
             </div>

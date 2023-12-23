@@ -48,9 +48,24 @@ export const basketSlice = createSlice({
         state.total += subtotal;
       }
     },
+
+    clearBasket: (state) => {
+      state.basketProducts.length = 0;
+      state.total = 0;
+    },
+
+    removeItem: (
+      state,
+      action: PayloadAction<{ id: string | number; subtotal: number }>
+    ) => {
+      state.basketProducts = state.basketProducts.filter(
+        (item) => item.id !== action.payload.id
+      );
+      state.total -= action.payload.subtotal;
+    },
   },
 });
 
-export const { addToBasket } = basketSlice.actions;
+export const { addToBasket, clearBasket, removeItem } = basketSlice.actions;
 
 export default basketSlice.reducer;
