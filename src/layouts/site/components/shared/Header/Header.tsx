@@ -21,7 +21,7 @@ const Header = () => {
             <div className="login">
               <FaRegUserCircle className="user-icon" />
             </div>
-            <Link to={ROUTES.basket} className="cart">
+            <Link to={`/${ROUTES.basket}`} className="cart">
               <HiOutlineShoppingBag className="cart-icon" />
             </Link>
           </div>

@@ -14,7 +14,7 @@ const Navbar = () => {
             <li>about</li>
             <li>products</li>
             <li>
-              <Link to={ROUTES.wishlist}>pages</Link>
+              <Link to={`/${ROUTES.wishlist}`}>pages</Link>
             </li>
             <li>blog</li>
             <li>contact</li>

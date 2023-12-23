@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useRef, useEffect, SyntheticEvent } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { type Swiper as SwiperRef } from "swiper";
+import { useDispatch } from "react-redux";
 
 // Import Swiper styles
 import "swiper/css";
@@ -27,11 +28,20 @@ import TabPanel from "@mui/lab/TabPanel";
 
 import "./ProductDetails.scss";
 import { Comments, SwiperProducts, MainLayout } from "../../../components";
+import { addToBasket } from "../../../../../redux/slices/basketSlice";
 
 const ProductDetails: React.FC = () => {
   const [value, setValue] = useState<string>("1");
+  const [quantity, setQuantity] = useState<number>(1);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
+
+  const dispatch = useDispatch();
+  const addToCart = () => {
+    dispatch(
+      addToBasket({ id: 1, price: 200, quantity, name: "Product 1111" })
+    );
+  };
 
   const swiper1Ref = useRef<SwiperRef | null>(null);
   const swiper2Ref = useRef();
@@ -171,10 +181,18 @@ const ProductDetails: React.FC = () => {
                 </p>
                 <form className="cart-input">
                   <label>Qty:</label>
-                  <input type="text" value="1" name="quantity" />
+                  <input
+                    type="number"
+                    min={0}
+                    name="quantity"
+                    defaultValue={1}
+                    onChange={(event) => {
+                      setQuantity(+event.target.value);
+                    }}
+                  />
                 </form>
                 <div className="add-to-cart-favorites">
-                  <div className="add-to-cart">
+                  <div className="add-to-cart" onClick={addToCart}>
                     <HiOutlineShoppingBag className="add-icon" />
                     <span className="add-btn"> Add to cart</span>
                   </div>
