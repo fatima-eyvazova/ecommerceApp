@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import {
   addToBasket,
   removeItem,
+  decreaseItem,
 } from "../../../../../redux/slices/basketSlice";
 
 type Props = {
@@ -25,13 +26,14 @@ const BasketItem = ({ id, name, price, quantity, subtotal }: Props) => {
     dispatch(addToBasket({ id, name, price, quantity: 1 }));
   };
 
-  const handleDecreaseQuantity = () => {
-    dispatch(addToBasket({ id, name, price, quantity: -1 }));
-  };
-
   const removeItemFromBasket = () => {
     dispatch(removeItem({ id, subtotal }));
   };
+
+  const decreaseItemByOne = () => {
+    dispatch(decreaseItem({ id, price }));
+  };
+
   return (
     <tbody>
       <tr>
@@ -47,7 +49,7 @@ const BasketItem = ({ id, name, price, quantity, subtotal }: Props) => {
         </td>
         <td className="product-quantity">
           <div className="cart-plus-minus">
-            <LuMinus className="minus-icon" onClick={handleDecreaseQuantity} />
+            <LuMinus className="minus-icon" onClick={decreaseItemByOne} />
             <span className="count">
               <span>{quantity}</span>
             </span>

@@ -63,9 +63,30 @@ export const basketSlice = createSlice({
       );
       state.total -= action.payload.subtotal;
     },
+
+    decreaseItem: (
+      state,
+      action: PayloadAction<{ id: string | number; price: number }>
+    ) => {
+      const found = state.basketProducts.find(
+        (item) => item.id === action.payload.id
+      );
+
+      if (found && found.quantity > 1) {
+        found.quantity--;
+        found.subtotal -= action.payload.price;
+        state.total -= action.payload.price;
+      } else if (found && found.quantity === 1) {
+        state.basketProducts = state.basketProducts.filter(
+          (item) => item.id !== action.payload.id
+        );
+        state.total -= action.payload.price;
+      }
+    },
   },
 });
 
-export const { addToBasket, clearBasket, removeItem } = basketSlice.actions;
+export const { addToBasket, clearBasket, removeItem, decreaseItem } =
+  basketSlice.actions;
 
 export default basketSlice.reducer;
