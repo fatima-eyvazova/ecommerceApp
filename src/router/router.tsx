@@ -8,6 +8,7 @@ import {
   Products,
   Register,
   Wishlist,
+  Checkout,
 } from "../layouts/site/pages";
 import { ROUTES } from "./routeNames";
 
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: ROUTES.home,
     element: <Home />,
+  },
+  {
+    path: ROUTES.checkout,
+    element: <Checkout />,
   },
   {
     path: ROUTES.wishlist,

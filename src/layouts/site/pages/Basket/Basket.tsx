@@ -6,6 +6,7 @@ import { BasketItem, MainLayout } from "../../components";
 import "./Basket.scss";
 import { RootState } from "../../../../redux/types";
 import { clearBasket } from "../../../../redux/slices/basketSlice";
+import { ROUTES } from "../../../../router/routeNames";
 
 function Basket() {
   const basketProducts = useSelector(
@@ -28,44 +29,55 @@ function Basket() {
           <div className="basket-content">
             <div className="container">
               <h3 className="page-title">YOUR CART ITEMS</h3>
-              <div className="basket-items">
-                <div className="items-table">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>IMAGE</th>
-                        <th>PRODUCT NAME</th>
-                        <th>UNTIL PRICE</th>
-                        <th>QTY</th>
-                        <th>SUBTOTAL</th>
-                        <th>Remove</th>
-                      </tr>
-                    </thead>
-                    {basketProducts.map((product) => (
-                      <BasketItem key={product.id} {...product} />
-                    ))}
-                  </table>
-                </div>
-                <div className="continue-clear">
-                  <div className="basket-continue">
-                    <Link to="/" className="basket-link">
-                      Continue Shopping
+              {basketProducts.length > 0 ? (
+                <>
+                  <div className="basket-items">
+                    <div className="items-table">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>IMAGE</th>
+                            <th>PRODUCT NAME</th>
+                            <th>PRICE</th>
+                            <th>QTY</th>
+                            <th>SUBTOTAL</th>
+                            <th>Remove</th>
+                          </tr>
+                        </thead>
+                        {basketProducts.map((product) => (
+                          <BasketItem key={product.id} {...product} />
+                        ))}
+                      </table>
+                    </div>
+                    <div className="continue-clear">
+                      <div className="basket-continue">
+                        <Link to="/" className="basket-link">
+                          Continue Shopping
+                        </Link>
+                      </div>
+                      <div className="basket-clear" onClick={clearBasketItems}>
+                        <span className="basket-link">Clear Shopping Cart</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="grand-totall">
+                    <h5>
+                      <span className="total-text">Grand Total: </span>
+                      <span className="money">${total?.toFixed(2) || 0}</span>
+                    </h5>
+                    <Link to={`/${ROUTES.checkout}`} className="checkout">
+                      Proceed to Checkout
                     </Link>
                   </div>
-                  <div className="basket-clear" onClick={clearBasketItems}>
-                    <span className="basket-link">Clear Shopping Cart</span>
-                  </div>
+                </>
+              ) : (
+                <div className="grand-total-empty">
+                  <h5>Your cart is currently empty.</h5>
+                  <Link className="text" to={ROUTES.home}>
+                    CONTINUE SHOPPING
+                  </Link>
                 </div>
-              </div>
-              <div className="grand-totall">
-                <h5>
-                  <span className="total-text">Grand Total: </span>
-                  <span className="money">${total?.toFixed(2) || 0}</span>
-                </h5>
-                <Link to="/cekout" className="checkout">
-                  Proceed to Checkout
-                </Link>
-              </div>
+              )}
             </div>
           </div>
         </div>

@@ -5,3 +5,4 @@ export { default as Login } from "./Auth/Login/Login";
 export { default as Register } from "./Auth/Register/Register";
 export { default as Wishlist } from "./Wishlist/Wishlist";
 export { default as Basket } from "./Basket/Basket";
+export { default as Checkout } from "./Checkout/Checkout";

@@ -6,4 +6,5 @@ export const ROUTES = {
   register: "register",
   wishlist: "wishlist",
   basket: "basket",
+  checkout: "checkout",
 } as const;

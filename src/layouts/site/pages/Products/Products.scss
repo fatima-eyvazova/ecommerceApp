@@ -1,0 +1,159 @@
+$main-color: #454545;
+
+.products {
+  background-color: #f5f5f5;
+  .products-container {
+    .products-content {
+      padding: 75px 0;
+
+      .title {
+        text-align: center;
+        font-size: 36px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        line-height: 1;
+        margin: 0 0 16px;
+        text-transform: uppercase;
+        color: $main-color;
+      }
+      .navigation {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .list {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: $main-color;
+          font-size: 15px;
+          font-weight: 400;
+          letter-spacing: 0.2px;
+          text-transform: capitalize;
+          padding-right: 9px;
+          .link {
+            text-decoration: none;
+            padding-right: 8px;
+            color: $main-color;
+          }
+        }
+        .active {
+          display: inline-block;
+          font-size: 15px;
+          font-weight: 400;
+          letter-spacing: 0.2px;
+          text-transform: capitalize;
+          padding-right: 9px;
+          span {
+            color: #26c6d0;
+          }
+        }
+      }
+    }
+    .shopify {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .shopify-container {
+        width: 80vw;
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        .left {
+          .filter-title {
+            h4 {
+              width: 270px;
+              background-color: #26c6d0;
+              color: #fff;
+              font-size: 18px;
+              font-weight: 700;
+              padding: 20px 30px;
+              margin-bottom: 10px;
+              text-transform: capitalize;
+            }
+          }
+        }
+        .right {
+          .right-container {
+            .shop-topbar-wrapper {
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 40px;
+
+              .view-mode {
+                display: flex;
+                li {
+                  list-style: none;
+                  cursor: pointer;
+                  text-decoration: none;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  .icon-view {
+                    color: #fff;
+                    background-color: #26c6d0;
+                    padding: 6px 11px;
+                    margin-right: 20px;
+
+                    .icon {
+                      font-size: 24px;
+                      line-height: 1;
+                    }
+                  }
+                  .change {
+                    background-color: #d9d9d9;
+                    .icon {
+                      color: black;
+                    }
+                  }
+                }
+              }
+              .product-sorting {
+                form {
+                  label {
+                    color: #454545;
+                    cursor: pointer;
+                    font-size: 14px;
+                    letter-spacing: 0.2px;
+                    margin: 0 8px 0 0;
+                    text-transform: uppercase;
+                    font-weight: 400;
+                  }
+                  select {
+                    &:focus {
+                      outline: none;
+                    }
+                    appearance: none;
+                    padding: 0 55px 0 15px;
+                    background: #fff
+                      url(//dilan-1.myshopify.com/cdn/shop/t/7/assets/select-2.png?v=9566291…)
+                      no-repeat scroll right 10px center;
+                    background-color: white;
+                    border: 1px solid #e5e5e5;
+                    box-shadow: none;
+                    color: #666;
+                    font-size: 14px;
+                    height: 40px;
+                    text-transform: uppercase;
+                    width: inherit;
+                    cursor: pointer;
+                    option {
+                      background: #fff;
+                      border: 0px solid #626262;
+                      padding-left: 10px;
+                      font-size: 14px;
+                    }
+                  }
+                }
+              }
+            }
+            .shop-items {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              grid-template-rows: auto;
+            }
+          }
+        }
+      }
+    }
+  }
+}

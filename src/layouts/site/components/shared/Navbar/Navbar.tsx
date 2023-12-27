@@ -13,8 +13,33 @@ const Navbar = () => {
             <li>home</li>
             <li>about</li>
             <li>products</li>
-            <li>
-              <Link to={`/${ROUTES.wishlist}`}>pages</Link>
+            <li className="pages">
+              pages
+              <ul className="pages-menu">
+                <li className="item">
+                  <Link className="item-link" to="/account">
+                    My Account
+                  </Link>
+                </li>
+
+                <li className="item">
+                  <Link className="item-link" to={`/${ROUTES.wishlist}`}>
+                    My Wishlist
+                  </Link>
+                </li>
+
+                <li className="item">
+                  <Link className="item-link" to="/cart">
+                    My Cart
+                  </Link>
+                </li>
+
+                <li className="item">
+                  <Link className="item-link" to="/checkout">
+                    Checkout
+                  </Link>
+                </li>
+              </ul>
             </li>
             <li>blog</li>
             <li>contact</li>
