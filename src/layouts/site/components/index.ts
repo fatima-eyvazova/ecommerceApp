@@ -20,3 +20,5 @@ export { default as FilterAccardions } from "./misc/FilterAccardions/FilterAccar
 
 export { default as BannerSwiper } from "./banner/BannerSwiper/BannerSwiper";
 export { default as BannerCard } from "./banner/BannerCard/BannerCard";
+
+export { default as RatedProducts } from "./products/RatedProducts/RatedProducts";

@@ -82,7 +82,7 @@
         .swiper-elements {
           .swiper-wrapper {
             width: 30vw;
-            .slide {
+            .slide-item {
               p {
                 margin-top: 36px;
                 color: #fff;
@@ -117,9 +117,47 @@
               }
             }
           }
-          .swiper-button-next {
+        }
+        .swiper-pagination {
+          display: none;
+        }
+        .buttons-swiper {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-left: 15%;
+          .prev-button {
+            position: absolute;
+            left: 41%;
           }
-          .swiper-button-prev {
+
+          .next-button,
+          .prev-button {
+            &:hover {
+              background-color: #26c6d0;
+              border: 1px solid #26c6d0;
+              color: #fff;
+            }
+            cursor: pointer;
+            background-color: transparent;
+            border: 1px solid #fff;
+            border-radius: 50px;
+            color: #fff;
+            display: inline-block;
+            font-size: 16px;
+            height: 33px;
+            line-height: 33px;
+            margin: 0 5px;
+            opacity: 1;
+            text-align: center;
+            transition: all 0.3s ease 0s;
+            width: 33px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .swiper-icons-nav {
+              font-size: 18px;
+            }
           }
         }
       }

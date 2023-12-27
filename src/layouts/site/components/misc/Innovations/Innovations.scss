@@ -55,8 +55,20 @@
       }
     }
     .discount-img {
+      overflow: hidden;
+      position: relative;
+
       img {
         width: 100%;
+        animation: slideIn 1s ease-in-out;
+      }
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(0);
+        }
       }
     }
   }

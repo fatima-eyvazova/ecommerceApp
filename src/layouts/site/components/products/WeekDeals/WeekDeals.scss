@@ -61,6 +61,19 @@
     .products-swiper {
       display: flex;
       gap: 20px;
+      .mySwiper {
+        .swiper-pagination {
+          .swiper-pagination-bullet {
+            border: 1px solid #26c6d0;
+            border-radius: 50px;
+            display: inline-block;
+            height: 12px;
+            margin: 0 5px;
+            width: 12px;
+            background: #fff none repeat scroll 0 0;
+          }
+        }
+      }
     }
   }
 }

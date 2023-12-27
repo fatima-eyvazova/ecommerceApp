@@ -5,7 +5,8 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 // import required modules
 import { Pagination, Navigation } from "swiper/modules";
-
+// react icons
+import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 import "./SwiperProducts.scss";
 import { ProductCard } from "../..";
 
@@ -51,7 +52,10 @@ const SwiperProducts = () => {
       pagination={{
         clickable: true,
       }}
-      navigation={true}
+      navigation={{
+        prevEl: ".custom-prev-button",
+        nextEl: ".custom-next-button",
+      }}
       modules={[Pagination, Navigation]}
       className="swiper-product"
     >
@@ -60,6 +64,12 @@ const SwiperProducts = () => {
           <ProductCard {...product} />
         </SwiperSlide>
       ))}
+      <div className="custom-prev-button">
+        <FaArrowLeftLong />
+      </div>
+      <div className="custom-next-button">
+        <FaArrowRightLong />
+      </div>
     </Swiper>
   );
 };

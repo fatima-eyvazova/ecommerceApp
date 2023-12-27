@@ -13,4 +13,32 @@
   .swiper-pagination {
     display: none;
   }
+  .custom-prev-button {
+    left: 0;
+  }
+  .custom-next-button {
+    right: 0;
+  }
+  .custom-prev-button,
+  .custom-next-button {
+    z-index: 20;
+    cursor: pointer;
+    position: absolute;
+    text-align: center;
+    transform: translateY(-50%);
+    transition: all 0.3s ease 0s;
+    width: 48px;
+    border: 1px solid #ececec;
+    line-height: 47px;
+    background-color: #fff;
+    border-radius: 5px;
+    color: #8d8d8d;
+    font-size: 21px;
+    height: 48px;
+    &:hover {
+      background-color: #26c6d0;
+      color: #fff;
+      border: 1px solid #26c6d0;
+    }
+  }
 }

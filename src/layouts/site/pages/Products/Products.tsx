@@ -4,7 +4,12 @@ import { IoIosArrowForward } from "react-icons/io";
 import { CgMenuGridR } from "react-icons/cg";
 import { IoIosMenu } from "react-icons/io";
 
-import { FilterAccardions, MainLayout, ProductCard } from "../../components";
+import {
+  FilterAccardions,
+  MainLayout,
+  ProductCard,
+  RatedProducts,
+} from "../../components";
 import "./Products.scss";
 
 const Products = () => {
@@ -65,6 +70,7 @@ const Products = () => {
                   <h4>Categories</h4>
                 </div>
                 <FilterAccardions />
+                <RatedProducts />
               </div>
               <div className="right">
                 <div className="right-container">
