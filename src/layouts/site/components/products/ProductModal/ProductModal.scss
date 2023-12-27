@@ -1,0 +1,96 @@
+.modal-product {
+  background-color: #fff;
+  background-clip: padding-box;
+  padding: 50px 0px;
+  .modal-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+    .modal-left {
+      margin-right: 30px;
+    }
+    .modal-right {
+      .modal-content {
+        .product-title {
+          color: #454545;
+          font-size: 20px;
+          font-weight: 700;
+          margin: 0 0 5px;
+        }
+        .product-price {
+          .max-price {
+            color: #454545;
+            font-size: 16px;
+            font-weight: 700;
+            display: inline-block;
+            text-decoration: line-through;
+            margin-right: 10px;
+          }
+          .discount-price {
+            color: #f73f52;
+            font-size: 16px;
+            font-weight: 700;
+            display: inline-block;
+          }
+        }
+        p {
+          width: 356px;
+          font-size: 15px;
+          font-weight: 400;
+          line-height: 24px;
+          color: #565555;
+          margin-bottom: 15px;
+          font-family: Arimo, sans-serif;
+        }
+        .basket-favorites {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .plus-minus {
+            input {
+              padding: 7px 0 7px 5px;
+              width: 70px;
+              height: 36px;
+              cursor: pointer;
+            }
+          }
+          .add-btn {
+            &:hover {
+              background-color: #26c6d0;
+              color: #fff;
+              border: #26c6d0;
+            }
+            color: #fff;
+            min-width: 175px;
+            text-align: center;
+            padding: 12px 35px 11px;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease 0s;
+            background-color: #454545;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+          .favorite-button {
+            &:hover {
+              border: 1px solid #26c6d0;
+              background-color: #26c6d0;
+              color: #fff;
+            }
+            border: 1px solid #dcdcdc;
+            color: #454545;
+            font-size: 22px;
+            padding: 9px 18px 5px;
+            cursor: pointer;
+
+            .heart-icon {
+              font-size: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,7 +2,13 @@
 import { FaRegStar, FaRegEye } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { FaRegHeart, FaHeart } from "react-icons/fa6";
-
+// mui
+import Backdrop from "@mui/material/Backdrop";
+import Button from "@mui/joy/Button";
+import Modal from "@mui/joy/Modal";
+import ModalClose from "@mui/joy/ModalClose";
+import Typography from "@mui/joy/Typography";
+import Sheet from "@mui/joy/Sheet";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addToBasket } from "../../../../../redux/slices/basketSlice";
@@ -10,6 +16,7 @@ import { handleWishList as handleWishListAction } from "../../../../../redux/sli
 import "./ProductCard.scss";
 import { RootState } from "../../../../../redux/types";
 import { useState } from "react";
+import { ProductModal } from "../..";
 
 type Props = {
   id: string | number;
@@ -53,6 +60,16 @@ const ProductCard = ({ id, name, price }: Props) => {
     setColorOver(undefined);
   }
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    setOpen(true);
+  };
+
+  const handleClose = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    setOpen(false);
+  };
   return (
     <div className="product-card">
       <div className="container">
@@ -60,7 +77,55 @@ const ProductCard = ({ id, name, price }: Props) => {
           <img src="/src/assets/images/product-img.webp" alt="product" />
         </div>
         <div className="product-action">
-          <FaRegEye className="eye" />
+          <Button
+            className="btn"
+            variant="outlined"
+            color="neutral"
+            onClick={handleOpen}
+            style={{ border: "none", backgroundColor: "transparent" }}
+          >
+            <FaRegEye className="eye" />
+          </Button>
+          <Modal
+            variant="outlined"
+            aria-labelledby="modal-title"
+            aria-describedby="modal-desc"
+            open={open}
+            onClose={handleClose}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Sheet
+              variant="outlined"
+              sx={{
+                maxWidth: 1300,
+                borderRadius: "md",
+                p: 3,
+                boxShadow: "lg",
+                border: "1px solid white",
+                backgroundColor: "white",
+              }}
+            >
+              <ModalClose variant="plain" sx={{ m: 1 }} onClose={handleClose} />
+              <Typography
+                component="h2"
+                id="modal-title"
+                level="h4"
+                textColor="inherit"
+                fontWeight="lg"
+                mb={1}
+              >
+                <ProductModal />
+              </Typography>
+              <Typography
+                id="modal-desc"
+                textColor="text.tertiary"
+              ></Typography>
+            </Sheet>
+          </Modal>
         </div>
         <div className="product-heart" onClick={handleWishList}>
           {color ? (

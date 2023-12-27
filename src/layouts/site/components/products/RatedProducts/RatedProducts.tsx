@@ -58,7 +58,7 @@ const RatedProducts = () => {
             <SwiperSlide className="rated-slide">
               <div className="rated-items">
                 {data.slice(0, 3).map((item) => (
-                  <div className="rated-item">
+                  <div className="rated-item" key={item.id}>
                     <img
                       src="/src/assets/images/3_861d7348-c426-4c39-9565-59e278a304ac.webp"
                       alt="shop"
@@ -74,7 +74,7 @@ const RatedProducts = () => {
             <SwiperSlide className="rated-slide">
               <div className="rated-items">
                 {data.slice(3, 7).map((item) => (
-                  <div className="rated-item">
+                  <div className="rated-item" key={item.id}>
                     <img
                       src="/src/assets/images/3_861d7348-c426-4c39-9565-59e278a304ac.webp"
                       alt="shop"
@@ -90,7 +90,7 @@ const RatedProducts = () => {
             <SwiperSlide className="rated-slide">
               <div className="rated-items">
                 {data.slice(3, 7).map((item) => (
-                  <div className="rated-item">
+                  <div className="rated-item" key={item.id}>
                     <img
                       src="/src/assets/images/3_861d7348-c426-4c39-9565-59e278a304ac.webp"
                       alt="shop"

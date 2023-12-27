@@ -6,6 +6,8 @@ export { default as ProductsTab } from "./products/ProductsTab/ProductsTab";
 export { default as BasketItem } from "./products/BasketItem/BasketItem";
 export { default as ProductInfo } from "./products/ProductInfo/ProductInfo";
 export { default as CheckoutItem } from "./products/CheckoutItem/CheckoutItem";
+export { default as RatedProducts } from "./products/RatedProducts/RatedProducts";
+export { default as ProductModal } from "./products/ProductModal/ProductModal";
 
 export { default as Header } from "./shared/Header/Header";
 export { default as Footer } from "./shared/Footer/Footer";
@@ -20,5 +22,3 @@ export { default as FilterAccardions } from "./misc/FilterAccardions/FilterAccar
 
 export { default as BannerSwiper } from "./banner/BannerSwiper/BannerSwiper";
 export { default as BannerCard } from "./banner/BannerCard/BannerCard";
-
-export { default as RatedProducts } from "./products/RatedProducts/RatedProducts";
