@@ -42,3 +42,17 @@ $secondary-color: #202020;
     }
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .services {
+    .container {
+      .items {
+        display: flex;
+        flex-direction: column;
+        .item {
+          width: 80vw;
+        }
+      }
+    }
+  }
+}

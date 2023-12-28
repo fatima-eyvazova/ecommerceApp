@@ -234,3 +234,41 @@ $main-color: #454545;
     }
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .product-info {
+    display: block;
+    .images-swiper {
+      width: 100vw !important;
+      .swiper-details {
+        height: 100%;
+        .swiper-wrapper {
+          height: 100vh;
+          .slide-item {
+          }
+        }
+      }
+      .swiper-images {
+        .swiper-wrapper {
+          width: 80vw;
+          .slide-image {
+            width: 90px !important;
+            img {
+              width: 90px;
+            }
+          }
+        }
+      }
+    }
+    .product-details-info {
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .info-content {
+        width: 70vw;
+        padding-top: 20px;
+      }
+    }
+  }
+}

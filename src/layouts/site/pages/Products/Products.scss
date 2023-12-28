@@ -74,6 +74,7 @@ $main-color: #454545;
         }
         .right {
           .right-container {
+            width: 66vw;
             .shop-topbar-wrapper {
               display: flex;
               justify-content: space-between;
@@ -147,10 +148,37 @@ $main-color: #454545;
               }
             }
             .shop-items {
-              display: grid;
-              grid-template-columns: repeat(3, 1fr);
-              grid-template-rows: auto;
+              display: flex;
+              flex-wrap: wrap;
               gap: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .products {
+    .products-container {
+      .shopify {
+        .shopify-container {
+          display: flex;
+          flex-direction: column;
+          .left {
+            .rated-products {
+              display: none;
+            }
+          }
+          .right {
+            .right-container {
+              .shop-topbar-wrapper {
+                display: block;
+                .view-mode {
+                  margin-bottom: 20px;
+                }
+              }
             }
           }
         }

@@ -42,3 +42,19 @@
     }
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .swiper-product {
+    .swiper-wrapper {
+      .slider {
+        width: 80vw !important;
+      }
+    }
+    .custom-prev-button {
+      display: none;
+    }
+    .custom-next-button {
+      display: none;
+    }
+  }
+}

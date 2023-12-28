@@ -76,3 +76,26 @@
     }
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .header {
+    .header-top {
+      width: auto;
+      display: flex;
+      justify-content: flex-start !important;
+      .container {
+        width: 90%;
+        .default-message {
+          display: none;
+        }
+      }
+    }
+    .navbar {
+      .container {
+        .navigation {
+          display: none;
+        }
+      }
+    }
+  }
+}

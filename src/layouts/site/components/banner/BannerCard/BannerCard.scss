@@ -6,24 +6,39 @@
   .container {
     width: 90vw;
     position: relative;
+    .banner-item {
+      img {
+        width: 20%;
+      }
+      .banner-content {
+        left: 22px;
+        padding: 10px;
+        position: absolute;
+        top: 32%;
+        transform: translateY(-50%);
 
-    img {
-      width: 20%;
+        h4 {
+          color: #444444;
+          font-size: 22px;
+          font-weight: 700;
+          letter-spacing: 0.2px;
+          line-height: 28px;
+          margin: 0;
+          transition: all 0.3s ease 0s;
+        }
+      }
     }
-    .banner-content {
-      left: 22px;
-      padding: 10px;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      h4 {
-        color: #444444;
-        font-size: 22px;
-        font-weight: 700;
-        letter-spacing: 0.2px;
-        line-height: 28px;
-        margin: 0;
-        transition: all 0.3s ease 0s;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .banner-card {
+    .container {
+      display: block;
+      .banner-item {
+        img {
+          width: 90vw;
+        }
       }
     }
   }

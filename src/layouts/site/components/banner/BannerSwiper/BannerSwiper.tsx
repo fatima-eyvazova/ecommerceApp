@@ -28,7 +28,7 @@ const BannerSwiper = () => {
             modules={[EffectFade, Navigation, Pagination]}
           >
             <SwiperSlide className="swiper-slide">
-              <div className="slider">
+              <div className="slider-banner">
                 <img src="src/assets/images/banner-img.jpeg" alt="banner" />
                 <div className="slider-content">
                   <h3>New Arrivals</h3>

@@ -184,3 +184,40 @@
     }
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .basket {
+    width: 100vw;
+    .basket-container {
+      .basket-heading {
+        h2 {
+          font-size: 30px;
+        }
+      }
+      .basket-content {
+        .container {
+          .basket-items {
+            .items-table {
+              table {
+                thead {
+                  tr {
+                    th {
+                      font-size: 11px;
+                    }
+                  }
+                }
+              }
+            }
+            .continue-clear {
+              display: block;
+              width: 92vw;
+              .basket-continue {
+                margin-bottom: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

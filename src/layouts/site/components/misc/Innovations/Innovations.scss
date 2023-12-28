@@ -73,3 +73,21 @@
     }
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .innovations-section {
+    .container {
+      display: block;
+      .discount-wrapper {
+        margin-bottom: 20px;
+        .info {
+          font-size: 20px;
+          line-height: 26px;
+        }
+        .description {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+}

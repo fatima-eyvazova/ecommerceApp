@@ -1,4 +1,4 @@
-.footer {
+footer {
   .container {
     .footer-top {
       display: flex;
@@ -166,6 +166,25 @@
               border-radius: 4px;
               color: white;
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  footer {
+    .container {
+      .footer-top {
+        .footer-top-container {
+          display: block;
+        }
+      }
+      .footer-bottom {
+        .footer-bottom-container {
+          .payment-img {
+            display: none;
           }
         }
       }

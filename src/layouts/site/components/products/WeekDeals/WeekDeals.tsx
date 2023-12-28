@@ -87,21 +87,21 @@ const WeekDeals = () => {
             }}
             loop={true}
             modules={[Pagination]}
-            className="mySwiper"
+            className="deals-swiper"
           >
             <SwiperSlide className="slide">
               <DiscountProduct />
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="slide">
               <DiscountProduct />
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="slide">
               <DiscountProduct />
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="slide">
               <DiscountProduct />
             </SwiperSlide>
-            <SwiperSlide>
+            <SwiperSlide className="slide">
               <DiscountProduct />
             </SwiperSlide>
           </Swiper>

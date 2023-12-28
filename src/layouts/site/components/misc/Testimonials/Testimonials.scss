@@ -128,7 +128,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-left: 15%;
+          margin-left: 19%;
           .prev-button {
             position: absolute;
             left: 41%;
@@ -160,6 +160,46 @@
             justify-content: center;
             .swiper-icons-nav {
               font-size: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .new-collection-testimonials {
+    background-color: #ffffff;
+    padding-top: 80px;
+    padding-bottom: 80px;
+    display: flex;
+    justify-content: flex-start;
+    .container {
+      display: block;
+      .new-collection {
+        width: 100vw;
+        img {
+          width: 100vw;
+        }
+        .new-collection-content {
+          left: 20px;
+
+          h2 {
+            line-height: 23px;
+            font-size: 20px;
+          }
+          .new-collection-btn {
+            padding: 14px 11px 15px;
+          }
+        }
+      }
+      .testimonials {
+        width: 100vw;
+        .swiper-testimonials {
+          .swiper-elements {
+            .buttons-swiper {
+              margin-left: 26%;
             }
           }
         }

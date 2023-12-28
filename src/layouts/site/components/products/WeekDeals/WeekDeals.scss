@@ -61,7 +61,7 @@
     .products-swiper {
       display: flex;
       gap: 20px;
-      .mySwiper {
+      .deals-swiper {
         .swiper-pagination {
           .swiper-pagination-bullet {
             border: 1px solid #26c6d0;
@@ -71,6 +71,67 @@
             margin: 0 5px;
             width: 12px;
             background: #fff none repeat scroll 0 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .week-deals {
+    .container {
+      .products-swiper {
+        .deals-swiper {
+          .swiper-wrapper {
+            .slide {
+              width: 100vw !important;
+              height: 100vh !important;
+              .deal-product {
+                width: 100vw;
+                .item {
+                  width: 80vw;
+                  display: block;
+                  .deal-img-container {
+                    width: 100vw;
+                  }
+                  .deal-product-content {
+                    width: 100vw;
+                    p {
+                      width: 270px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .week-deals {
+    .container {
+      .products-swiper {
+        .deals-swiper {
+          .swiper-wrapper {
+            .slide {
+              width: 100vw !important;
+              .deal-product {
+                width: 100vw;
+                .item {
+                  width: 80vw;
+                  display: flex;
+                  .deal-product-content {
+                    width: 100vw;
+                    p {
+                      width: 270px;
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

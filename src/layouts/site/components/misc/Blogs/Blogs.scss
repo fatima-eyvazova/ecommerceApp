@@ -122,3 +122,55 @@
     }
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .blogs {
+    .container {
+      .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 60px;
+        align-items: center;
+        .blog-wrapper {
+          margin-bottom: 20px;
+          &::before {
+            z-index: -1;
+            border: 1px solid #f0f0f0;
+            bottom: 10px;
+            content: "";
+            left: -7px;
+            position: absolute;
+            right: 35px;
+            top: -50px;
+            transition: all 0.3s ease 0s;
+          }
+          width: 100vw;
+          display: block;
+          .blog-img {
+            margin-bottom: 40px;
+          }
+          .blog-content {
+            span {
+              color: #454545;
+              font-size: 20px;
+              font-weight: 600;
+              text-transform: uppercase;
+            }
+            h3 {
+              font-size: 15px;
+              font-weight: 700;
+              letter-spacing: 0.2px;
+              line-height: 24px;
+              text-transform: uppercase;
+              margin: 18px 0 38px;
+            }
+            .blog-btn {
+              font-size: 13px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

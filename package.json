@@ -23,6 +23,7 @@
     "@reduxjs/toolkit": "^2.0.1",
     "axios": "^1.6.2",
     "fortawesome": "^0.0.1-security",
+    "framer-motion": "^10.16.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.2",

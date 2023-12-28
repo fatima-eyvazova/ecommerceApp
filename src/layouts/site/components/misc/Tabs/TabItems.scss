@@ -108,3 +108,28 @@
     background-color: #26c6d0;
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .tab {
+    width: 100vw;
+    .css-b9rbv7 {
+      width: 98%;
+      .css-1gsv261 {
+        width: 93vw;
+        .css-1ujnqem-MuiTabs-root {
+          width: 98vw;
+          .css-jpln7h-MuiTabs-scroller {
+            .css-heg063-MuiTabs-flexContainer {
+              display: flex;
+              justify-content: flex-start;
+              .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+                color: #26c6d0;
+                font-size: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

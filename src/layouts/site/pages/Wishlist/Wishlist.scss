@@ -49,10 +49,10 @@
       align-items: center;
       justify-content: space-around;
       .wishlist-items-container {
-        width: 80vw;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: auto;
+        width: 70vw;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
         .product-card {
           margin-bottom: 30px;
         }

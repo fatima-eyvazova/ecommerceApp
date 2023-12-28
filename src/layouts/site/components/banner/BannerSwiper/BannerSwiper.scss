@@ -12,10 +12,10 @@
         .swiper-slide {
           width: 1150px !important;
           height: 450px;
-          .slider {
+          .slider-banner {
             img {
               position: relative;
-              width: 95%;
+              width: 83%;
               height: 430px;
             }
             .slider-content {
@@ -135,6 +135,44 @@
             transition: all 0.3s ease 0s;
             cursor: pointer;
           }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .banner-swiper {
+    .container {
+      display: block;
+      .swiper {
+        .swiper-banner {
+          .swiper-slide {
+            .slider-banner {
+              img {
+                width: 45%;
+              }
+              .slider-content {
+                h2 {
+                  margin: 10px 0 24px -4px;
+                  span {
+                    display: block;
+                  }
+                }
+                h3 {
+                  margin-left: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .banner-discount {
+        img {
+          width: 90vw;
+        }
+        .banner-content {
+          display: none;
         }
       }
     }
