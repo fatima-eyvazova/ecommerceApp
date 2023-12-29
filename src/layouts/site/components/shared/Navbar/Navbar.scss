@@ -1,6 +1,5 @@
 .navbar {
   background: #202020;
-  padding: 15px 0px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,22 +9,34 @@
     align-items: center;
     justify-content: space-between;
     .navigation {
+      height: 68px;
+      display: flex;
       ul {
         display: flex;
         align-items: center;
         justify-content: center;
         position: relative;
         li {
-          font-weight: 500;
-          letter-spacing: 0.5px;
-          text-transform: uppercase;
-          color: #fff;
-          padding-right: 25px;
+          &:hover {
+            color: #26c6d0;
+          }
           list-style: none;
-          color: white;
-          cursor: pointer;
+
+          .link-item {
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #fff;
+            padding-right: 25px;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+          }
         }
         .pages {
+          height: 68px;
+          display: flex;
+          align-items: center;
           &:hover {
             color: #26c6d0;
             .pages-menu {
@@ -34,7 +45,7 @@
           }
           .pages-menu {
             display: block;
-            top: 41px;
+            top: 68px;
             visibility: visible;
             background: #fff none repeat scroll 0 0;
             border-top: 1px solid #dcdcdc;
@@ -44,7 +55,7 @@
             padding: 20px 20px 24px;
             position: absolute;
             text-align: left;
-            transition: all 0.3s ease 0s;
+            transition: all ease-in-out 0.9s;
             width: 190px;
             z-index: 999;
             .item {
@@ -58,6 +69,9 @@
                 line-height: 33px;
                 text-transform: capitalize;
                 font-family: Arimo, sans-serif;
+                &:hover {
+                  color: #26c6d0;
+                }
               }
             }
           }
@@ -95,6 +109,66 @@
             font-size: 21px;
             cursor: pointer;
             color: #ddd;
+          }
+        }
+      }
+    }
+    .burger-menu {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .navbar {
+    .container {
+      .burger-menu {
+        display: block;
+
+        .menu-button {
+          color: white;
+          position: absolute;
+          right: 15px;
+          top: 74px;
+          border: 1px solid #ddd;
+          color: #fff;
+          padding: 4px 5px 1px;
+          cursor: pointer;
+          .menu-i {
+            color: white;
+            font-size: 19px;
+          }
+          .menu-close {
+            font-size: 19px;
+          }
+        }
+        .menu-items {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          position: absolute;
+          right: 1px;
+          top: 136px;
+          z-index: 20;
+          background: #202020 none repeat scroll 0 0;
+          height: 200px;
+          width: 100vw;
+          .link-page {
+            color: #666666;
+            display: block;
+            font-size: 12px;
+            margin: 0;
+            padding: 1em 5%;
+            text-align: left;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            background: #f8f8f8 none repeat scroll 0 0;
+            width: 95vw;
+            border-top: 1px solid#ddd;
+            // &:hover {
+            // }
           }
         }
       }

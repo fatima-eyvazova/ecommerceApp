@@ -3,6 +3,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 import { MainLayout } from "../../../components";
 import "../Register/Register.scss";
+import { ROUTES } from "../../../../../router/routeNames";
 
 const Register = () => {
   return (
@@ -13,7 +14,7 @@ const Register = () => {
             <h2>Account</h2>
             <ul className="navigation">
               <li>
-                <Link to="/" className="link">
+                <Link to={ROUTES.home} className="link">
                   Home
                 </Link>
                 <IoIosArrowForward className="row-icon" />
@@ -25,10 +26,10 @@ const Register = () => {
           </div>
           <div className="register-wrapper">
             <div className="register-nav">
-              <Link to="/login" className="link">
+              <Link to={ROUTES.login} className="link">
                 <h4> Log in </h4>
               </Link>
-              <Link to="/register" className="link-active">
+              <Link to={ROUTES.register} className="link-active">
                 <h4> Register </h4>
               </Link>
             </div>

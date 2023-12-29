@@ -7,6 +7,7 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 // react icons
 import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
+
 import "./SwiperProducts.scss";
 import { ProductCard } from "../..";
 
@@ -45,32 +46,36 @@ const data = [
 
 const SwiperProducts = () => {
   return (
-    <Swiper
-      slidesPerView={4}
-      spaceBetween={30}
-      loop={true}
-      pagination={{
-        clickable: true,
-      }}
-      navigation={{
-        prevEl: ".custom-prev-button",
-        nextEl: ".custom-next-button",
-      }}
-      modules={[Pagination, Navigation]}
-      className="swiper-product"
-    >
-      {data.map((product) => (
-        <SwiperSlide className="slider" key={product.id}>
-          <ProductCard {...product} />
-        </SwiperSlide>
-      ))}
-      <div className="custom-prev-button">
-        <FaArrowLeftLong />
+    <div className="swiper-elements">
+      <div className="custom-buttons">
+        <div className="custom-prev-button">
+          <FaArrowLeftLong />
+        </div>
+        <div className="custom-next-button">
+          <FaArrowRightLong />
+        </div>
       </div>
-      <div className="custom-next-button">
-        <FaArrowRightLong />
-      </div>
-    </Swiper>
+      <Swiper
+        slidesPerView={4}
+        spaceBetween={30}
+        loop={true}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={{
+          prevEl: ".custom-prev-button",
+          nextEl: ".custom-next-button",
+        }}
+        modules={[Pagination, Navigation]}
+        className="swiper-product"
+      >
+        {data.map((product) => (
+          <SwiperSlide className="slider" key={product.id}>
+            <ProductCard {...product} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 };
 

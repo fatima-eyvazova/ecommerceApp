@@ -22,7 +22,7 @@ const CheckoutItem = ({ name, price, quantity }: Props) => {
       </div>
 
       <div className="price">
-        <span>{price}</span>
+        <span>$ {price}</span>
       </div>
     </div>
   );

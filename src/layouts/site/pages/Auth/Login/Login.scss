@@ -156,6 +156,17 @@
               input {
                 width: 80vw;
               }
+              .button-box {
+                width: 80vw;
+                button {
+                  padding: 10px 8px;
+                }
+                .login-text {
+                  .text {
+                    font-size: 14px;
+                  }
+                }
+              }
             }
           }
         }

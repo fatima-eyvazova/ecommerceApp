@@ -43,7 +43,7 @@ const BannerSwiper = () => {
               </div>
             </SwiperSlide>
             <SwiperSlide className="swiper-slide">
-              <div className="slider">
+              <div className="slider-banner">
                 <img src="src/assets/images/2.jpeg" alt="banner" />
                 <div className="slider-content">
                   <h3>New Arrivals</h3>

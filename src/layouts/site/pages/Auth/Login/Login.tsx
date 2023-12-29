@@ -3,6 +3,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 import { MainLayout } from "../../../components";
 import "../Login/Login.scss";
+import { ROUTES } from "../../../../../router/routeNames";
 
 const Login = () => {
   return (
@@ -25,10 +26,10 @@ const Login = () => {
           </div>
           <div className="login-register-wrapper">
             <div className="login-register-nav">
-              <Link to="/login" className="link">
+              <Link to={ROUTES.login} className="link">
                 <h4> Log in </h4>
               </Link>
-              <Link to="/register" className="link-active">
+              <Link to={ROUTES.register} className="link-active">
                 <h4> Register </h4>
               </Link>
             </div>

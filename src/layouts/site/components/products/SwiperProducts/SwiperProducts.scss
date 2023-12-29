@@ -1,60 +1,97 @@
-.swiper-product {
-  background-color: #f5f5f5;
-  padding-top: 75px;
-  padding-bottom: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .swiper-wrapper {
-    width: 80vw;
-    display: flex;
-    gap: 30px;
+.swiper-elements {
+  &:hover {
+    .custom-buttons {
+      cursor: pointer;
+      display: block;
+    }
   }
-  .swiper-pagination {
+  position: relative;
+  cursor: pointer;
+
+  .custom-buttons {
+    transition: transform 0.9s ease-in-out;
     display: none;
-  }
-  .custom-prev-button {
-    left: 0;
-  }
-  .custom-next-button {
-    right: 0;
-  }
-  .custom-prev-button,
-  .custom-next-button {
-    z-index: 20;
-    cursor: pointer;
     position: absolute;
-    text-align: center;
-    transform: translateY(-50%);
-    transition: all 0.3s ease 0s;
-    width: 48px;
-    border: 1px solid #ececec;
-    line-height: 47px;
-    background-color: #fff;
-    border-radius: 5px;
-    color: #8d8d8d;
-    font-size: 21px;
-    height: 48px;
-    &:hover {
-      background-color: #26c6d0;
-      color: #fff;
-      border: 1px solid #26c6d0;
+    top: 50%;
+    width: 83vw;
+    right: -14px;
+
+    .custom-prev-button {
+      left: 0;
+    }
+    .custom-next-button {
+      right: 0;
+    }
+    .custom-prev-button,
+    .custom-next-button {
+      z-index: 20;
+      cursor: pointer;
+      position: absolute;
+      text-align: center;
+      transform: translateY(-50%);
+      transition: all 0.3s ease 0s;
+      width: 48px;
+      border: 1px solid #ececec;
+      line-height: 47px;
+      background-color: #fff;
+      border-radius: 5px;
+      color: #8d8d8d;
+      font-size: 21px;
+      height: 48px;
+      &:hover {
+        background-color: #26c6d0;
+        color: #fff;
+        border: 1px solid #26c6d0;
+      }
+    }
+  }
+  .swiper-product {
+    width: 80vw;
+    background-color: #f5f5f5;
+    padding-top: 75px;
+    padding-bottom: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .swiper-wrapper {
+      width: 100vw;
+      display: flex;
+      gap: 30px;
+      .slider {
+        width: 19vw;
+        .product-card {
+          .container {
+            position: relative;
+            width: 300px;
+            margin-bottom: 20px;
+          }
+        }
+      }
+    }
+    .swiper-pagination {
+      display: none;
     }
   }
 }
 
 @media only screen and (max-width: 767px) {
-  .swiper-product {
-    .swiper-wrapper {
-      .slider {
-        width: 80vw !important;
+  .swiper-elements {
+    .custom-buttons {
+      display: none;
+      .custom-prev-button {
+        display: none;
+      }
+      .custom-next-button {
+        display: none;
       }
     }
-    .custom-prev-button {
-      display: none;
-    }
-    .custom-next-button {
-      display: none;
+    .swiper-product {
+      width: 100vw;
+      .swiper-wrapper {
+        .slider {
+          width: 75vw !important;
+        }
+      }
     }
   }
 }
