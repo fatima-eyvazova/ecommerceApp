@@ -10,13 +10,30 @@ import {
   Wishlist,
   Checkout,
 } from "../layouts/site/pages";
+import LoginDashboard from "../layouts/dashboard/pages/LoginDashboard/LoginDashboard";
+import Element from "../layouts/dashboard/pages/Element";
 import { ROUTES } from "./routeNames";
+import About from "../layouts/dashboard/pages/About";
 
 const router = createBrowserRouter([
   {
     path: ROUTES.home,
     element: <Home />,
   },
+
+  {
+    path: ROUTES.dashboardAbout,
+    element: <About />,
+  },
+  {
+    path: ROUTES.home,
+    element: <Home />,
+  },
+  {
+    path: ROUTES.dashboardLogin,
+    element: <LoginDashboard />,
+  },
+
   {
     path: ROUTES.checkout,
     element: <Checkout />,

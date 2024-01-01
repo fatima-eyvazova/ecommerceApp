@@ -7,4 +7,7 @@ export const ROUTES = {
   wishlist: "wishlist",
   basket: "basket",
   checkout: "checkout",
+  dashboardLogin: "/dashboard/login",
+  layout: "layout",
+  dashboardAbout: "/dashboard/about",
 } as const;
