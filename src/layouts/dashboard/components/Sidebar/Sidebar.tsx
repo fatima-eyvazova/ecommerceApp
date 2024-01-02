@@ -23,13 +23,13 @@ const Sidebar = ({ children }) => {
       icon: <FaTh />,
     },
     {
-      path: "/about",
-      name: "About",
+      path: ROUTES.orders,
+      name: "Orders",
       icon: <FaUserAlt />,
     },
     {
-      path: "/analytics",
-      name: "Analytics",
+      path: ROUTES.ourStaff,
+      name: "Our Staff",
       icon: <FaRegChartBar />,
     },
     {
@@ -49,8 +49,8 @@ const Sidebar = ({ children }) => {
     },
   ];
   return (
-    <div className="container-dashboard">
-      <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
+    <div className="container-sidebar">
+      <div style={{ width: isOpen ? "250px" : "50px" }} className="sidebar">
         <div className="top_section">
           <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
             Logo

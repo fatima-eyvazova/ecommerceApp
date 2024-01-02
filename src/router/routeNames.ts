@@ -9,5 +9,6 @@ export const ROUTES = {
   checkout: "checkout",
   dashboardLogin: "/dashboard/login",
   layout: "layout",
-  dashboardAbout: "/dashboard/about",
+  orders: "/dashboard/orders",
+  ourStaff: "/dashboard/ourStaff",
 } as const;

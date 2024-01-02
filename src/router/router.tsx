@@ -11,9 +11,9 @@ import {
   Checkout,
 } from "../layouts/site/pages";
 import LoginDashboard from "../layouts/dashboard/pages/LoginDashboard/LoginDashboard";
-import Element from "../layouts/dashboard/pages/Element";
 import { ROUTES } from "./routeNames";
-import About from "../layouts/dashboard/pages/About";
+import Orders from "../layouts/dashboard/pages/Orders/Orders";
+import OurStaff from "../layouts/dashboard/pages/OurStaff/OurStaff";
 
 const router = createBrowserRouter([
   {
@@ -22,8 +22,12 @@ const router = createBrowserRouter([
   },
 
   {
-    path: ROUTES.dashboardAbout,
-    element: <About />,
+    path: ROUTES.orders,
+    element: <Orders />,
+  },
+  {
+    path: ROUTES.ourStaff,
+    element: <OurStaff />,
   },
   {
     path: ROUTES.home,
