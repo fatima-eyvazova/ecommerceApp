@@ -22,7 +22,7 @@ import PropTypes from "prop-types";
 import { BiReceipt } from "react-icons/bi";
 import { IoIosPersonAdd } from "react-icons/io";
 
-import TableItem from "../TableItem/TableItem";
+import { OurStaffItem } from "../..";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -125,7 +125,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   minWidth: "120px",
 }));
 
-const OrderTable = () => {
+const OurStaffTable = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -160,20 +160,22 @@ const OrderTable = () => {
   };
 
   return (
-    <TableContainer component={Paper} sx={{ overflowX: "auto" }}>
+    <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
-        <TableHead sx={{ backgroundColor: "#000", color: "#fff" }}>
+        <TableHead>
           <TableRow>
-            <StyledTableCell align="left">Invoice</StyledTableCell>
-            <StyledTableCell align="left">Order Time</StyledTableCell>
-            <StyledTableCell align="left">Customer Name</StyledTableCell>
-            <StyledTableCell align="left">Amount</StyledTableCell>
+            <StyledTableCell align="left">Name</StyledTableCell>
+            <StyledTableCell align="left">Email</StyledTableCell>
+            <StyledTableCell align="left">Contact</StyledTableCell>
+            <StyledTableCell align="left">Joining Date</StyledTableCell>
+            <StyledTableCell align="left">Role</StyledTableCell>
             <StyledTableCell align="left">Status</StyledTableCell>
-            <StyledTableCell align="left">Action</StyledTableCell>
-            <StyledTableCell align="left">Invoice</StyledTableCell>
+            <StyledTableCell align="left">Published</StyledTableCell>
+            <StyledTableCell align="left">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
-        <TableItem />
+
+        <OurStaffItem />
         <TableFooter>
           <TableRow>
             <TablePagination
@@ -199,4 +201,4 @@ const OrderTable = () => {
   );
 };
 
-export default OrderTable;
+export default OurStaffTable;

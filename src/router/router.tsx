@@ -26,6 +26,11 @@ const router = createBrowserRouter([
     element: <Orders />,
   },
   {
+    path: ROUTES.dashboardProducts,
+    element: <Orders />,
+  },
+
+  {
     path: ROUTES.ourStaff,
     element: <OurStaff />,
   },

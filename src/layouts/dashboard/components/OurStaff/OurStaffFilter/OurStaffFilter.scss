@@ -1,0 +1,65 @@
+form {
+  display: flex;
+  align-items: center;
+
+  gap: 40px;
+  .mail-input {
+    border: 1px solid #ccc;
+    padding: 17px 10px;
+    width: 300px;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+
+  .role {
+    padding: 8px;
+    width: 270px;
+    padding: 16px 10px;
+    margin-right: 10px;
+  }
+
+  .add-staff-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    color: white;
+    border: none;
+    background-color: #4749db;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 200px;
+    padding: 16px 10px;
+  }
+  .filter-btn {
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 200px;
+    padding: 16px 10px;
+    background-color: #2629ba;
+  }
+  .reset-btn {
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 200px;
+    padding: 16px 10px;
+    color: rgb(121, 118, 118);
+  }
+
+  svg {
+    font-size: 18px;
+  }
+  .add-text {
+    font-weight: bold;
+  }
+}

@@ -1,19 +1,14 @@
-import React from "react";
-import Sidebar, { SidebarProps } from "../../components/Sidebar/Sidebar";
-import OrderFilter from "../../components/OrderFilter/OrderFilter";
-import OrderTable from "../../components/OrderTable/OrderTable";
-
+import { OrderTable, OrderFilter } from "../../components";
+import Sidebar from "../../components/Sidebar/Sidebar";
 const Orders: React.FC = () => {
-  const sidebarProps: SidebarProps = {
-    children: (
-      <div className="orders">
+  return (
+    <>
+      <Sidebar>
         <OrderFilter />
         <OrderTable />
-      </div>
-    ),
-  };
-
-  return <Sidebar {...sidebarProps} />;
+      </Sidebar>
+    </>
+  );
 };
 
 export default Orders;

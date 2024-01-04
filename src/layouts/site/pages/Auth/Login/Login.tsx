@@ -26,7 +26,7 @@ const Login = () => {
           </div>
           <div className="login-register-wrapper">
             <div className="login-register-nav">
-              <Link to={ROUTES.login} className="link">
+              <Link to={ROUTES.login} className="link-login">
                 <h4> Log in </h4>
               </Link>
               <Link to={ROUTES.register} className="link-active">

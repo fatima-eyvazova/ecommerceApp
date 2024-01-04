@@ -11,4 +11,5 @@ export const ROUTES = {
   layout: "layout",
   orders: "/dashboard/orders",
   ourStaff: "/dashboard/ourStaff",
+  dashboardProducts: "/dashboard/products",
 } as const;
