@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -8,10 +10,12 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+
 import { makeRequest } from "../../../../services/api";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../router/routeNames";
+import { addAdminInfo } from "../../../../redux/slices/dashboard/adminProfileSlice";
+import { Profile } from "../../../../redux/types";
 
 interface FormValues {
   email: string;
@@ -21,6 +25,7 @@ const LoginDashboard = () => {
   const [err, setErr] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
+  const dispatch = useDispatch();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const schema = Yup.object({
@@ -46,13 +51,12 @@ const LoginDashboard = () => {
   });
 
   const onSubmit = async (values: FormValues) => {
-    console.log(values);
     const res = await makeRequest("/login", "post", values);
-    console.log(res);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const isSuccess = res.data && res.data?.success;
+
+    const data = res.data as { data: unknown; success: boolean };
+    const isSuccess = data && data?.success;
     if (isSuccess) {
+      dispatch(addAdminInfo(data?.data as Profile));
       navigate(ROUTES.orders);
     } else {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment

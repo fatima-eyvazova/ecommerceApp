@@ -19,7 +19,7 @@ import { CiStar } from "react-icons/ci";
 import { useDispatch } from "react-redux";
 
 import "./ProductInfo.scss";
-import { addToBasket } from "../../../../../redux/slices/basketSlice";
+import { addToBasket } from "../../../../../redux/slices/site/basketSlice";
 
 const ProductInfo = () => {
   const [quantity, setQuantity] = useState<number>(1);

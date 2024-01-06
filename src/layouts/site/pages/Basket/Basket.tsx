@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BasketItem, MainLayout } from "../../components";
 import "./Basket.scss";
 import { RootState } from "../../../../redux/types";
-import { clearBasket } from "../../../../redux/slices/basketSlice";
+import { clearBasket } from "../../../../redux/slices/site/basketSlice";
 import { ROUTES } from "../../../../router/routeNames";
 
 function Basket() {

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { BasketProduct } from "../types";
+import { BasketProduct } from "../../types";
 
 export interface BasketState {
   basketProducts: BasketProduct[];

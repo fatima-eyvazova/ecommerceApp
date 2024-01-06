@@ -12,6 +12,18 @@ export type WishListProduct = {
   price: number;
 };
 
+export type Profile = {
+  token: string;
+  user: {
+    _id: string;
+    organizationId: string;
+    name: string;
+    surname: string;
+    email: string;
+    role: "superadmin" | "admin" | "client";
+  } | null;
+};
+
 export type RootState = {
   basket: {
     basketProducts: BasketProduct[];
@@ -20,4 +32,5 @@ export type RootState = {
   wishList: {
     wishListProducts: WishListProduct[];
   };
+  adminProfile: Profile;
 };

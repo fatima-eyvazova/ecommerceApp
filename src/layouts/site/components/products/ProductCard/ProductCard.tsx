@@ -11,8 +11,8 @@ import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addToBasket } from "../../../../../redux/slices/basketSlice";
-import { handleWishList as handleWishListAction } from "../../../../../redux/slices/wishListSlice";
+import { addToBasket } from "../../../../../redux/slices/site/basketSlice";
+import { handleWishList as handleWishListAction } from "../../../../../redux/slices/site/wishListSlice";
 import "./ProductCard.scss";
 import { RootState } from "../../../../../redux/types";
 import { useState } from "react";

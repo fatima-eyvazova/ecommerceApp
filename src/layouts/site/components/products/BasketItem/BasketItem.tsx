@@ -9,7 +9,7 @@ import {
   addToBasket,
   removeItem,
   decreaseItem,
-} from "../../../../../redux/slices/basketSlice";
+} from "../../../../../redux/slices/site/basketSlice";
 
 type Props = {
   id: string | number;

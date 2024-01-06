@@ -2,8 +2,9 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-import basketSliceReducer from "./slices/basketSlice";
-import wishListSliceReducer from "./slices/wishListSlice";
+import basketSliceReducer from "./slices/site/basketSlice";
+import wishListSliceReducer from "./slices/site/wishListSlice";
+import adminProfileSliceReducer from "./slices/dashboard/adminProfileSlice";
 
 const persistConfig = {
   key: "root",
@@ -13,6 +14,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   basket: basketSliceReducer,
   wishList: wishListSliceReducer,
+  adminProfile: adminProfileSliceReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

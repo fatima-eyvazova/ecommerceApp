@@ -9,13 +9,18 @@ import {
   FaThList,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { ROUTES } from "../../../../router/routeNames";
+import { RootState } from "../../../../redux/types";
 import "./Sidebar.scss";
 
-const Sidebar = ({ children }) => {
+const Sidebar = ({ children }: { children: JSX.Element }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const adminInfo = useSelector((state: RootState) => state.adminProfile);
+  const userRole = adminInfo.user?.role;
+
   const menuItem = [
     {
       path: "/",
@@ -26,11 +31,6 @@ const Sidebar = ({ children }) => {
       path: ROUTES.orders,
       name: "Orders",
       icon: <FaUserAlt />,
-    },
-    {
-      path: ROUTES.ourStaff,
-      name: "Our Staff",
-      icon: <FaRegChartBar />,
     },
     {
       path: ROUTES.dashboardProducts,
@@ -48,6 +48,15 @@ const Sidebar = ({ children }) => {
       icon: <FaThList />,
     },
   ];
+
+  if (userRole === "superadmin") {
+    menuItem[2] = {
+      path: ROUTES.ourStaff,
+      name: "Our Staff",
+      icon: <FaRegChartBar />,
+    };
+  }
+
   return (
     <div className="container-sidebar">
       <div style={{ width: isOpen ? "250px" : "50px" }} className="sidebar">
