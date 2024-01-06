@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,38 +7,45 @@ import { MainLayout } from "../../../components";
 import "../Register/Register.scss";
 import { ROUTES } from "../../../../../router/routeNames";
 import { registerSchema } from "../../../../../validationSchemas/register";
-import { axiosInstance } from "../../../../../utils/axiosInstance";
-import axios from "axios";
+import { makeRequest } from "../../../../../services/api";
+import { useState } from "react";
+
+type FormValues = {
+  name: string;
+  password: string;
+  email: string;
+  surname: string;
+};
 
 const Register = () => {
+  const [err, setErr] = useState("");
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
-    formState: { errors },
+    formState: { errors, isLoading, isValid, isDirty },
   } = useForm({
     defaultValues: {
       name: "",
-      pasword: "",
+      password: "",
       email: "",
       surname: "",
     },
     resolver: yupResolver(registerSchema),
   });
 
-  const handleFormSubmit = async (values: unknown) => {
-    console.log(values);
-    const response = await fetch(
-      "https://frontend-api-dypw.onrender.com/api/276d43dd-1844-4c0b-acd5-39b6e16d3895/site/register",
-      {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const res = await response.json();
-    console.log(res);
+  const handleFormSubmit = async (values: FormValues) => {
+    const response = await makeRequest("/site/register", "post", values);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const isSuccess = response.data && response.data?.success;
+    if (isSuccess) {
+      navigate(ROUTES.login);
+    } else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      setErr(response.data?.message);
+    }
   };
 
   return (
@@ -76,6 +83,7 @@ const Register = () => {
                     placeholder="First Name"
                     {...register("name")}
                   />
+                  {errors.name && <p>{errors.name.message}</p>}
                   <input
                     type="text"
                     placeholder="Last Name"
@@ -89,11 +97,15 @@ const Register = () => {
                   <input
                     type="password"
                     placeholder="Password"
-                    {...register("pasword")}
+                    {...register("password")}
                   />
 
+                  {err && <p>{err}</p>}
                   <div className="button-box">
-                    <button type="submit">
+                    <button
+                      type="submit"
+                      disabled={!isValid || isLoading || !isDirty}
+                    >
                       <span>Register</span>
                     </button>
                   </div>

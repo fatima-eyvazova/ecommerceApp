@@ -14,6 +14,7 @@ import LoginDashboard from "../layouts/dashboard/pages/LoginDashboard/LoginDashb
 import { ROUTES } from "./routeNames";
 import Orders from "../layouts/dashboard/pages/Orders/Orders";
 import OurStaff from "../layouts/dashboard/pages/OurStaff/OurStaff";
+import ProductsDashboard from "../layouts/dashboard/pages/ProductsDashboard/ProductsDashboard";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: ROUTES.dashboardProducts,
-    element: <Orders />,
+    element: <ProductsDashboard />,
   },
 
   {

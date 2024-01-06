@@ -355,9 +355,9 @@ const OrderTable = () => {
               style={{ backgroundColor: "red" }}
             >
               <TableRow>
-                <StyledTableCell align="left">Invoice No</StyledTableCell>
                 <StyledTableCell align="left">Order Time</StyledTableCell>
                 <StyledTableCell align="left">Customer Name</StyledTableCell>
+                <StyledTableCell align="left">Method</StyledTableCell>
                 <StyledTableCell align="left">Amount</StyledTableCell>
                 <StyledTableCell align="left">Status</StyledTableCell>
                 <StyledTableCell align="left">Action</StyledTableCell>

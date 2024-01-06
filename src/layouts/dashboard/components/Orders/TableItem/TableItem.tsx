@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import IconButton from "@mui/material/IconButton";
@@ -16,6 +17,11 @@ import "./TableItem.scss";
 const TableItem = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [selectedAction, setSelectedAction] = useState("Delivered");
+
+  const handleActionChange = (event) => {
+    setSelectedAction(event.target.value);
+  };
 
   const StyledSelect = styled(Select)({
     minWidth: "80px",
@@ -386,8 +392,9 @@ const TableItem = () => {
           <StyledTableCell className="amount">{row.amount}</StyledTableCell>
           <StyledTableCell className="status">{row.status}</StyledTableCell>
           <StyledTableCell className="action">
-            <StyledSelect
-              value={row.action}
+            <Select
+              value={selectedAction}
+              onChange={handleActionChange}
               sx={{
                 width: "80%",
                 height: "30px",
@@ -395,11 +402,11 @@ const TableItem = () => {
                 fontSize: "14px",
               }}
             >
-              <StyledMenuItem value="Delivered">Delivered</StyledMenuItem>
-              <StyledMenuItem value="Pending">Pending</StyledMenuItem>
-              <StyledMenuItem value="Processing">Processing</StyledMenuItem>
-              <StyledMenuItem value="Cancel">Cancel</StyledMenuItem>
-            </StyledSelect>
+              <MenuItem value="Delivered">Delivered</MenuItem>
+              <MenuItem value="Pending">Pending</MenuItem>
+              <MenuItem value="Processing">Processing</MenuItem>
+              <MenuItem value="Cancel">Cancel</MenuItem>
+            </Select>
           </StyledTableCell>
           <StyledTableCell className="invoice" sx={{ textAlign: "center" }}>
             <ButtonGroup size="small" variant="text">

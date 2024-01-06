@@ -4,7 +4,7 @@ const OrderFilter = () => {
     <div className="order-filter">
       <div className="order-filter-container">
         <h1>Orders</h1>
-        <form>
+        <form className="filter-form">
           <div className="top-filters">
             <input type="text" placeholder="Search name" className="search" />
             <select>

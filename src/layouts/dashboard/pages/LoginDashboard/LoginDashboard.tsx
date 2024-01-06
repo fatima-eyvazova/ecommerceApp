@@ -1,4 +1,3 @@
-import { useState } from "react";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,23 +8,22 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { makeRequest } from "../../../../services/api";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../../router/routeNames";
 
 interface FormValues {
-  name: string;
   email: string;
   password: string;
 }
 const LoginDashboard = () => {
+  const [err, setErr] = useState("");
+  const navigate = useNavigate();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const [linkIsSent, setLinkIsSent] = useState(false);
-
   const schema = Yup.object({
-    name: Yup.string()
-      .min(2)
-      .required("Ad tələb olunur")
-      .matches(/^[A-Za-z]+$/, "Ad yalnız hərflərdən ibarət olmalıdır"),
     email: Yup.string()
       .email("Bu e-poçt olmalıdır")
       .required("E-poçt tələb olunur"),
@@ -37,19 +35,30 @@ const LoginDashboard = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isLoading, isDirty },
   } = useForm({
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
     mode: "onChange",
     resolver: yupResolver(schema),
   });
-  const onSubmit = (values: FormValues) => {
+
+  const onSubmit = async (values: FormValues) => {
     console.log(values);
-    setLinkIsSent(true);
+    const res = await makeRequest("/login", "post", values);
+    console.log(res);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const isSuccess = res.data && res.data?.success;
+    if (isSuccess) {
+      navigate(ROUTES.orders);
+    } else {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      setErr(res.data?.message);
+    }
   };
 
   return (
@@ -75,7 +84,7 @@ const LoginDashboard = () => {
               fontSize: isSmallScreen ? "20px" : "23px",
             }}
           >
-            Qeydiyyat
+            Giris Et
           </Typography>
           <form
             name="registerForm"
@@ -90,23 +99,11 @@ const LoginDashboard = () => {
             <TextField
               className="mb-24"
               id="standard-start-adornment"
-              label="Ad"
-              required
-              fullWidth
-              error={!!errors.name}
-              {...register("name")}
-            />
-            {!!errors.name?.message && (
-              <p style={{ color: "red" }}>{errors.name?.message}</p>
-            )}
-            <TextField
-              className="mb-24"
-              id="standard-start-adornment"
               label="Email"
               variant="outlined"
               required
               fullWidth
-              error={!!errors.name}
+              error={!!errors.email}
               {...register("email")}
             />
             {!!errors.email?.message && (
@@ -120,12 +117,13 @@ const LoginDashboard = () => {
               variant="outlined"
               required
               fullWidth
-              error={!!errors.name}
+              error={!!errors.password}
               {...register("password")}
             />
             {!!errors.password?.message && (
               <p style={{ color: "red" }}>{errors.password?.message}</p>
             )}
+            {err && <p>{err}</p>}
             <Button
               variant="contained"
               color="secondary"
@@ -145,9 +143,9 @@ const LoginDashboard = () => {
                 borderRadius: "100px",
                 height: "50px",
               }}
-              disabled={!isValid}
+              disabled={!isValid || isLoading || !isDirty}
             >
-              Qeydiyyatdan keçmək
+              Log in
             </Button>
           </form>
         </div>

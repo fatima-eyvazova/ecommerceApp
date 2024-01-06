@@ -1,0 +1,96 @@
+.order-status {
+  display: flex;
+  justify-content: space-around;
+  margin: 40px 20px;
+
+  .order-total,
+  .order-pending,
+  .order-processing,
+  .order-delivered {
+    display: flex;
+    justify-content: start;
+    width: 300px;
+    gap: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Box shadow added
+
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px 0px 10px 20px;
+    text-align: center;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #e0e0e0;
+    }
+
+    .icon-container,
+    .icon-container-pending,
+    .icon-container-processing,
+    .icon-container-delivered {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      padding: 10px 15px;
+      margin-bottom: 15px;
+
+      .cart-icon,
+      .cart-icon-pending,
+      .cart-icon-processing,
+      .cart-icon-delivered {
+        color: #fff;
+        font-size: 24px;
+      }
+      svg {
+        color: #fff;
+      }
+    }
+    .icon-container {
+      background-color: rgb(244, 192, 192);
+    }
+    .icon-container-pending {
+      background-color: #a4f2a7;
+    }
+    .icon-container-processing {
+      background-color: rgb(140, 233, 233);
+    }
+    .icon-container-delivered {
+      background-color: rgb(222, 222, 122);
+    }
+    .order-info,
+    .pending-info {
+      display: flex;
+      flex-direction: column;
+      align-items: baseline;
+      .total-title,
+      .pending-title-number,
+      .title {
+        color: #333;
+        font-size: 16px;
+        margin-bottom: 5px;
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+      }
+      .pending-title-number {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .number {
+        color: #4caf50;
+        font-weight: bold;
+      }
+
+      .total-price-order {
+        color: #333;
+        font-size: 24px;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        font-weight: 700;
+      }
+    }
+  }
+}

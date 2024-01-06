@@ -33,8 +33,8 @@ const Sidebar = ({ children }) => {
       icon: <FaRegChartBar />,
     },
     {
-      path: "/comment",
-      name: "Comment",
+      path: ROUTES.dashboardProducts,
+      name: "Products",
       icon: <FaCommentAlt />,
     },
     {
