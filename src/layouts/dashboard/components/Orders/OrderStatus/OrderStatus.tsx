@@ -1,5 +1,5 @@
 import { IoCartOutline } from "react-icons/io5";
-import { MdHourglassEmpty } from "react-icons/md";
+import { RiLoopLeftFill } from "react-icons/ri";
 import { FaTruckFast, FaCheck } from "react-icons/fa6";
 
 import "./OrderStatus.scss";
@@ -18,7 +18,7 @@ const OrderStatus = () => {
       </div>
       <div className="order-pending">
         <div className="icon-container-pending">
-          <MdHourglassEmpty className="cart-icon-pending" />
+          <RiLoopLeftFill className="cart-icon-pending" />
         </div>
         <div className="pending-info">
           <h6 className="pending-title-number">
