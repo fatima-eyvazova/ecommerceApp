@@ -81,7 +81,7 @@ const ProductsItem = () => {
           <TableCell>{row.registrationDate}</TableCell>
           <TableCell>{row.role}</TableCell>
           <TableCell>{row.status}</TableCell>
-          <TableCell>
+          <TableCell style={{ cursor: "pointer" }}>
             <GrView />
           </TableCell>
           <TableCell>

@@ -35,7 +35,14 @@ const ProductsDashboard = () => {
             >
               <IoAddOutline />
               <span className="text-add">Add Product</span>
-              <Drawer anchor="right" open={open} onClose={closeDrawer}>
+              <Drawer
+                anchor="right"
+                open={open}
+                onClose={closeDrawer}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
                 <CiCircleRemove
                   style={{
                     fontSize: "24px",

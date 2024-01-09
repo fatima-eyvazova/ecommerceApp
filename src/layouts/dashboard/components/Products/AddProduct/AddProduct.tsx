@@ -43,18 +43,16 @@ const AddProduct = () => {
           margin="normal"
           required
         />
-        <TextField
-          label="Product Title/Name"
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          required
-        />
+
         <TextareaAutosize
           name="description"
           placeholder="Product Description"
           minRows={4}
-          style={{ width: "100%", padding: "8px", overflow: "hidden" }}
+          style={{
+            width: "100%",
+            padding: "8px",
+            overflow: "hidden",
+          }}
         />
         <FormControl fullWidth variant="outlined" margin="normal" required>
           <InputLabel id="brand-label">Brand</InputLabel>

@@ -15,6 +15,7 @@ import { ROUTES } from "./routeNames";
 import Orders from "../layouts/dashboard/pages/Orders/Orders";
 import OurStaff from "../layouts/dashboard/pages/OurStaff/OurStaff";
 import ProductsDashboard from "../layouts/dashboard/pages/ProductsDashboard/ProductsDashboard";
+import ProductsItem from "../../src/layouts/dashboard/pages/ProductsDashboard/ProductsItem/ProductsItem";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,11 @@ const router = createBrowserRouter([
     path: ROUTES.orders,
     element: <Orders />,
   },
+  {
+    path: ROUTES.productItem,
+    element: <ProductsItem />,
+  },
+
   {
     path: ROUTES.dashboardProducts,
     element: <ProductsDashboard />,

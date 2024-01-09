@@ -1,0 +1,105 @@
+.product-item-page {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 20px;
+  background-color: #f8f8f8;
+  border-radius: 10px;
+  .container-product-item {
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    .product-image {
+      img {
+        width: 30vw;
+        height: 70vh;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+    }
+
+    .product-info {
+      width: 30vw;
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+
+      .product-title {
+        font-size: 28px;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .product-description {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 20px;
+      }
+      .stock {
+        font-size: 16px;
+        margin-bottom: 5px;
+      }
+
+      .quantity {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        font-size: 16px;
+        font-family: Arial, Helvetica, sans-serif;
+        margin-top: 10px;
+
+        .text {
+          font-weight: bold;
+          margin-right: 5px;
+        }
+      }
+
+      .price-brand {
+        .product-price {
+          font-size: 22px;
+          font-weight: bold;
+          color: #2196f3;
+          margin-bottom: 20px;
+        }
+
+        .product-brand {
+          display: flex;
+          align-items: center;
+          font-size: 16px;
+
+          .brand {
+            font-weight: bold;
+            margin-right: 5px;
+            font-size: 16px;
+          }
+
+          .brand-name {
+            font-weight: bold;
+            color: #777;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 15px;
+
+    .container-product-item {
+      flex-direction: column;
+    }
+
+    .product-image {
+      img {
+        width: 100%;
+        max-height: 50vh;
+      }
+    }
+  }
+}
