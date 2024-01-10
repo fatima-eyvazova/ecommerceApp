@@ -16,7 +16,7 @@ import Orders from "../layouts/dashboard/pages/Orders/Orders";
 import OurStaff from "../layouts/dashboard/pages/OurStaff/OurStaff";
 import ProductsDashboard from "../layouts/dashboard/pages/ProductsDashboard/ProductsDashboard";
 import ProductsItem from "../../src/layouts/dashboard/pages/ProductsDashboard/ProductsItem/ProductsItem";
-import InnerRouteGuard from "../layouts/site/components/shared/InnerRouteGuard/InnerRouteGuard";
+import InnerRouteGuard from "../layouts/shared/InnerRouteGuard/InnerRouteGuard";
 
 const router = createBrowserRouter([
   {
@@ -26,20 +26,36 @@ const router = createBrowserRouter([
 
   {
     path: ROUTES.orders,
-    element: <Orders />,
+    element: (
+      <InnerRouteGuard isClient={false}>
+        <Orders />
+      </InnerRouteGuard>
+    ),
   },
   {
     path: ROUTES.productItem,
-    element: <ProductsItem />,
+    element: (
+      <InnerRouteGuard isClient={false}>
+        <ProductsItem />
+      </InnerRouteGuard>
+    ),
   },
 
   {
     path: ROUTES.dashboardProducts,
-    element: <ProductsDashboard />,
+    element: (
+      <InnerRouteGuard isClient={false}>
+        <ProductsDashboard />
+      </InnerRouteGuard>
+    ),
   },
   {
     path: ROUTES.ourStaff,
-    element: <OurStaff />,
+    element: (
+      <InnerRouteGuard isClient={false}>
+        <OurStaff />
+      </InnerRouteGuard>
+    ),
   },
   {
     path: ROUTES.home,
@@ -53,7 +69,7 @@ const router = createBrowserRouter([
   {
     path: ROUTES.checkout,
     element: (
-      <InnerRouteGuard>
+      <InnerRouteGuard isClient>
         <Checkout />
       </InnerRouteGuard>
     ),

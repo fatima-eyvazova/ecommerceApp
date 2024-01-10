@@ -2,23 +2,29 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { makeRequest } from "../../../../../services/api";
-import { RootState } from "../../../../../redux/types";
-import { ROUTES } from "../../../../../router/routeNames";
+import { makeRequest } from "../../../services/api";
+import { RootState } from "../../../redux/types";
+import { ROUTES } from "../../../router/routeNames";
 
 interface Props {
+  isClient: boolean;
   children: JSX.Element;
 }
 
-const InnerRouteGuard = ({ children }: Props) => {
+const InnerRouteGuard = ({ isClient, children }: Props) => {
   const [authError, setAuthError] = useState("");
-  const client = useSelector((state: RootState) => state.userProfile.client);
+  const profile = useSelector((state: RootState) => state.userProfile);
+  const client = isClient ? profile?.client : profile?.admin;
   const navigate = useNavigate();
   const redirectToHome = () => {
     if (authError.toLowerCase().includes("Incorrect token")) {
-      navigate(ROUTES.login);
+      if (isClient) navigate(ROUTES.login);
     } else {
-      navigate(ROUTES.home);
+      if (isClient) navigate(ROUTES.home);
+    }
+
+    if (!isClient && (authError || (!authError && !client?.token))) {
+      navigate(ROUTES.dashboardLogin);
     }
   };
 

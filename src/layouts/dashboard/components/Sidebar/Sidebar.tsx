@@ -15,18 +15,18 @@ import { ROUTES } from "../../../../router/routeNames";
 import { RootState } from "../../../../redux/types";
 import "./Sidebar.scss";
 
-const Sidebar = ({ children }: { children: JSX.Element }) => {
+const Sidebar = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const adminInfo = useSelector((state: RootState) => state.adminProfile);
-  const userRole = adminInfo.user?.role;
+  const adminInfo = useSelector((state: RootState) => state.userProfile.admin);
+  const userRole = adminInfo?.user?.role;
 
   const menuItem = [
-    {
-      path: "/",
-      name: "Dashboard",
-      icon: <FaTh />,
-    },
+    // {
+    //   path: "/",
+    //   name: "Dashboard",
+    //   icon: <FaTh />,
+    // },
     {
       path: ROUTES.orders,
       name: "Orders",
@@ -37,29 +37,32 @@ const Sidebar = ({ children }: { children: JSX.Element }) => {
       name: "Products",
       icon: <FaCommentAlt />,
     },
-    {
-      path: "/product",
-      name: "Product",
-      icon: <FaShoppingBag />,
-    },
-    {
-      path: "/productList",
-      name: "Product List",
-      icon: <FaThList />,
-    },
+    // {
+    //   path: "/product",
+    //   name: "Product",
+    //   icon: <FaShoppingBag />,
+    // },
+    // {
+    //   path: "/productList",
+    //   name: "Product List",
+    //   icon: <FaThList />,
+    // },
   ];
 
   if (userRole === "superadmin") {
-    menuItem[2] = {
+    menuItem.splice(2, 0, {
       path: ROUTES.ourStaff,
       name: "Our Staff",
       icon: <FaRegChartBar />,
-    };
+    });
   }
 
   return (
     <div className="container-sidebar">
-      <div style={{ width: isOpen ? "250px" : "50px" }} className="sidebar">
+      <div
+        style={{ width: isOpen ? "250px" : "50px", height: "100vh" }}
+        className="sidebar"
+      >
         <div className="top_section">
           <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
             Logo
