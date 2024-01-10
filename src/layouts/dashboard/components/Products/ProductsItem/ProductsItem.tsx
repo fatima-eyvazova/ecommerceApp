@@ -40,9 +40,6 @@ const ProductsItem = () => {
       border: 0,
     },
   }));
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
   const rows = [
     {
       name: "Admin",
@@ -54,6 +51,9 @@ const ProductsItem = () => {
       switchChecked: true,
     },
   ];
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
   return (
     <TableBody>
       {(rowsPerPage > 0

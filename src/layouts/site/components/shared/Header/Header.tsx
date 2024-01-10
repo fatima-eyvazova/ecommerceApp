@@ -38,9 +38,9 @@ const Header = () => {
             <div className="default-message">
               <p>Default welcome msg!</p>
             </div>
-            <div className="login">
+            <Link className="login" to={ROUTES.login}>
               <FaRegUserCircle className="user-icon" />
-            </div>
+            </Link>
             <div className="cart" onClick={basketMenu}>
               <HiOutlineShoppingBag className="cart-icon" />
               <div className="count">

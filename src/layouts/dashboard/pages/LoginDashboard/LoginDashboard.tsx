@@ -14,7 +14,7 @@ import {
 import { makeRequest } from "../../../../services/api";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../router/routeNames";
-import { addAdminInfo } from "../../../../redux/slices/dashboard/adminProfileSlice";
+import { addAdminInfo } from "../../../../redux/slices/shared/userProfileSlice";
 import { Profile } from "../../../../redux/types";
 
 interface FormValues {

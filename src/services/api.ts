@@ -7,6 +7,7 @@ type ResultType = {
     data: {
       success: boolean;
       message: string;
+      error: string;
     };
   };
   response?: { data: unknown };
@@ -15,11 +16,22 @@ type ResultType = {
 export const makeRequest = async (
   url: string,
   method: ApiMethod,
-  body: unknown = null
+  body: unknown = null,
+  token: string = ""
 ) => {
   let result = {} as ResultType;
   try {
-    result = await axiosInstance[method](url, body as never);
+    if (token && !body) {
+      result = await axiosInstance[method](url, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    } else if (token && body) {
+      result = await axiosInstance[method](url, body as never, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    } else {
+      result = await axiosInstance[method](url, body as never);
+    }
   } catch (error) {
     result = error as never;
   }

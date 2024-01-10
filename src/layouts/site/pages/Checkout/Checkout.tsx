@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import "./Checkout.scss";
 import { ROUTES } from "../../../../router/routeNames";

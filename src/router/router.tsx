@@ -16,6 +16,7 @@ import Orders from "../layouts/dashboard/pages/Orders/Orders";
 import OurStaff from "../layouts/dashboard/pages/OurStaff/OurStaff";
 import ProductsDashboard from "../layouts/dashboard/pages/ProductsDashboard/ProductsDashboard";
 import ProductsItem from "../../src/layouts/dashboard/pages/ProductsDashboard/ProductsItem/ProductsItem";
+import InnerRouteGuard from "../layouts/site/components/shared/InnerRouteGuard/InnerRouteGuard";
 
 const router = createBrowserRouter([
   {
@@ -51,7 +52,11 @@ const router = createBrowserRouter([
 
   {
     path: ROUTES.checkout,
-    element: <Checkout />,
+    element: (
+      <InnerRouteGuard>
+        <Checkout />
+      </InnerRouteGuard>
+    ),
   },
   {
     path: ROUTES.wishlist,
