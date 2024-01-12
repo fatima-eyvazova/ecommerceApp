@@ -14,6 +14,7 @@ import LoginDashboard from "../layouts/dashboard/pages/LoginDashboard/LoginDashb
 import { ROUTES } from "./routeNames";
 import {
   Brands,
+  OrderInvoice,
   Orders,
   OurStaff,
   ProductsDashboard,
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
     element: <Basket />,
   },
   {
+    path: ROUTES.orderInvoice,
+    element: <OrderInvoice />,
+  },
+  {
     path: "auth",
     children: [
       {
@@ -104,7 +109,11 @@ const router = createBrowserRouter([
   },
   {
     path: ROUTES.brands,
-    element: <Brands />,
+    element: (
+      <InnerRouteGuard isClient={false}>
+        <Brands />
+      </InnerRouteGuard>
+    ),
   },
   {
     path: ROUTES.products,

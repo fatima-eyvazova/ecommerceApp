@@ -27,7 +27,7 @@ function Basket() {
             <h2>Your Shopping Cart</h2>
           </div>
           <div className="basket-content">
-            <div className="container">
+            <div className="content-container">
               <h3 className="page-title">YOUR CART ITEMS</h3>
               {basketProducts.length > 0 ? (
                 <>

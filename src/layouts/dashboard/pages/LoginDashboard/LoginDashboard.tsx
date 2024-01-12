@@ -16,12 +16,14 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../router/routeNames";
 import { addAdminInfo } from "../../../../redux/slices/shared/userProfileSlice";
 import { Profile } from "../../../../redux/types";
-import "./LoginDashboard.scss";
 import LoginAnimations from "../../components/AnimationsLogin";
+import "./LoginDashboard.scss";
+
 interface FormValues {
   email: string;
   password: string;
 }
+
 const LoginDashboard = () => {
   const [err, setErr] = useState("");
   const navigate = useNavigate();
@@ -157,6 +159,8 @@ const LoginDashboard = () => {
           </div>
           <div className="animation" style={{ width: "600px" }}>
             {[...Array(50)].map((_, index) => (
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               <LoginAnimations key={index} style={{ "--i": index }} />
             ))}
           </div>

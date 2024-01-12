@@ -1,18 +1,77 @@
 import { useState } from "react";
-import {
-  Box,
-  Typography,
-  TextField,
-  TextareaAutosize,
-  Button,
-} from "@mui/material";
+import { Box, Typography, TextField, Button } from "@mui/material";
+import * as Yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useSelector } from "react-redux";
 
-const AddBrand = () => {
-  const [file, setFile] = useState();
-  function handleChange(e) {
-    console.log(e.target.files);
-    setFile(URL.createObjectURL(e.target.files[0]));
-  }
+import { makeRequest } from "../../../../../services/api";
+import { RootState } from "../../../../../redux/types";
+import { getBase64 } from "../../../../../utils/convertToBase64";
+
+interface FormValues {
+  name: string;
+  image: File[] | string;
+}
+
+interface Props {
+  setOpen: (bool: boolean) => void;
+}
+
+const AddBrand = ({ setOpen }: Props) => {
+  const [err, setErr] = useState("");
+  const [url, setUrl] = useState("");
+  const { token } = useSelector((state: RootState) => state.userProfile.admin);
+  const oneMb = 1048576;
+  const fourMb = oneMb * 4;
+
+  const schema = Yup.object({
+    name: Yup.string().required("Brandin adi tələb olunur"),
+    image: Yup.mixed<File[] | string>().required(
+      "Brandin shekili tələb olunur"
+    ),
+  }).required();
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors, isValid, isLoading, isDirty },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      image: "",
+    },
+    mode: "onChange",
+    resolver: yupResolver(schema),
+  });
+
+  const handleFormSubmit = async (values: FormValues) => {
+    try {
+      const imgBase64 = await getBase64(values.image[0] as File);
+      const res = await makeRequest(
+        "/dashboard/brands",
+        "post",
+        { name: values.name, image: imgBase64 },
+        token
+      );
+
+      const data = res.data as { data: unknown; success: boolean };
+      const isSuccess = data && data?.success;
+      console.log(data);
+      if (isSuccess) {
+        setErr("");
+        setOpen(false);
+      } else {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        setErr(res.data?.message);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <Box style={{ padding: "50px", width: "40vw" }}>
       <Box>
@@ -37,75 +96,46 @@ const AddBrand = () => {
           Add your Product brand and necessary information from here
         </Typography>
       </Box>
-      <form style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+      <form
+        style={{ display: "flex", flexDirection: "column", gap: "16px" }}
+        onSubmit={handleSubmit(handleFormSubmit)}
+      >
         <TextField
           label="Brand Title/Name"
           variant="outlined"
           fullWidth
           margin="normal"
-          required
+          {...register("name")}
         />
-
-        <TextareaAutosize
-          name="description"
-          placeholder="Brand Description"
-          minRows={4}
-          style={{
-            width: "100%",
-            padding: "8px",
-            overflow: "hidden",
-          }}
-        />
+        {!!errors.name?.message && (
+          <p style={{ color: "red" }}>{errors.name?.message}</p>
+        )}
         <div className="App">
           <h2>Add Image:</h2>
-          <input type="file" onChange={handleChange} />
-          <img src={file} />
-        </div>
-        {/* <Box
-          style={{ display: "flex", flexDirection: "column", width: "100%" }}
-        >
-          <InputLabel id="original-price-label">Product Price</InputLabel>
-          <Box style={{ display: "flex", alignItems: "center" }}>
-            <TextField
-              type="text"
-              placeholder="Original Price"
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              required
-            />
-          </Box>
-        </Box>
-        <Box
-          style={{ display: "flex", flexDirection: "column", width: "100%" }}
-        >
-          <InputLabel id="sale-price-label">Sale Price</InputLabel>
-          <Box
-            style={{
-              display: "flex",
-              alignItems: "center",
-              position: "relative",
+          <input
+            type="file"
+            size={fourMb}
+            multiple={false}
+            onChange={(e) => {
+              const img = e.target.files as unknown as File[];
+              setValue("image", img);
+              setUrl(URL.createObjectURL(img?.[0]));
+              setErr("");
             }}
-          >
-            <TextField
-              type="text"
-              placeholder="Sale Price"
-              variant="outlined"
-              margin="normal"
-              fullWidth
-              required
-            />
-          </Box>
-        </Box>
-        <TextField
-          type="text"
-          placeholder="Product Quantity"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          required
-        /> */}
-        <Button variant="contained" color="primary" size="large">
+          />
+          {!!errors.image?.message && (
+            <p style={{ color: "red" }}>{errors.image?.message}</p>
+          )}
+          {url && <img src={url} alt="Brand Image" style={{ height: 400 }} />}
+          {err && <p style={{ color: "red" }}>{err}</p>}
+        </div>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+          type="submit"
+          disabled={!isValid || isLoading || !isDirty}
+        >
           Add Brand
         </Button>
       </form>

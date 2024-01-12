@@ -6,7 +6,7 @@ import "./OurStaff.scss";
 import { RootState } from "../../../../redux/types";
 
 const OurStaff = () => {
-  const adminInfo = useSelector((state: RootState) => state.adminProfile);
+  const adminInfo = useSelector((state: RootState) => state.userProfile.admin);
   const userRole = adminInfo.user?.role;
 
   if (userRole !== "superadmin") {

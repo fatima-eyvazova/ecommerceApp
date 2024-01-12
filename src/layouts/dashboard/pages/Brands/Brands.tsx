@@ -68,7 +68,7 @@ const Brand = () => {
                     }}
                     onClick={closeDrawer}
                   />
-                  <AddBrand />
+                  <AddBrand setOpen={setOpen} />
                 </Drawer>
               </button>
             </div>

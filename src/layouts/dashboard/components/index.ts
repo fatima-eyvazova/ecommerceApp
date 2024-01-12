@@ -1,5 +1,6 @@
 export { default as OrderFilter } from "./Orders/OrderFilter/OrderFilter";
 export { default as OrderTable } from "./Orders/OrderTable/OrderTable";
+export { default as InvoiceTable } from "./Orders/InvoiceTable/InvoiceTable";
 export { default as TableItem } from "./Orders/TableItem/TableItem";
 
 export { default as OurStaffFilter } from "./OurStaff/OurStaffFilter/OurStaffFilter";
