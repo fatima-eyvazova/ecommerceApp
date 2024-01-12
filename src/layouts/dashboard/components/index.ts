@@ -11,3 +11,5 @@ export { default as Sidebar } from "./Sidebar/Sidebar";
 export { default as ProductsTable } from "./Products/ProductsTable/ProductsTable";
 export { default as ProductsItem } from "./Products/ProductsItem/ProductsItem";
 export { default as AddProduct } from "./Products/AddProduct/AddProduct";
+
+export { default as BrandsTable } from "./Brands/BrandsTable/BrandsTable";

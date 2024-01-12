@@ -1,12 +1,10 @@
 import { useState } from "react";
 import {
-  FaTh,
   FaBars,
   FaUserAlt,
   FaRegChartBar,
   FaCommentAlt,
   FaShoppingBag,
-  FaThList,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -22,11 +20,6 @@ const Sidebar = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
   const userRole = adminInfo?.user?.role;
 
   const menuItem = [
-    // {
-    //   path: "/",
-    //   name: "Dashboard",
-    //   icon: <FaTh />,
-    // },
     {
       path: ROUTES.orders,
       name: "Orders",
@@ -37,16 +30,11 @@ const Sidebar = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
       name: "Products",
       icon: <FaCommentAlt />,
     },
-    // {
-    //   path: "/product",
-    //   name: "Product",
-    //   icon: <FaShoppingBag />,
-    // },
-    // {
-    //   path: "/productList",
-    //   name: "Product List",
-    //   icon: <FaThList />,
-    // },
+    {
+      path: ROUTES.brands,
+      name: "Brands",
+      icon: <FaShoppingBag />,
+    },
   ];
 
   if (userRole === "superadmin") {
@@ -64,9 +52,13 @@ const Sidebar = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
         className="sidebar"
       >
         <div className="top_section">
-          <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
-            Logo
-          </h1>
+          <div style={{ display: isOpen ? "block" : "none" }} className="logo">
+            <img
+              src="/src/assets/images/logo.png"
+              alt="logo"
+              style={{ width: "100px" }}
+            />
+          </div>
           <div style={{ marginLeft: isOpen ? "50px" : "0px" }} className="bars">
             <FaBars onClick={toggle} />
           </div>

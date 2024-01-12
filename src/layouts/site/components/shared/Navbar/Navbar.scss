@@ -175,3 +175,29 @@
     }
   }
 }
+@media only screen and (min-width: 767px) and (max-width: 1024px) {
+  .navbar {
+    .container {
+      display: flex;
+      .navigation {
+        ul {
+          li {
+            .link-item {
+              padding-right: 15px;
+            }
+          }
+        }
+      }
+      .search {
+        form {
+          .input-text {
+            width: 160px;
+          }
+        }
+      }
+      .burger-menu {
+        display: none;
+      }
+    }
+  }
+}

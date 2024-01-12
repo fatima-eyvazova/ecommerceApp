@@ -277,3 +277,24 @@ $main-color: #454545;
     }
   }
 }
+// width: 40vw;
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .product-info {
+    display: block;
+    .images-swiper {
+      .swiper-details {
+        height: 100%;
+        .swiper-wrapper {
+          height: 60vh;
+          .slide-item {
+            figure {
+              img {
+                width: 400px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

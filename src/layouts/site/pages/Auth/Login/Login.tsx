@@ -58,7 +58,7 @@ const Login = () => {
 
   return (
     <MainLayout>
-      <div className="login">
+      <div className="login-page">
         <div className="login-container">
           <div className="account-title">
             <h2>Account</h2>

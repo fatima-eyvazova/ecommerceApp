@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+.login {
+  background: #1f293a;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .login-form {
+      width: 100%;
+      max-width: 400px;
+      padding: 16px;
+
+      h2 {
+        font-size: 2em;
+        color: #0ef;
+        text-align: center;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .mb-24 {
+          margin-bottom: 24px;
+        }
+
+        .btn {
+          width: 100%;
+          height: 45px;
+          background: #0ef;
+          border: none;
+          outline: none;
+          border-radius: 40px;
+          cursor: pointer;
+          font-size: 1em;
+          color: #1f293a;
+          font-weight: 600;
+        }
+      }
+    }
+    .animation {
+      position: absolute;
+      left: 42%;
+    }
+  }
+}

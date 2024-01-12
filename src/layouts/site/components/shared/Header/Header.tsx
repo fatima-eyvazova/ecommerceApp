@@ -30,15 +30,15 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header-top">
-        <div className="container">
-          <div className="logo">
+        <div className="container-header">
+          <div className="logo-header">
             <img src="/src/assets/images/logo.png" alt="logo" />
           </div>
           <div className="header-right-site">
             <div className="default-message">
               <p>Default welcome msg!</p>
             </div>
-            <Link className="login" to={ROUTES.login}>
+            <Link className="login-header" to={ROUTES.login}>
               <FaRegUserCircle className="user-icon" />
             </Link>
             <div className="cart" onClick={basketMenu}>

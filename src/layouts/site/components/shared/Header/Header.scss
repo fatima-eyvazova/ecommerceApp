@@ -14,12 +14,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    .container {
+    .container-header {
       display: flex;
       width: 90%;
       align-items: center;
       justify-content: space-between;
-      .logo {
+      .logo-header {
         width: 50%;
       }
       .header-right-site {
@@ -34,7 +34,7 @@
             line-height: 24px;
           }
         }
-        .login {
+        .login-header {
           margin-left: 24px;
           .user-icon {
             font-size: 30px;
@@ -180,7 +180,7 @@
       width: auto;
       display: flex;
       justify-content: flex-start !important;
-      .container {
+      .container-header {
         width: 90%;
         .default-message {
           display: none;

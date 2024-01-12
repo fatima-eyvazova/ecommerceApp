@@ -12,10 +12,13 @@ import {
 } from "../layouts/site/pages";
 import LoginDashboard from "../layouts/dashboard/pages/LoginDashboard/LoginDashboard";
 import { ROUTES } from "./routeNames";
-import Orders from "../layouts/dashboard/pages/Orders/Orders";
-import OurStaff from "../layouts/dashboard/pages/OurStaff/OurStaff";
-import ProductsDashboard from "../layouts/dashboard/pages/ProductsDashboard/ProductsDashboard";
-import ProductsItem from "../../src/layouts/dashboard/pages/ProductsDashboard/ProductsItem/ProductsItem";
+import {
+  Brands,
+  Orders,
+  OurStaff,
+  ProductsDashboard,
+  ProductsItem,
+} from "../layouts/dashboard/pages";
 import InnerRouteGuard from "../layouts/shared/InnerRouteGuard/InnerRouteGuard";
 
 const router = createBrowserRouter([
@@ -98,6 +101,10 @@ const router = createBrowserRouter([
         element: <Register />,
       },
     ],
+  },
+  {
+    path: ROUTES.brands,
+    element: <Brands />,
   },
   {
     path: ROUTES.products,

@@ -1,4 +1,4 @@
-.login {
+.login-page {
   background-color: rgb(253, 252, 251);
   .login-container {
     padding-bottom: 80px;
@@ -145,19 +145,19 @@
 }
 
 @media only screen and (max-width: 767px) {
-  .login {
+  .login-page {
     .login-container {
       .login-register-wrapper {
         .tab-content {
           .form-container {
             form {
               padding: 50px;
-              width: 95vw;
+              width: 80vw;
               input {
-                width: 80vw;
+                width: 70vw;
               }
               .button-box {
-                width: 80vw;
+                width: 70vw;
                 button {
                   padding: 10px 8px;
                 }
