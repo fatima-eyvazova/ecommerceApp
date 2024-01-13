@@ -25,6 +25,7 @@ import { BiReceipt } from "react-icons/bi";
 import { IoIosPersonAdd } from "react-icons/io";
 
 import BrandItem from "../BrandItem/BrandItem";
+import { GetBrandItem } from "../../../pages/Brands/types";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -127,7 +128,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   minWidth: "120px",
 }));
 
-const BrandsTable = () => {
+const BrandsTable = ({ list }: { list: GetBrandItem[] }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -169,15 +170,14 @@ const BrandsTable = () => {
             <StyledTableCell>
               <Checkbox />
             </StyledTableCell>
-            <StyledTableCell align="left">Id</StyledTableCell>
             <StyledTableCell align="left">Icon</StyledTableCell>
             <StyledTableCell align="left">Name</StyledTableCell>
-            <StyledTableCell align="left">Description</StyledTableCell>
-            <StyledTableCell align="left">Published</StyledTableCell>
             <StyledTableCell align="left">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
-        <BrandItem />
+        {Array.isArray(list)
+          ? list.map((item) => <BrandItem key={item?._id} item={item} />)
+          : []}
         <TableFooter>
           <TableRow>
             <TablePagination

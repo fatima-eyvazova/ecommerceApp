@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
@@ -16,9 +16,10 @@ interface FormValues {
 
 interface Props {
   setOpen: (bool: boolean) => void;
+  setUpdateList: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AddBrand = ({ setOpen }: Props) => {
+const AddBrand = ({ setOpen, setUpdateList }: Props) => {
   const [err, setErr] = useState("");
   const [url, setUrl] = useState("");
   const { token } = useSelector((state: RootState) => state.auth);
@@ -62,6 +63,7 @@ const AddBrand = ({ setOpen }: Props) => {
       if (isSuccess) {
         setErr("");
         setOpen(false);
+        setUpdateList((prev) => !prev);
       } else {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore

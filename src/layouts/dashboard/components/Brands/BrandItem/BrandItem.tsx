@@ -8,15 +8,16 @@ import {
   TableRow,
   TableCell,
   Avatar,
-  Switch,
   Tooltip,
   IconButton,
   Grid,
   Checkbox,
 } from "@mui/material";
+import { GetBrandItem } from "../../../pages/Brands/types";
+
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
-const BrandItem = () => {
+const BrandItem = ({ item }: { item: GetBrandItem }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -40,69 +41,69 @@ const BrandItem = () => {
       border: 0,
     },
   }));
-  const rows = [
-    {
-      name: "Admin",
-      email: "admin@gmail.com",
-      phoneNumber: "360-943-7332",
-      registrationDate: "Dec 28, 2023",
-      role: "Admin",
-      status: "Active",
-      switchChecked: true,
-    },
-  ];
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+  // const emptyRows =
+  //   page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   return (
     <TableBody>
-      {(rowsPerPage > 0
+      {/* {(rowsPerPage > 0
         ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         : rows
-      ).map((row, index) => (
-        <TableRow key={index}>
-          <TableCell>
-            <Checkbox />
-          </TableCell>
-          <TableCell>
-            <Grid
-              container
-              spacing={2}
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <Grid item>{row.name}</Grid>
-            </Grid>
-          </TableCell>
-          <TableCell>{row.email}</TableCell>
+      ).map((row, index) => ( */}
+      <TableRow>
+        <TableCell>
+          <Checkbox />
+        </TableCell>
+        <TableCell>
+          <Grid
+            container
+            spacing={2}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <img
+              src={item?.image?.url}
+              alt="brand"
+              style={{ height: 100, width: 100 }}
+            />
+          </Grid>
+        </TableCell>
+        <TableCell>
+          <Grid
+            container
+            spacing={2}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <Grid item>{item?.name}</Grid>
+          </Grid>
+        </TableCell>
+        {/* <TableCell>{row.email}</TableCell>
           <TableCell>{row.phoneNumber}</TableCell>
-          <TableCell>{row.registrationDate}</TableCell>
-          <TableCell>
-            <Switch {...label} />
-          </TableCell>
-          <TableCell>
-            <Tooltip title="View" arrow>
-              <IconButton>
-                <GrView />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Edit" arrow>
-              <IconButton>
-                <BiPencil />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Delete" arrow>
-              <IconButton>
-                <BiTrash />
-              </IconButton>
-            </Tooltip>
-          </TableCell>
-        </TableRow>
-      ))}
-      {emptyRows > 0 && (
+          <TableCell>{row.registrationDate}</TableCell> */}
+        <TableCell>
+          <Tooltip title="View" arrow>
+            <IconButton>
+              <GrView />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Edit" arrow>
+            <IconButton>
+              <BiPencil />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete" arrow>
+            <IconButton>
+              <BiTrash />
+            </IconButton>
+          </Tooltip>
+        </TableCell>
+      </TableRow>
+      {/* ))} */}
+      {/* {emptyRows > 0 && (
         <StyledTableRow style={{ height: 53 * emptyRows }}>
           <StyledTableCell colSpan={6} />
         </StyledTableRow>
-      )}
+      )} */}
     </TableBody>
   );
 };

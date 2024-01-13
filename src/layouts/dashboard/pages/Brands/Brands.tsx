@@ -1,14 +1,22 @@
 import { IoAddOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import { CiCircleRemove } from "react-icons/ci";
 
 import { BrandsTable, Sidebar } from "../../components";
-import "./Brands.scss";
 import AddBrand from "../../components/Brands/AddBrand/AddBrand";
+import { makeRequest } from "../../../../services/api";
+import "./Brands.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/types";
+import { GetBrandItem } from "./types";
+
 const Brand = () => {
   const [open, setOpen] = useState(false);
+  const [updateList, setUpdateList] = useState(false);
+  const [list, setList] = useState<GetBrandItem[]>([]);
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -17,6 +25,16 @@ const Brand = () => {
   const closeDrawer = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (token) {
+      makeRequest("/dashboard/brands", "get", null, token).then((res) => {
+        const data = res?.data as { data: GetBrandItem[] };
+        setList(data?.data?.reverse());
+      });
+    }
+  }, [token, updateList]);
+
   return (
     <Sidebar>
       <div className="brand-dashboard">
@@ -70,14 +88,14 @@ const Brand = () => {
                     }}
                     onClick={closeDrawer}
                   />
-                  <AddBrand setOpen={setOpen} />
+                  <AddBrand setOpen={setOpen} setUpdateList={setUpdateList} />
                 </Drawer>
               </button>
             </div>
           </div>
         </div>
         <div className="products-table">
-          <BrandsTable />
+          <BrandsTable list={list} />
         </div>
       </div>
     </Sidebar>
