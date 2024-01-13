@@ -10,7 +10,7 @@ import { MainLayout } from "../../../components";
 import { ROUTES } from "../../../../../router/routeNames";
 import "../Login/Login.scss";
 import { makeRequest } from "../../../../../services/api";
-import { addClientInfo } from "../../../../../redux/slices/shared/userProfileSlice";
+import { loginUser } from "../../../../../redux/slices/shared/authSlice";
 import { Profile } from "../../../../../redux/types";
 
 const Login = () => {
@@ -43,12 +43,20 @@ const Login = () => {
   const onSubmit = async (values: unknown) => {
     const res = await makeRequest("/login", "post", values);
 
-    const data = res.data as { data: unknown; success: boolean };
+    const data = res.data as {
+      data: { user?: { role: "superadmin" | "admin" | "client" } };
+      success: boolean;
+    };
 
     const isSuccess = data && data?.success;
     if (isSuccess) {
-      dispatch(addClientInfo(data?.data as Profile));
-      navigate(ROUTES.home);
+      dispatch(loginUser(data?.data as Profile));
+      const userRole = data?.data?.user?.role;
+      if (userRole && (userRole === "admin" || userRole === "superadmin")) {
+        navigate(ROUTES.orders);
+      } else if (userRole && userRole === "client") {
+        navigate(ROUTES.home);
+      }
     } else {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

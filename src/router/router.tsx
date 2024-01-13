@@ -10,7 +10,6 @@ import {
   Wishlist,
   Checkout,
 } from "../layouts/site/pages";
-import LoginDashboard from "../layouts/dashboard/pages/LoginDashboard/LoginDashboard";
 import { ROUTES } from "./routeNames";
 import {
   Brands,
@@ -21,13 +20,14 @@ import {
   ProductsItem,
 } from "../layouts/dashboard/pages";
 import InnerRouteGuard from "../layouts/shared/InnerRouteGuard/InnerRouteGuard";
+import NotFoundPage from "../layouts/shared/NotFoundPage/NotFoundPage";
+import AuthGuard from "../layouts/shared/InnerRouteGuard/AuthGuard";
 
 const router = createBrowserRouter([
   {
     path: ROUTES.home,
     element: <Home />,
   },
-
   {
     path: ROUTES.orders,
     element: (
@@ -44,7 +44,6 @@ const router = createBrowserRouter([
       </InnerRouteGuard>
     ),
   },
-
   {
     path: ROUTES.dashboardProducts,
     element: (
@@ -65,11 +64,6 @@ const router = createBrowserRouter([
     path: ROUTES.home,
     element: <Home />,
   },
-  {
-    path: ROUTES.dashboardLogin,
-    element: <LoginDashboard />,
-  },
-
   {
     path: ROUTES.checkout,
     element: (
@@ -99,11 +93,19 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTES.login,
-        element: <Login />,
+        element: (
+          <AuthGuard>
+            <Login />
+          </AuthGuard>
+        ),
       },
       {
         path: ROUTES.register,
-        element: <Register />,
+        element: (
+          <AuthGuard>
+            <Register />
+          </AuthGuard>
+        ),
       },
     ],
   },
@@ -122,6 +124,10 @@ const router = createBrowserRouter([
   {
     path: ROUTES.productDetails,
     element: <ProductDetails />,
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ]);
 

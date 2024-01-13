@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
-
-import "./Wishlist.scss";
-import { MainLayout, ProductCard } from "../../components";
 import { useSelector } from "react-redux";
+
+import { MainLayout, ProductCard } from "../../components";
 import { RootState } from "../../../../redux/types";
+import "./Wishlist.scss";
 
 const Wishlist = () => {
   const wishlistProduct = useSelector(
     (state: RootState) => state.wishList.wishListProducts
   );
+
   return (
     <MainLayout>
       <div className="wishlist">

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { GoSearch } from "react-icons/go";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineClose } from "react-icons/ai";
-import { motion, AnimatePresence } from "framer-motion";
 
 import "../Navbar/Navbar.scss";
 import { ROUTES } from "../../../../../router/routeNames";

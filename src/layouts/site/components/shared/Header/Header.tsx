@@ -2,19 +2,19 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { IoCloseSharp } from "react-icons/io5";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import "../Header/Header.scss";
 import Navbar from "../Navbar/Navbar";
-// import { ROUTES } from "../../../../../router/routeNames";
-import { BasketProduct, RootState } from "../../../../../redux/types";
+import { RootState } from "../../../../../redux/types";
 import { ROUTES } from "../../../../../router/routeNames";
+import { logoutUser } from "../../../../../redux/slices/shared/authSlice";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const basketMenu = () => {
@@ -24,8 +24,17 @@ const Header = () => {
     (state: RootState) => state.basket.basketProducts
   );
   const total = useSelector((state: RootState) => state.basket.total);
+  const { token, user } = useSelector((state: RootState) => state.auth);
+  const userRole = user?.role;
 
   const itemCount = basketProducts.length;
+  const logOutUserHandler = () => {
+    const bool = confirm("Deqiq log out olmaq isteyirsiniz?");
+    if (bool) {
+      dispatch(logoutUser());
+      navigate(ROUTES.login);
+    }
+  };
 
   return (
     <div className="header">
@@ -38,9 +47,16 @@ const Header = () => {
             <div className="default-message">
               <p>Default welcome msg!</p>
             </div>
-            <Link className="login-header" to={ROUTES.login}>
-              <FaRegUserCircle className="user-icon" />
-            </Link>
+            {userRole === "client" && token && (
+              <div className="login-header" onClick={logOutUserHandler}>
+                <FaRegUserCircle className="user-icon" />
+              </div>
+            )}
+            {!token && (
+              <Link className="login-header" to={ROUTES.login}>
+                <FaRegUserCircle className="user-icon" />
+              </Link>
+            )}
             <div className="cart" onClick={basketMenu}>
               <HiOutlineShoppingBag className="cart-icon" />
               <div className="count">

@@ -7,7 +7,6 @@ export const ROUTES = {
   wishlist: "wishlist",
   basket: "basket",
   checkout: "checkout",
-  dashboardLogin: "/dashboard/login",
   layout: "layout",
   orders: "/dashboard/orders",
   ourStaff: "/dashboard/ourStaff",

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { makeRequest } from "../../../services/api";
 import { RootState } from "../../../redux/types";
 import { ROUTES } from "../../../router/routeNames";
+import NotFoundPage from "../NotFoundPage/NotFoundPage";
 
 interface Props {
   isClient: boolean;
@@ -13,9 +14,15 @@ interface Props {
 
 const InnerRouteGuard = ({ isClient, children }: Props) => {
   const [authError, setAuthError] = useState("");
-  const profile = useSelector((state: RootState) => state.userProfile);
-  const client = isClient ? profile?.client : profile?.admin;
+  const { token, user } = useSelector((state: RootState) => state.auth);
+  const userRole = user?.role;
+
+  const isAvailablePage =
+    (isClient && userRole === "client") ||
+    (!isClient && (userRole === "admin" || userRole === "superadmin"));
+
   const navigate = useNavigate();
+
   const redirectToHome = () => {
     if (authError.toLowerCase().includes("Incorrect token")) {
       if (isClient) navigate(ROUTES.login);
@@ -23,17 +30,20 @@ const InnerRouteGuard = ({ isClient, children }: Props) => {
       if (isClient) navigate(ROUTES.home);
     }
 
-    if (!isClient && (authError || (!authError && !client?.token))) {
-      navigate(ROUTES.dashboardLogin);
+    if (authError || (!authError && !token)) {
+      navigate(ROUTES.login);
+    } else {
+      navigate(-1);
     }
   };
 
-  const renderRedirectBtn = authError || (!authError && !client?.token);
+  const renderRedirectBtn =
+    authError || (!authError && !token) || !isAvailablePage;
 
   useEffect(() => {
-    if (client?.token) {
+    if (token) {
       let data = {};
-      makeRequest("/profile", "get", null, client?.token).then((res) => {
+      makeRequest("/profile", "get", null, token).then((res) => {
         data = res;
       });
 
@@ -44,14 +54,14 @@ const InnerRouteGuard = ({ isClient, children }: Props) => {
         setAuthError(err);
       }
     }
-  }, [client?.token]);
+  }, [token]);
 
   return (
     <>
       {renderRedirectBtn ? (
-        <div>
+        <NotFoundPage>
           <button onClick={redirectToHome}>Return</button>
-        </div>
+        </NotFoundPage>
       ) : (
         children
       )}

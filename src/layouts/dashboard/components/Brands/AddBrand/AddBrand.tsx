@@ -21,7 +21,7 @@ interface Props {
 const AddBrand = ({ setOpen }: Props) => {
   const [err, setErr] = useState("");
   const [url, setUrl] = useState("");
-  const { token } = useSelector((state: RootState) => state.userProfile.admin);
+  const { token } = useSelector((state: RootState) => state.auth);
   const oneMb = 1048576;
   const fourMb = oneMb * 4;
 

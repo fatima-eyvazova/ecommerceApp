@@ -24,11 +24,6 @@ export type Profile = {
   } | null;
 };
 
-export type ProfileTypes = {
-  admin: Profile;
-  client: Profile;
-};
-
 export type RootState = {
   basket: {
     basketProducts: BasketProduct[];
@@ -37,5 +32,5 @@ export type RootState = {
   wishList: {
     wishListProducts: WishListProduct[];
   };
-  userProfile: ProfileTypes;
+  auth: Profile;
 };

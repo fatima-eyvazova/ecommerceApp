@@ -43,6 +43,8 @@ const Brand = () => {
               <button
                 className="add"
                 onClick={toggleDrawer}
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 edge="start"
                 color="inherit"
                 aria-label="menu"

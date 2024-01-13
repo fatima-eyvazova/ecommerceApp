@@ -6,18 +6,21 @@ import {
   FaCommentAlt,
   FaShoppingBag,
 } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { ROUTES } from "../../../../router/routeNames";
 import { RootState } from "../../../../redux/types";
 import "./Sidebar.scss";
+import { logoutUser } from "../../../../redux/slices/shared/authSlice";
 
 const Sidebar = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-  const adminInfo = useSelector((state: RootState) => state.userProfile.admin);
-  const userRole = adminInfo?.user?.role;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const adminInfo = useSelector((state: RootState) => state.auth.user);
+  const userRole = adminInfo?.role;
 
   const menuItem = [
     {
@@ -35,15 +38,27 @@ const Sidebar = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
       name: "Brands",
       icon: <FaShoppingBag />,
     },
+    {
+      name: "Log Out",
+      icon: <FaShoppingBag />,
+    },
   ];
 
   if (userRole === "superadmin") {
     menuItem.splice(2, 0, {
-      path: ROUTES.ourStaff,
+      path: ROUTES.ourStaff as never,
       name: "Our Staff",
       icon: <FaRegChartBar />,
     });
   }
+
+  const logOutUserHandler = () => {
+    const bool = confirm("Deqiq log out olmaq isteyirsiniz?");
+    if (bool) {
+      dispatch(logoutUser());
+      navigate(ROUTES.login);
+    }
+  };
 
   return (
     <div className="container-sidebar">
@@ -63,17 +78,33 @@ const Sidebar = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
             <FaBars onClick={toggle} />
           </div>
         </div>
-        {menuItem.map((item, index) => (
-          <NavLink to={item.path} key={index} className="link">
-            <div className="icon">{item.icon}</div>
-            <div
-              style={{ display: isOpen ? "block" : "none" }}
-              className="link_text"
-            >
-              {item.name}
-            </div>
-          </NavLink>
-        ))}
+        {menuItem.map((item, index) => {
+          if (item.path) {
+            return (
+              <NavLink to={item.path} key={index} className="link">
+                <div className="icon">{item.icon}</div>
+                <div
+                  style={{ display: isOpen ? "block" : "none" }}
+                  className="link_text"
+                >
+                  {item.name}
+                </div>
+              </NavLink>
+            );
+          } else {
+            return (
+              <div className="link" onClick={logOutUserHandler}>
+                <div className="icon">{item.icon}</div>
+                <div
+                  style={{ display: isOpen ? "block" : "none" }}
+                  className="link_text"
+                >
+                  {item.name}
+                </div>
+              </div>
+            );
+          }
+        })}
       </div>
       <main>{children}</main>
     </div>

@@ -4,7 +4,7 @@ import storage from "redux-persist/lib/storage";
 
 import basketSliceReducer from "./slices/site/basketSlice";
 import wishListSliceReducer from "./slices/site/wishListSlice";
-import userProfileSliceReducer from "./slices/shared/userProfileSlice";
+import authSliceReducer from "./slices/shared/authSlice";
 
 const persistConfig = {
   key: "root",
@@ -14,7 +14,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   basket: basketSliceReducer,
   wishList: wishListSliceReducer,
-  userProfile: userProfileSliceReducer,
+  auth: authSliceReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
