@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { GrView } from "react-icons/gr";
 import { BiPencil, BiTrash } from "react-icons/bi";
 import { styled } from "@mui/material/styles";
@@ -7,19 +7,28 @@ import {
   tableCellClasses,
   TableRow,
   TableCell,
-  Avatar,
   Tooltip,
   IconButton,
   Grid,
   Checkbox,
+  Drawer,
 } from "@mui/material";
+
 import { GetBrandItem } from "../../../pages/Brands/types";
+import { useDispatch } from "react-redux";
+import { selectItem } from "../../../../../redux/slices/dashboard/selectedItemSlice";
 
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
-const BrandItem = ({ item }: { item: GetBrandItem }) => {
+interface Props {
+  item: GetBrandItem;
+  setOpen: (bool: boolean) => void;
+}
+
+const BrandItem = ({ item, setOpen }: Props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const dispatch = useDispatch();
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -41,6 +50,11 @@ const BrandItem = ({ item }: { item: GetBrandItem }) => {
       border: 0,
     },
   }));
+
+  const setSelectedItem = (status: "edit" | "view" | "delete") => {
+    setOpen(true);
+    dispatch(selectItem({ itemData: { item, status } }));
+  };
 
   // const emptyRows =
   //   page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -77,9 +91,7 @@ const BrandItem = ({ item }: { item: GetBrandItem }) => {
             <Grid item>{item?.name}</Grid>
           </Grid>
         </TableCell>
-        {/* <TableCell>{row.email}</TableCell>
-          <TableCell>{row.phoneNumber}</TableCell>
-          <TableCell>{row.registrationDate}</TableCell> */}
+
         <TableCell>
           <Tooltip title="View" arrow>
             <IconButton>
@@ -87,10 +99,15 @@ const BrandItem = ({ item }: { item: GetBrandItem }) => {
             </IconButton>
           </Tooltip>
           <Tooltip title="Edit" arrow>
-            <IconButton>
-              <BiPencil />
+            <IconButton onClick={() => setSelectedItem("edit")}>
+              <BiPencil
+                style={{
+                  cursor: "pointer",
+                }}
+              />
             </IconButton>
           </Tooltip>
+
           <Tooltip title="Delete" arrow>
             <IconButton>
               <BiTrash />

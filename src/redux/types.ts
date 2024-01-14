@@ -1,3 +1,5 @@
+import { GetBrandItem } from "../layouts/dashboard/pages/Brands/types";
+
 export type BasketProduct = {
   id: string | number;
   name: string;
@@ -24,6 +26,13 @@ export type Profile = {
   } | null;
 };
 
+export type SelectedItemDashboard = {
+  itemData: {
+    item: GetBrandItem | null;
+    status: "view" | "edit" | "delete" | "";
+  };
+};
+
 export type RootState = {
   basket: {
     basketProducts: BasketProduct[];
@@ -33,4 +42,5 @@ export type RootState = {
     wishListProducts: WishListProduct[];
   };
   auth: Profile;
+  selectedItem: SelectedItemDashboard;
 };

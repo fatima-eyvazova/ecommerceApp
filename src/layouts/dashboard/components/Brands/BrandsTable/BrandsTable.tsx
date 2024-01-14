@@ -128,7 +128,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   minWidth: "120px",
 }));
 
-const BrandsTable = ({ list }: { list: GetBrandItem[] }) => {
+interface Props {
+  list: GetBrandItem[];
+  setOpen: (bool: boolean) => void;
+}
+
+const BrandsTable = ({ list, setOpen }: Props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -153,14 +158,14 @@ const BrandsTable = ({ list }: { list: GetBrandItem[] }) => {
     },
   ];
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage);
+  // };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+  // const handleChangeRowsPerPage = (event) => {
+  //   setRowsPerPage(parseInt(event.target.value, 10));
+  //   setPage(0);
+  // };
 
   return (
     <TableContainer component={Paper}>
@@ -176,7 +181,9 @@ const BrandsTable = ({ list }: { list: GetBrandItem[] }) => {
           </TableRow>
         </TableHead>
         {Array.isArray(list)
-          ? list.map((item) => <BrandItem key={item?._id} item={item} />)
+          ? list.map((item) => (
+              <BrandItem key={item?._id} item={item} setOpen={setOpen} />
+            ))
           : []}
         <TableFooter>
           <TableRow>
@@ -192,8 +199,10 @@ const BrandsTable = ({ list }: { list: GetBrandItem[] }) => {
                 },
                 native: true,
               }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
+              // onPageChange={handleChangePage}
+              // onRowsPerPageChange={handleChangeRowsPerPage}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>

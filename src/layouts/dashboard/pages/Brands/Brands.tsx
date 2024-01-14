@@ -5,7 +5,7 @@ import Drawer from "@mui/material/Drawer";
 import { CiCircleRemove } from "react-icons/ci";
 
 import { BrandsTable, Sidebar } from "../../components";
-import AddBrand from "../../components/Brands/AddBrand/AddBrand";
+import AddEditBrand from "../../components/Brands/AddEditBrand/AddEditBrand";
 import { makeRequest } from "../../../../services/api";
 import "./Brands.scss";
 import { useSelector } from "react-redux";
@@ -88,14 +88,17 @@ const Brand = () => {
                     }}
                     onClick={closeDrawer}
                   />
-                  <AddBrand setOpen={setOpen} setUpdateList={setUpdateList} />
+                  <AddEditBrand
+                    setOpen={setOpen}
+                    setUpdateList={setUpdateList}
+                  />
                 </Drawer>
               </button>
             </div>
           </div>
         </div>
         <div className="products-table">
-          <BrandsTable list={list} />
+          <BrandsTable list={list} setOpen={setOpen} />
         </div>
       </div>
     </Sidebar>

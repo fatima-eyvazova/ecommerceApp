@@ -44,8 +44,8 @@ export const makeRequest = async (
   }
 
   if (result?.response) {
-    return { data: result.response.data };
+    return { data: result.response?.data };
   }
 
-  return result;
+  return { data: result.data };
 };

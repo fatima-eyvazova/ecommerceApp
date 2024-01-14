@@ -25,16 +25,16 @@ const InnerRouteGuard = ({ isClient, children }: Props) => {
 
   const redirectToHome = () => {
     if (authError.toLowerCase().includes("Incorrect token")) {
-      if (isClient) navigate(ROUTES.login);
-    } else {
-      if (isClient) navigate(ROUTES.home);
+      navigate(ROUTES.login);
+      return;
     }
 
     if (authError || (!authError && !token)) {
       navigate(ROUTES.login);
-    } else {
-      navigate(-1);
+      return;
     }
+
+    navigate(-1);
   };
 
   const renderRedirectBtn =
@@ -45,14 +45,13 @@ const InnerRouteGuard = ({ isClient, children }: Props) => {
       let data = {};
       makeRequest("/profile", "get", null, token).then((res) => {
         data = res;
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const err = data?.data?.error;
+        if (data && err) {
+          setAuthError(err);
+        }
       });
-
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const err = data?.error;
-      if (data && err) {
-        setAuthError(err);
-      }
     }
   }, [token]);
 

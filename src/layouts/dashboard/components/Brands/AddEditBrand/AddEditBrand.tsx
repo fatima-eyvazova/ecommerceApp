@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { makeRequest } from "../../../../../services/api";
 import { RootState } from "../../../../../redux/types";
 import { getBase64 } from "../../../../../utils/convertToBase64";
+import { selectItem } from "../../../../../redux/slices/dashboard/selectedItemSlice";
 
 interface FormValues {
   name: string;
@@ -19,10 +20,14 @@ interface Props {
   setUpdateList: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const AddBrand = ({ setOpen, setUpdateList }: Props) => {
+const AddEditBrand = ({ setOpen, setUpdateList }: Props) => {
   const [err, setErr] = useState("");
   const [url, setUrl] = useState("");
+  const dispatch = useDispatch();
   const { token } = useSelector((state: RootState) => state.auth);
+  const itemData = useSelector(
+    (state: RootState) => state.selectedItem.itemData
+  );
   const oneMb = 1048576;
   const fourMb = oneMb * 4;
 
@@ -40,7 +45,7 @@ const AddBrand = ({ setOpen, setUpdateList }: Props) => {
     formState: { errors, isValid, isLoading, isDirty },
   } = useForm({
     defaultValues: {
-      name: "",
+      name: itemData?.item?.name || "",
       image: "",
     },
     mode: "onChange",
@@ -48,18 +53,45 @@ const AddBrand = ({ setOpen, setUpdateList }: Props) => {
   });
 
   const handleFormSubmit = async (values: FormValues) => {
-    try {
-      const imgBase64 = await getBase64(values.image[0] as File);
-      const res = await makeRequest(
-        "/dashboard/brands",
-        "post",
-        { name: values.name, image: imgBase64 },
-        token
-      );
+    console.log(itemData.item);
 
-      const data = res.data as { data: unknown; success: boolean };
+    try {
+      let res;
+      if (!itemData.item) {
+        const imgBase64 = await getBase64(values.image[0] as File);
+        res = await makeRequest(
+          "/dashboard/brands",
+          "post",
+          { name: values.name, image: imgBase64 },
+          token
+        );
+      }
+
+      if (itemData?.status === "edit") {
+        let imgBase64 = "";
+        if (values.image[0] && typeof values.image[0] !== "string") {
+          imgBase64 = (await getBase64(values.image[0] as File)) as string;
+          console.log("uyut", imgBase64);
+        }
+
+        const body: { name: string; image?: string } = {
+          name: values.name,
+        };
+
+        if (imgBase64) {
+          body.image = imgBase64;
+        }
+
+        res = await makeRequest(
+          `/dashboard/brands/${itemData?.item?._id}`,
+          "put",
+          body,
+          token
+        );
+      }
+
+      const data = res?.data as { data: unknown; success: boolean };
       const isSuccess = data && data?.success;
-      console.log(data);
       if (isSuccess) {
         setErr("");
         setOpen(false);
@@ -74,6 +106,19 @@ const AddBrand = ({ setOpen, setUpdateList }: Props) => {
     }
   };
 
+  useEffect(() => {
+    setUrl(itemData?.item?.image?.url || "");
+  }, [itemData?.item?.image?.url]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(selectItem({ itemData: { item: null, status: "" } }));
+    };
+  }, []);
+
+  const isBtnDisabled =
+    !isValid || isLoading || (!isDirty && itemData?.status !== "edit");
+
   return (
     <Box style={{ padding: "50px", width: "40vw" }}>
       <Box>
@@ -87,7 +132,7 @@ const AddBrand = ({ setOpen, setUpdateList }: Props) => {
             color: "blue",
           }}
         >
-          Add Brand
+          {`${itemData?.status === "edit" ? "Update" : "Add"}`} Brand
         </Typography>
         <Typography
           style={{
@@ -136,7 +181,7 @@ const AddBrand = ({ setOpen, setUpdateList }: Props) => {
           color="primary"
           size="large"
           type="submit"
-          disabled={!isValid || isLoading || !isDirty}
+          disabled={isBtnDisabled}
         >
           Add Brand
         </Button>
@@ -145,4 +190,4 @@ const AddBrand = ({ setOpen, setUpdateList }: Props) => {
   );
 };
 
-export default AddBrand;
+export default AddEditBrand;

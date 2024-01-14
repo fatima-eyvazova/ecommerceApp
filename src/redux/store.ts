@@ -5,6 +5,7 @@ import storage from "redux-persist/lib/storage";
 import basketSliceReducer from "./slices/site/basketSlice";
 import wishListSliceReducer from "./slices/site/wishListSlice";
 import authSliceReducer from "./slices/shared/authSlice";
+import selectedItemSliceReducer from "./slices/dashboard/selectedItemSlice";
 
 const persistConfig = {
   key: "root",
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   basket: basketSliceReducer,
   wishList: wishListSliceReducer,
   auth: authSliceReducer,
+  selectedItem: selectedItemSliceReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

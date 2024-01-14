@@ -24,20 +24,20 @@ const AuthGuard = ({ children }: Props) => {
       let data = {};
       makeRequest("/profile", "get", null, token).then((res) => {
         data = res;
-      });
 
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const err = data?.error;
-      if (data && err) {
-        setAuthError(err);
-      } else if (data && !err) {
-        if (userRole === "admin" || userRole === "superadmin") {
-          navigate(ROUTES.orders);
-        } else if (userRole === "client") {
-          navigate(ROUTES.home);
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        const err = data?.data?.error;
+        if (data && err) {
+          setAuthError(err);
+        } else if (data && !err) {
+          if (userRole === "admin" || userRole === "superadmin") {
+            navigate(ROUTES.orders);
+          } else if (userRole === "client") {
+            navigate(ROUTES.home);
+          }
         }
-      }
+      });
     }
   }, [token]);
 
