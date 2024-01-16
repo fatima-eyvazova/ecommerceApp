@@ -1,13 +1,22 @@
 import { IoAddOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import { CiCircleRemove } from "react-icons/ci";
+import { useSelector } from "react-redux";
 
-import { AddProduct, ProductsTable, Sidebar } from "../../components";
 import "./ProductsDashboard.scss";
+import { AddProduct, ProductsTable, Sidebar } from "../../components";
+import { RootState } from "../../../../redux/types";
+import { makeRequest } from "../../../../services/api";
+import { GetProductItem, GetProducts } from "./types";
+
 const ProductsDashboard = () => {
   const [open, setOpen] = useState(false);
+  const [updateList, setUpdateList] = useState(false);
+  const [list, setList] = useState<GetProductItem[]>([]);
+
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -16,6 +25,17 @@ const ProductsDashboard = () => {
   const closeDrawer = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (token) {
+      makeRequest("/dashboard/products", "get", null, token).then((res) => {
+        const data = res?.data as { data: GetProducts };
+        const products = data?.data?.product;
+        setList(products?.reverse());
+      });
+    }
+  }, [token, updateList]);
+
   return (
     <Sidebar>
       <div className="products-dashboard">
@@ -29,6 +49,8 @@ const ProductsDashboard = () => {
             <button
               className="add"
               onClick={toggleDrawer}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               edge="start"
               color="inherit"
               aria-label="menu"
@@ -54,7 +76,7 @@ const ProductsDashboard = () => {
                   }}
                   onClick={closeDrawer}
                 />
-                <AddProduct />
+                <AddProduct setOpen={setOpen} setUpdateList={setUpdateList} />
               </Drawer>
             </button>
           </div>
@@ -84,7 +106,7 @@ const ProductsDashboard = () => {
           </div>
         </div>
         <div className="products-table">
-          <ProductsTable />
+          <ProductsTable list={list} />
         </div>
       </div>
     </Sidebar>

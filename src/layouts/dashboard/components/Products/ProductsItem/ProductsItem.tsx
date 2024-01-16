@@ -14,9 +14,14 @@ import {
   Grid,
   Checkbox,
 } from "@mui/material";
+import { GetProductItem } from "../../../pages/ProductsDashboard/types";
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
-const ProductsItem = () => {
+type Props = {
+  item: GetProductItem;
+};
+
+const ProductsItem = ({ item }: Props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -53,54 +58,54 @@ const ProductsItem = () => {
   ];
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const url = item?.images?.[0] as { url: string };
 
   return (
     <TableBody>
-      {(rowsPerPage > 0
+      {/* {(rowsPerPage > 0
         ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         : rows
-      ).map((row, index) => (
-        <TableRow key={index}>
-          <TableCell>
-            <Checkbox />
-          </TableCell>
-          <TableCell>
-            <Grid
-              container
-              spacing={2}
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <Grid item>
-                <Avatar alt={row.name} src="" />
-              </Grid>
-              <Grid item>{row.name}</Grid>
+      ).map((row, index) => ( */}
+      <TableRow>
+        <TableCell>
+          <Checkbox />
+        </TableCell>
+        <TableCell>
+          <Grid
+            container
+            spacing={2}
+            style={{ display: "flex", alignItems: "center" }}
+          >
+            <Grid item>
+              <Avatar alt={item?.title} src={url?.url} />
             </Grid>
-          </TableCell>
-          <TableCell>{row.email}</TableCell>
-          <TableCell>{row.phoneNumber}</TableCell>
-          <TableCell>{row.registrationDate}</TableCell>
-          <TableCell>{row.role}</TableCell>
-          <TableCell>{row.status}</TableCell>
-          <TableCell style={{ cursor: "pointer" }}>
-            <GrView />
-          </TableCell>
-          <TableCell>
-            <Switch {...label} />
-          </TableCell>
-          <TableCell>
-            <Tooltip title="Edit" arrow>
-              <IconButton>
-                <BiPencil />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Delete" arrow>
-              <IconButton>
-                <BiTrash />
-              </IconButton>
-            </Tooltip>
-          </TableCell>
-        </TableRow>
-      ))}
+            <Grid item>{item?.title}</Grid>
+          </Grid>
+        </TableCell>
+        <TableCell>{item?.brandId}</TableCell>
+        <TableCell>{item?.productPrice}</TableCell>
+        <TableCell>{item?.salePrice}</TableCell>
+        <TableCell>{item?.stock}</TableCell>
+        <TableCell style={{ cursor: "pointer" }}>
+          <GrView />
+        </TableCell>
+        <TableCell>
+          <Switch {...label} />
+        </TableCell>
+        <TableCell>
+          <Tooltip title="Edit" arrow>
+            <IconButton>
+              <BiPencil />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete" arrow>
+            <IconButton>
+              <BiTrash />
+            </IconButton>
+          </Tooltip>
+        </TableCell>
+      </TableRow>
+      {/* ))} */}
       {emptyRows > 0 && (
         <StyledTableRow style={{ height: 53 * emptyRows }}>
           <StyledTableCell colSpan={6} />

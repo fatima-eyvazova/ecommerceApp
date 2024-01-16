@@ -26,6 +26,7 @@ import { BiReceipt } from "react-icons/bi";
 import { IoIosPersonAdd } from "react-icons/io";
 
 import { ProductsItem } from "../..";
+import { GetProductItem } from "../../../pages/ProductsDashboard/types";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -128,7 +129,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   minWidth: "120px",
 }));
 
-const ProductsTable = () => {
+type Props = {
+  list: GetProductItem[];
+};
+
+const ProductsTable = ({ list }: Props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -181,7 +186,9 @@ const ProductsTable = () => {
             <StyledTableCell align="left">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
-        <ProductsItem />
+        {Array.isArray(list)
+          ? list.map((item) => <ProductsItem key={item?._id} item={item} />)
+          : []}
         <TableFooter>
           <TableRow>
             <TablePagination
