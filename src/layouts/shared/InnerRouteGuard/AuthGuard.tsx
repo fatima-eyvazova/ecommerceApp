@@ -19,8 +19,6 @@ const AuthGuard = ({ children }: Props) => {
 
   useEffect(() => {
     if (token) {
-      console.log(token);
-
       let data = {};
       makeRequest("/profile", "get", null, token).then((res) => {
         data = res;

@@ -98,7 +98,11 @@ const Brand = () => {
           </div>
         </div>
         <div className="products-table">
-          <BrandsTable list={list} setOpen={setOpen} />
+          <BrandsTable
+            list={list}
+            setOpen={setOpen}
+            setUpdateList={setUpdateList}
+          />
         </div>
       </div>
     </Sidebar>

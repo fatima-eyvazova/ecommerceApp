@@ -14,3 +14,5 @@ export { default as ProductsItem } from "./Products/ProductsItem/ProductsItem";
 export { default as AddProduct } from "./Products/AddProduct/AddProduct";
 
 export { default as BrandsTable } from "./Brands/BrandsTable/BrandsTable";
+
+export { default as DeleteModal } from "../../shared/modals/DeleteModal/DeleteModal";

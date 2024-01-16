@@ -131,9 +131,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 interface Props {
   list: GetBrandItem[];
   setOpen: (bool: boolean) => void;
+  setUpdateList: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BrandsTable = ({ list, setOpen }: Props) => {
+const BrandsTable = ({ list, setOpen, setUpdateList }: Props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -182,7 +183,12 @@ const BrandsTable = ({ list, setOpen }: Props) => {
         </TableHead>
         {Array.isArray(list)
           ? list.map((item) => (
-              <BrandItem key={item?._id} item={item} setOpen={setOpen} />
+              <BrandItem
+                key={item?._id}
+                item={item}
+                setOpen={setOpen}
+                setUpdateList={setUpdateList}
+              />
             ))
           : []}
         <TableFooter>

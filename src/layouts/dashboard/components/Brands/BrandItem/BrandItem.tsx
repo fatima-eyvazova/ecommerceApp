@@ -11,23 +11,26 @@ import {
   IconButton,
   Grid,
   Checkbox,
-  Drawer,
+  Modal,
 } from "@mui/material";
-
 import { GetBrandItem } from "../../../pages/Brands/types";
 import { useDispatch } from "react-redux";
 import { selectItem } from "../../../../../redux/slices/dashboard/selectedItemSlice";
-
+import { DeleteModal } from "../../../components";
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
 interface Props {
   item: GetBrandItem;
   setOpen: (bool: boolean) => void;
+  setUpdateList: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const BrandItem = ({ item, setOpen }: Props) => {
+const BrandItem = ({ item, setOpen, setUpdateList }: Props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [confirmOpen, setConfirmOpen] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+
   const dispatch = useDispatch();
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -78,7 +81,7 @@ const BrandItem = ({ item, setOpen }: Props) => {
             <img
               src={item?.image?.url}
               alt="brand"
-              style={{ height: 100, width: 100 }}
+              style={{ height: 30, width: 30 }}
             />
           </Grid>
         </TableCell>
@@ -108,11 +111,19 @@ const BrandItem = ({ item, setOpen }: Props) => {
             </IconButton>
           </Tooltip>
 
-          <Tooltip title="Delete" arrow>
+          <Tooltip title="Delete" arrow onClick={() => setOpenModal(true)}>
             <IconButton>
               <BiTrash />
             </IconButton>
           </Tooltip>
+          {openModal && (
+            <DeleteModal
+              setOpenModal={setOpenModal}
+              setUpdateList={setUpdateList}
+              itemId={item._id}
+              resource="brands"
+            />
+          )}
         </TableCell>
       </TableRow>
       {/* ))} */}

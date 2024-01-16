@@ -53,8 +53,6 @@ const AddEditBrand = ({ setOpen, setUpdateList }: Props) => {
   });
 
   const handleFormSubmit = async (values: FormValues) => {
-    console.log(itemData.item);
-
     try {
       let res;
       if (!itemData.item) {
@@ -71,7 +69,6 @@ const AddEditBrand = ({ setOpen, setUpdateList }: Props) => {
         let imgBase64 = "";
         if (values.image[0] && typeof values.image[0] !== "string") {
           imgBase64 = (await getBase64(values.image[0] as File)) as string;
-          console.log("uyut", imgBase64);
         }
 
         const body: { name: string; image?: string } = {
@@ -161,6 +158,9 @@ const AddEditBrand = ({ setOpen, setUpdateList }: Props) => {
           <h2>Add Image:</h2>
           <input
             type="file"
+            style={{
+              width: "200px",
+            }}
             size={fourMb}
             multiple={false}
             onChange={(e) => {
