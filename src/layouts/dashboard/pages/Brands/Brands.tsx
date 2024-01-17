@@ -1,21 +1,23 @@
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { IoAddOutline } from "react-icons/io5";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { useEffect, useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import { CiCircleRemove } from "react-icons/ci";
 
 import { BrandsTable, Sidebar } from "../../components";
 import AddEditBrand from "../../components/Brands/AddEditBrand/AddEditBrand";
 import { makeRequest } from "../../../../services/api";
-import "./Brands.scss";
-import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/types";
 import { GetBrandItem } from "./types";
+import "./Brands.scss";
 
 const Brand = () => {
   const [open, setOpen] = useState(false);
   const [updateList, setUpdateList] = useState(false);
   const [list, setList] = useState<GetBrandItem[]>([]);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [searchInput, setSearchInput] = useState("");
   const token = useSelector((state: RootState) => state.auth.token);
 
   const toggleDrawer = () => {
@@ -26,14 +28,48 @@ const Brand = () => {
     setOpen(false);
   };
 
+  // useEffect(() => {
+  //   if (token) {
+  //     makeRequest("/dashboard/brands", "get", null, token).then((res) => {
+  //       const data = res?.data as { data: GetBrandItem[] };
+  //       setList(data?.data?.reverse());
+  //     });
+  //   }
+  // }, [token, updateList]);
+  const fetchBrands = async () => {
+    try {
+      const res = await makeRequest("/dashboard/brands", "get", null, token);
+      const data = res?.data as { data: GetBrandItem[] };
+      setList(data?.data?.reverse());
+    } catch (error) {
+      console.error("Error fetching brands:", error);
+    }
+  };
+
   useEffect(() => {
     if (token) {
-      makeRequest("/dashboard/brands", "get", null, token).then((res) => {
-        const data = res?.data as { data: GetBrandItem[] };
-        setList(data?.data?.reverse());
-      });
+      fetchBrands();
     }
   }, [token, updateList]);
+
+  const searchBrand = () => {
+    const filteredList = list.filter((brand) =>
+      brand.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+    setList(filteredList);
+  };
+
+  const handleResetButtonClick = () => {
+    setSearchInput("");
+    fetchBrands();
+  };
+
+  const handleDeleteSelectedItems = async () => {
+    for (const itemId of selectedItems) {
+      await makeRequest(`/dashboard/brands/${itemId}`, "delete", null, token);
+    }
+    await fetchBrands();
+  };
 
   return (
     <Sidebar>
@@ -46,15 +82,25 @@ const Brand = () => {
                 type="text"
                 placeholder="Search Product"
                 className="input-search"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
               />
-
               <div className="filter-reset">
-                <button className="filter-btn">Filter</button>
-                <button className="reset-btn">Reset</button>
+                <button
+                  className="filter-btn"
+                  onClick={() => {
+                    searchBrand();
+                  }}
+                >
+                  Filter
+                </button>
+                <button className="reset-btn" onClick={handleResetButtonClick}>
+                  Reset
+                </button>
               </div>
             </div>
             <div className="delete-add">
-              <button className="delete">
+              <button className="delete" onClick={handleDeleteSelectedItems}>
                 <RiDeleteBin6Line />
                 <span className="text-delete">Delete</span>
               </button>
@@ -102,6 +148,8 @@ const Brand = () => {
             list={list}
             setOpen={setOpen}
             setUpdateList={setUpdateList}
+            selectedItems={selectedItems}
+            setSelectedItems={setSelectedItems}
           />
         </div>
       </div>

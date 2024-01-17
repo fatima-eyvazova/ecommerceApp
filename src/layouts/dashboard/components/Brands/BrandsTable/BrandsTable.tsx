@@ -132,11 +132,41 @@ interface Props {
   list: GetBrandItem[];
   setOpen: (bool: boolean) => void;
   setUpdateList: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedItems: string[];
+  setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const BrandsTable = ({ list, setOpen, setUpdateList }: Props) => {
+const BrandsTable = ({
+  list,
+  setOpen,
+  setUpdateList,
+  selectedItems,
+  setSelectedItems,
+}: Props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  // const [selectedItems, setSelectedItems] = React.useState<string[]>([]);
+
+  const handleCheckboxChange = (itemId: string) => {
+    const updatedSelectedItems = selectedItems.includes(itemId)
+      ? selectedItems.filter((id) => id !== itemId)
+      : [...selectedItems, itemId];
+
+    setSelectedItems(updatedSelectedItems);
+  };
+  // const handleDeleteSelected = async () => {
+  //   const res = await makeRequest("/brands/delete", "delete", {
+  //     selectedItems,
+  //   });
+  //   const data = res?.data as { data: unknown; success: boolean };
+
+  //   const isSuccess = data && data?.success;
+
+  //   if (isSuccess) {
+  //     setUpdateList((prev) => !prev);
+  //     setSelectedItems([]);
+  //   }
+  // };
 
   const rows = [
     {
@@ -168,13 +198,27 @@ const BrandsTable = ({ list, setOpen, setUpdateList }: Props) => {
   //   setPage(0);
   // };
 
+  function selectCheckboxes() {
+    if (selectedItems.length === list.length) {
+      setSelectedItems([]);
+    } else {
+      const allItemIds = list.map((item) => item._id);
+      setSelectedItems(allItemIds);
+    }
+  }
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
         <TableHead>
           <TableRow>
             <StyledTableCell>
-              <Checkbox />
+              <Checkbox
+                style={{ backgroundColor: "white" }}
+                checked={selectedItems.length === list.length}
+                onChange={() => {
+                  selectCheckboxes();
+                }}
+              />
             </StyledTableCell>
             <StyledTableCell align="left">Icon</StyledTableCell>
             <StyledTableCell align="left">Name</StyledTableCell>
@@ -188,6 +232,8 @@ const BrandsTable = ({ list, setOpen, setUpdateList }: Props) => {
                 item={item}
                 setOpen={setOpen}
                 setUpdateList={setUpdateList}
+                selectedItems={selectedItems}
+                handleCheckboxChange={handleCheckboxChange}
               />
             ))
           : []}
@@ -214,6 +260,11 @@ const BrandsTable = ({ list, setOpen, setUpdateList }: Props) => {
           </TableRow>
         </TableFooter>
       </Table>
+      {/* {selectedItems.length > 0 && (
+        <div>
+          <button onClick={handleDeleteSelected}>Delete Selected</button>
+        </div>
+      )} */}
     </TableContainer>
   );
 };
