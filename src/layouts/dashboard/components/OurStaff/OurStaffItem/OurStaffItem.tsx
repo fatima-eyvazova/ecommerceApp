@@ -19,9 +19,21 @@ import {
   Grid,
 } from "@mui/material";
 import { BiPencil, BiTrash } from "react-icons/bi";
+import { RootState } from "../../../../../redux/types";
+import { useSelector } from "react-redux";
+import { makeRequest } from "../../../../../services/api";
+import { GetAdmin } from "../../../pages/OurStaff/types";
+import { DeleteModal } from "../..";
+
 const label = { inputProps: { "aria-label": "Switch demo" } };
 
-const OurStaffItem = () => {
+type Props = {
+  admin: GetAdmin;
+  setUpdateList: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const OurStaffItem = ({ admin, setUpdateList }: Props) => {
+  const [openModal, setOpenModal] = React.useState(false);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -48,64 +60,47 @@ const OurStaffItem = () => {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  const rows = [
-    {
-      name: "Admin",
-      email: "admin@gmail.com",
-      phoneNumber: "360-943-7332",
-      registrationDate: "Dec 28, 2023",
-      role: "Admin",
-      status: "Active",
-      switchChecked: true,
-    },
-  ];
   return (
-    <TableBody>
-      {(rowsPerPage > 0
+    <>
+      <TableBody>
+        {/* {(rowsPerPage > 0
         ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         : rows
-      ).map((row, index) => (
-        <TableRow key={index}>
+      ).map((row, index) => ( */}
+        <TableRow>
           <TableCell>
-            <Grid
-              container
-              spacing={2}
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <Grid item>
-                <Avatar alt={row.name} src="" />
-              </Grid>
-              <Grid item>{row.name}</Grid>
-            </Grid>
-          </TableCell>
-          <TableCell>{row.email}</TableCell>
-          <TableCell>{row.phoneNumber}</TableCell>
-          <TableCell>{row.registrationDate}</TableCell>
-          <TableCell>{row.role}</TableCell>
-          <TableCell>{row.status}</TableCell>
-          <TableCell>
-            <Switch {...label} />
+            <Grid item>{admin?.name}</Grid>
           </TableCell>
           <TableCell>
-            <Tooltip title="Edit" arrow>
-              <IconButton>
-                <BiPencil />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Delete" arrow>
+            <Grid item>{admin?.surname}</Grid>
+          </TableCell>
+          <TableCell>{admin?.email}</TableCell>
+          <TableCell>{admin?.createdAt?.split("T")?.[0] || ""}</TableCell>
+          <TableCell>{admin?.role}</TableCell>
+          <TableCell>
+            <Tooltip title="Delete" arrow onClick={() => setOpenModal(true)}>
               <IconButton>
                 <BiTrash />
               </IconButton>
             </Tooltip>
           </TableCell>
         </TableRow>
-      ))}
-      {emptyRows > 0 && (
+        {/* ))} */}
+        {/* {emptyRows > 0 && (
         <StyledTableRow style={{ height: 53 * emptyRows }}>
           <StyledTableCell colSpan={6} />
         </StyledTableRow>
+      )} */}
+      </TableBody>
+      {openModal && (
+        <DeleteModal
+          setOpenModal={setOpenModal}
+          setUpdateList={setUpdateList}
+          itemId={admin?._id}
+          resource="users"
+        />
       )}
-    </TableBody>
+    </>
   );
 };
 

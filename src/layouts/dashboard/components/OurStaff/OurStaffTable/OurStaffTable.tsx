@@ -23,6 +23,13 @@ import { BiReceipt } from "react-icons/bi";
 import { IoIosPersonAdd } from "react-icons/io";
 
 import { OurStaffItem } from "../..";
+import { GetAdmin } from "../../../pages/OurStaff/types";
+
+interface Props {
+  setOpen: (bool: boolean) => void;
+  setUpdateList: React.Dispatch<React.SetStateAction<boolean>>;
+  list: GetAdmin[];
+}
 
 interface TablePaginationActionsProps {
   count: number;
@@ -125,7 +132,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   minWidth: "120px",
 }));
 
-const OurStaffTable = () => {
+const OurStaffTable = ({ setOpen, setUpdateList, list }: Props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -165,17 +172,18 @@ const OurStaffTable = () => {
         <TableHead>
           <TableRow>
             <StyledTableCell align="left">Name</StyledTableCell>
+            <StyledTableCell align="left">Surname</StyledTableCell>
             <StyledTableCell align="left">Email</StyledTableCell>
-            <StyledTableCell align="left">Contact</StyledTableCell>
             <StyledTableCell align="left">Joining Date</StyledTableCell>
             <StyledTableCell align="left">Role</StyledTableCell>
-            <StyledTableCell align="left">Status</StyledTableCell>
-            <StyledTableCell align="left">Published</StyledTableCell>
             <StyledTableCell align="left">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
-
-        <OurStaffItem />
+        {Array.isArray(list)
+          ? list.map((admin) => (
+              <OurStaffItem admin={admin} setUpdateList={setUpdateList} />
+            ))
+          : []}
         <TableFooter>
           <TableRow>
             <TablePagination
@@ -192,6 +200,8 @@ const OurStaffTable = () => {
               }}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>

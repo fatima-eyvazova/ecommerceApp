@@ -28,14 +28,6 @@ const Brand = () => {
     setOpen(false);
   };
 
-  // useEffect(() => {
-  //   if (token) {
-  //     makeRequest("/dashboard/brands", "get", null, token).then((res) => {
-  //       const data = res?.data as { data: GetBrandItem[] };
-  //       setList(data?.data?.reverse());
-  //     });
-  //   }
-  // }, [token, updateList]);
   const fetchBrands = async () => {
     try {
       const res = await makeRequest("/dashboard/brands", "get", null, token);

@@ -28,94 +28,94 @@ import { IoIosPersonAdd } from "react-icons/io";
 import { ProductsItem } from "../..";
 import { GetProductItem } from "../../../pages/ProductsDashboard/types";
 
-interface TablePaginationActionsProps {
-  count: number;
-  page: number;
-  rowsPerPage: number;
-  onPageChange: (
-    event: React.MouseEvent<HTMLButtonElement>,
-    newPage: number
-  ) => void;
-}
+// interface TablePaginationActionsProps {
+//   count: number;
+//   page: number;
+//   rowsPerPage: number;
+//   onPageChange: (
+//     event: React.MouseEvent<HTMLButtonElement>,
+//     newPage: number
+//   ) => void;
+// }
 
-const TablePaginationActions: React.FC<TablePaginationActionsProps> = (
-  props
-) => {
-  const theme = useTheme();
-  const { count, page, rowsPerPage, onPageChange } = props;
+// const TablePaginationActions: React.FC<TablePaginationActionsProps> = (
+//   props
+// ) => {
+//   const theme = useTheme();
+//   const { count, page, rowsPerPage, onPageChange } = props;
 
-  const handleFirstPageButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    onPageChange(event, 0);
-  };
+//   const handleFirstPageButtonClick = (
+//     event: React.MouseEvent<HTMLButtonElement>
+//   ) => {
+//     onPageChange(event, 0);
+//   };
 
-  const handleBackButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    onPageChange(event, page - 1);
-  };
+//   const handleBackButtonClick = (
+//     event: React.MouseEvent<HTMLButtonElement>
+//   ) => {
+//     onPageChange(event, page - 1);
+//   };
 
-  const handleNextButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    onPageChange(event, page + 1);
-  };
+//   const handleNextButtonClick = (
+//     event: React.MouseEvent<HTMLButtonElement>
+//   ) => {
+//     onPageChange(event, page + 1);
+//   };
 
-  const handleLastPageButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
-  };
+//   const handleLastPageButtonClick = (
+//     event: React.MouseEvent<HTMLButtonElement>
+//   ) => {
+//     onPageChange(event, Math.max(0, Math.ceil(count / rowsPerPage) - 1));
+//   };
 
-  return (
-    <Box sx={{ flexShrink: 0, ml: 2.5 }}>
-      <IconButton
-        onClick={handleFirstPageButtonClick}
-        disabled={page === 0}
-        aria-label="first page"
-      >
-        {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
-      </IconButton>
-      <IconButton
-        onClick={handleBackButtonClick}
-        disabled={page === 0}
-        aria-label="previous page"
-      >
-        {theme.direction === "rtl" ? (
-          <KeyboardArrowRight />
-        ) : (
-          <KeyboardArrowLeft />
-        )}
-      </IconButton>
-      <IconButton
-        onClick={handleNextButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page"
-      >
-        {theme.direction === "rtl" ? (
-          <KeyboardArrowLeft />
-        ) : (
-          <KeyboardArrowRight />
-        )}
-      </IconButton>
-      <IconButton
-        onClick={handleLastPageButtonClick}
-        disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page"
-      >
-        {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
-      </IconButton>
-    </Box>
-  );
-};
+//   return (
+//     <Box sx={{ flexShrink: 0, ml: 2.5 }}>
+//       <IconButton
+//         onClick={handleFirstPageButtonClick}
+//         disabled={page === 0}
+//         aria-label="first page"
+//       >
+//         {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
+//       </IconButton>
+//       <IconButton
+//         onClick={handleBackButtonClick}
+//         disabled={page === 0}
+//         aria-label="previous page"
+//       >
+//         {theme.direction === "rtl" ? (
+//           <KeyboardArrowRight />
+//         ) : (
+//           <KeyboardArrowLeft />
+//         )}
+//       </IconButton>
+//       <IconButton
+//         onClick={handleNextButtonClick}
+//         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+//         aria-label="next page"
+//       >
+//         {theme.direction === "rtl" ? (
+//           <KeyboardArrowLeft />
+//         ) : (
+//           <KeyboardArrowRight />
+//         )}
+//       </IconButton>
+//       <IconButton
+//         onClick={handleLastPageButtonClick}
+//         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
+//         aria-label="last page"
+//       >
+//         {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
+//       </IconButton>
+//     </Box>
+//   );
+// };
 
-TablePaginationActions.propTypes = {
-  count: PropTypes.number.isRequired,
-  onPageChange: PropTypes.func.isRequired,
-  page: PropTypes.number.isRequired,
-  rowsPerPage: PropTypes.number.isRequired,
-};
+// TablePaginationActions.propTypes = {
+//   count: PropTypes.number.isRequired,
+//   onPageChange: PropTypes.func.isRequired,
+//   page: PropTypes.number.isRequired,
+//   rowsPerPage: PropTypes.number.isRequired,
+// };
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -134,6 +134,11 @@ type Props = {
   selectedBrand: string;
   selectedItems: string[];
   setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>;
+  totalCount: number;
+  page: number;
+  perPage: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setPerPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const ProductsTable = ({
@@ -141,10 +146,12 @@ const ProductsTable = ({
   selectedBrand,
   selectedItems,
   setSelectedItems,
+  totalCount,
+  page,
+  perPage,
+  setPage,
+  setPerPage,
 }: Props) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
   const handleCheckboxChange = (itemId: string) => {
     const updatedSelectedItems = selectedItems.includes(itemId)
       ? selectedItems.filter((id) => id !== itemId)
@@ -154,7 +161,7 @@ const ProductsTable = ({
   };
 
   function selectCheckboxes() {
-    if (selectedItems.length === list.length) {
+    if (selectedItems?.length === list?.length) {
       setSelectedItems([]);
     } else {
       const allItemIds = list.map((item) => item._id);
@@ -166,33 +173,12 @@ const ProductsTable = ({
     ? list.filter((item) => item.brandId === selectedBrand)
     : list;
 
-  const rows = [
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-  ];
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
+    setPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
@@ -204,7 +190,7 @@ const ProductsTable = ({
             <StyledTableCell>
               <Checkbox
                 style={{ backgroundColor: "white" }}
-                checked={selectedItems.length === list.length}
+                checked={selectedItems?.length === list?.length}
                 onChange={() => {
                   selectCheckboxes();
                 }}
@@ -235,8 +221,8 @@ const ProductsTable = ({
             <TablePagination
               rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
               colSpan={3}
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
+              count={totalCount}
+              rowsPerPage={perPage}
               page={page}
               SelectProps={{
                 inputProps: {
@@ -248,7 +234,7 @@ const ProductsTable = ({
               onRowsPerPageChange={handleChangeRowsPerPage}
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              ActionsComponent={TablePaginationActions}
+              // ActionsComponent={TablePaginationActions}
             />
           </TableRow>
         </TableFooter>

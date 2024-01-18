@@ -155,7 +155,7 @@ const BrandsTable = ({
     setSelectedItems(updatedSelectedItems);
   };
   // const handleDeleteSelected = async () => {
-  //   const res = await makeRequest("/brands/delete", "delete", {
+  //   const res = await makeRequest("/brands", "delete", {
   //     selectedItems,
   //   });
   //   const data = res?.data as { data: unknown; success: boolean };

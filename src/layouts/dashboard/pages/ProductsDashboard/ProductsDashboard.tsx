@@ -20,9 +20,12 @@ import { GetBrandItem } from "../Brands/types";
 const ProductsDashboard = () => {
   const [open, setOpen] = useState(false);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [page, setPage] = useState(0);
+  const [perPage, setPerPage] = useState(5);
 
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [selectedBrand, setSelectedBrand] = useState("");
+  const [totalCount, setTotalCount] = useState(0);
 
   const [updateList, setUpdateList] = useState(false);
   const [list, setList] = useState<GetProductItem[]>([]);
@@ -48,8 +51,13 @@ const ProductsDashboard = () => {
             null,
             token
           );
+          const constructBrandQuery = selectedBrand
+            ? `&brandId=${selectedBrand}`
+            : "";
           const prRes = await makeRequest(
-            "/dashboard/products?perPage=100",
+            `/dashboard/products?perPage=${perPage}&page=${
+              page + 1
+            }${constructBrandQuery}`,
             "get",
             null,
             token
@@ -57,6 +65,8 @@ const ProductsDashboard = () => {
           const data = res?.data as { data: GetBrandItem[] };
           const prData = prRes?.data as { data: GetProducts };
           const products = prData?.data?.product;
+          setTotalCount(prData?.data?.totalCount || 0);
+
           const brands = data?.data?.reverse();
           setBrandsList(brands);
 
@@ -81,7 +91,7 @@ const ProductsDashboard = () => {
 
       fetchBrandsAndProducts();
     }
-  }, [token, updateList]);
+  }, [token, updateList, page, perPage, selectedBrand]);
 
   const [searchInput, setSearchInput] = useState("");
 
@@ -110,14 +120,6 @@ const ProductsDashboard = () => {
   const handleDeleteSelectedItems = () => {
     setOpenDeleteModal(true);
   };
-
-  function selectedBrands(brandName: string) {
-    const filteredList = brandName
-      ? list.filter((item) => item?.brandName === brandName)
-      : list;
-
-    return filteredList;
-  }
 
   const handleOrderChange = (orderBy: "asc" | "disc") => {
     const sorted =
@@ -185,7 +187,6 @@ const ProductsDashboard = () => {
                 value={selectedBrand}
                 onChange={(e) => {
                   setSelectedBrand(e.target.value);
-                  selectedBrands(e.target.value);
                 }}
               >
                 <option value="" disabled selected>
@@ -232,6 +233,11 @@ const ProductsDashboard = () => {
               selectedBrand={selectedBrand}
               selectedItems={selectedItems}
               setSelectedItems={setSelectedItems}
+              totalCount={totalCount}
+              page={page}
+              perPage={perPage}
+              setPage={setPage}
+              setPerPage={setPerPage}
             />
           </div>
         </div>
