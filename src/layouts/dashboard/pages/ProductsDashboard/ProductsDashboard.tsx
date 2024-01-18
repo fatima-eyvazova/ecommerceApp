@@ -6,15 +6,27 @@ import { CiCircleRemove } from "react-icons/ci";
 import { useSelector } from "react-redux";
 
 import "./ProductsDashboard.scss";
-import { AddProduct, ProductsTable, Sidebar } from "../../components";
+import {
+  AddProduct,
+  DeleteModal,
+  ProductsTable,
+  Sidebar,
+} from "../../components";
 import { RootState } from "../../../../redux/types";
 import { makeRequest } from "../../../../services/api";
 import { GetProductItem, GetProducts } from "./types";
+import { GetBrandItem } from "../Brands/types";
 
 const ProductsDashboard = () => {
   const [open, setOpen] = useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedBrand, setSelectedBrand] = useState("");
+
   const [updateList, setUpdateList] = useState(false);
   const [list, setList] = useState<GetProductItem[]>([]);
+  const [brandList, setBrandsList] = useState<GetBrandItem[]>([]);
 
   const token = useSelector((state: RootState) => state.auth.token);
 
@@ -28,88 +40,211 @@ const ProductsDashboard = () => {
 
   useEffect(() => {
     if (token) {
-      makeRequest("/dashboard/products", "get", null, token).then((res) => {
-        const data = res?.data as { data: GetProducts };
-        const products = data?.data?.product;
-        setList(products?.reverse());
-      });
+      const fetchBrandsAndProducts = async () => {
+        try {
+          const res = await makeRequest(
+            "/dashboard/brands",
+            "get",
+            null,
+            token
+          );
+          const prRes = await makeRequest(
+            "/dashboard/products?perPage=100",
+            "get",
+            null,
+            token
+          );
+          const data = res?.data as { data: GetBrandItem[] };
+          const prData = prRes?.data as { data: GetProducts };
+          const products = prData?.data?.product;
+          const brands = data?.data?.reverse();
+          setBrandsList(brands);
+
+          let productsWithBrandNames;
+          if (products?.length && brands?.length) {
+            for (const pr of products) {
+              for (const br of brands) {
+                if (pr?.brandId === br?._id) {
+                  pr.brandName = br.name;
+                }
+              }
+            }
+
+            productsWithBrandNames = products?.reverse();
+          }
+
+          setList(productsWithBrandNames || products?.reverse());
+        } catch (error) {
+          console.error("Error fetching brands:", error);
+        }
+      };
+
+      fetchBrandsAndProducts();
     }
   }, [token, updateList]);
 
+  const [searchInput, setSearchInput] = useState("");
+
+  const fetchProducts = async () => {
+    try {
+      const res = await makeRequest("/dashboard/products", "get", null, token);
+      const data = res?.data as { data: GetProductItem[] };
+      setList(data?.data?.reverse());
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  const searchProduct = () => {
+    const filteredList = list.filter((product) =>
+      product.title.toLowerCase().includes(searchInput.toLowerCase())
+    );
+    setList(filteredList);
+  };
+
+  const handleResetButtonClick = () => {
+    setSearchInput("");
+    fetchProducts();
+  };
+
+  const handleDeleteSelectedItems = () => {
+    setOpenDeleteModal(true);
+  };
+
+  function selectedBrands(brandName: string) {
+    const filteredList = brandName
+      ? list.filter((item) => item?.brandName === brandName)
+      : list;
+
+    return filteredList;
+  }
+
+  const handleOrderChange = (orderBy: "asc" | "disc") => {
+    const sorted =
+      orderBy === "asc"
+        ? [...list].sort((a, b) => a.salePrice - b.salePrice)
+        : [...list].sort((a, b) => b.salePrice - a.salePrice);
+    setList(sorted);
+  };
+
   return (
-    <Sidebar>
-      <div className="products-dashboard">
-        <div className="products-top">
-          <h1>Products</h1>
-          <div className="delete-add">
-            <button className="delete">
-              <RiDeleteBin6Line />
-              <span className="text-delete">Delete</span>
-            </button>
-            <button
-              className="add"
-              onClick={toggleDrawer}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-            >
-              <IoAddOutline />
-              <span className="text-add">Add Product</span>
-              <Drawer
-                anchor="right"
-                open={open}
-                onClose={closeDrawer}
-                onClick={(e) => {
-                  e.stopPropagation();
+    <>
+      <Sidebar>
+        <div className="products-dashboard">
+          <div className="products-top">
+            <h1>Products</h1>
+            <div className="delete-add">
+              <button className="delete" onClick={handleDeleteSelectedItems}>
+                <RiDeleteBin6Line />
+                <span className="text-delete">Delete</span>
+              </button>
+              <button
+                className="add"
+                onClick={toggleDrawer}
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+              >
+                <IoAddOutline />
+                <span className="text-add">Add Product</span>
+                <Drawer
+                  anchor="right"
+                  open={open}
+                  onClose={closeDrawer}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
+                  <CiCircleRemove
+                    style={{
+                      fontSize: "24px",
+                      position: "absolute",
+                      right: "50px",
+                      top: "30px",
+                      cursor: "pointer",
+                      color: "red",
+                    }}
+                    onClick={closeDrawer}
+                  />
+                  <AddProduct setOpen={setOpen} setUpdateList={setUpdateList} />
+                </Drawer>
+              </button>
+            </div>
+            <div className="products-filter">
+              <input
+                type="text"
+                placeholder="Search Product"
+                className="input-search"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
+              <select
+                className="brand"
+                value={selectedBrand}
+                onChange={(e) => {
+                  setSelectedBrand(e.target.value);
+                  selectedBrands(e.target.value);
                 }}
               >
-                <CiCircleRemove
-                  style={{
-                    fontSize: "24px",
-                    position: "absolute",
-                    right: "50px",
-                    top: "30px",
-                    cursor: "pointer",
-                    color: "red",
+                <option value="" disabled selected>
+                  Select brand
+                </option>
+                {brandList?.map((brand) => (
+                  <option key={brand?._id} value={brand?._id}>
+                    {brand?.name}
+                  </option>
+                ))}
+              </select>
+
+              <select
+                className="price"
+                onChange={(e) => {
+                  handleOrderChange(e.target.value as "asc" | "disc");
+                }}
+              >
+                <option value="" disabled selected>
+                  Select Order
+                </option>
+                <option value="asc">Low to High</option>
+                <option value="disc">High to Low</option>
+              </select>
+
+              <div className="filter-reset">
+                <button
+                  className="filter-btn"
+                  onClick={() => {
+                    searchProduct();
                   }}
-                  onClick={closeDrawer}
-                />
-                <AddProduct setOpen={setOpen} setUpdateList={setUpdateList} />
-              </Drawer>
-            </button>
-          </div>
-          <div className="products-filter">
-            <input
-              type="text"
-              placeholder="Search Product"
-              className="input-search"
-            />
-            <select className="brand">
-              <option value="Nike">Nike</option>
-              <option value="Stradivarius">Stradivarius</option>
-              <option value="Gucci">Gucci</option>
-              <option value="Zara">Zara</option>
-              <option value="Bershka">Bershka</option>
-            </select>
-
-            <select className="price">
-              <option value="low">Low to High</option>
-              <option value="high">High to Low</option>
-            </select>
-
-            <div className="filter-reset">
-              <button className="filter-btn">Filter</button>
-              <button className="reset-btn">Reset</button>
+                >
+                  Filter
+                </button>
+                <button className="reset-btn" onClick={handleResetButtonClick}>
+                  Reset
+                </button>
+              </div>
             </div>
           </div>
+          <div className="products-table">
+            <ProductsTable
+              list={list}
+              selectedBrand={selectedBrand}
+              selectedItems={selectedItems}
+              setSelectedItems={setSelectedItems}
+            />
+          </div>
         </div>
-        <div className="products-table">
-          <ProductsTable list={list} />
-        </div>
-      </div>
-    </Sidebar>
+      </Sidebar>
+      {openDeleteModal && (
+        <DeleteModal
+          setOpenModal={setOpenDeleteModal}
+          setUpdateList={setUpdateList}
+          itemIdList={selectedItems}
+          resource="products"
+        />
+      )}
+    </>
   );
 };
 

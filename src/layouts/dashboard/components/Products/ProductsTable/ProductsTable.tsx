@@ -131,11 +131,40 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 type Props = {
   list: GetProductItem[];
+  selectedBrand: string;
+  selectedItems: string[];
+  setSelectedItems: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const ProductsTable = ({ list }: Props) => {
+const ProductsTable = ({
+  list,
+  selectedBrand,
+  selectedItems,
+  setSelectedItems,
+}: Props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const handleCheckboxChange = (itemId: string) => {
+    const updatedSelectedItems = selectedItems.includes(itemId)
+      ? selectedItems.filter((id) => id !== itemId)
+      : [...selectedItems, itemId];
+
+    setSelectedItems(updatedSelectedItems);
+  };
+
+  function selectCheckboxes() {
+    if (selectedItems.length === list.length) {
+      setSelectedItems([]);
+    } else {
+      const allItemIds = list.map((item) => item._id);
+      setSelectedItems(allItemIds);
+    }
+  }
+
+  const filteredList = selectedBrand
+    ? list.filter((item) => item.brandId === selectedBrand)
+    : list;
 
   const rows = [
     {
@@ -173,21 +202,33 @@ const ProductsTable = ({ list }: Props) => {
         <TableHead>
           <TableRow>
             <StyledTableCell>
-              <Checkbox />
+              <Checkbox
+                style={{ backgroundColor: "white" }}
+                checked={selectedItems.length === list.length}
+                onChange={() => {
+                  selectCheckboxes();
+                }}
+              />
             </StyledTableCell>
             <StyledTableCell align="left">Product Name</StyledTableCell>
             <StyledTableCell align="left">Brand</StyledTableCell>
             <StyledTableCell align="left">Price</StyledTableCell>
             <StyledTableCell align="left">Sale Price</StyledTableCell>
             <StyledTableCell align="left">Stock</StyledTableCell>
-            <StyledTableCell align="left">Status</StyledTableCell>
             <StyledTableCell align="left">View</StyledTableCell>
             <StyledTableCell align="left">Published</StyledTableCell>
             <StyledTableCell align="left">Actions</StyledTableCell>
           </TableRow>
         </TableHead>
-        {Array.isArray(list)
-          ? list.map((item) => <ProductsItem key={item?._id} item={item} />)
+        {Array.isArray(filteredList)
+          ? filteredList.map((item) => (
+              <ProductsItem
+                key={item?._id}
+                item={item}
+                selectedItems={selectedItems}
+                handleCheckboxChange={handleCheckboxChange}
+              />
+            ))
           : []}
         <TableFooter>
           <TableRow>
@@ -205,6 +246,8 @@ const ProductsTable = ({ list }: Props) => {
               }}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore
               ActionsComponent={TablePaginationActions}
             />
           </TableRow>

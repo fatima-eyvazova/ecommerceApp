@@ -19,9 +19,11 @@ const label = { inputProps: { "aria-label": "Switch demo" } };
 
 type Props = {
   item: GetProductItem;
+  selectedItems: string[];
+  handleCheckboxChange: (itemId: string) => void;
 };
 
-const ProductsItem = ({ item }: Props) => {
+const ProductsItem = ({ item, selectedItems, handleCheckboxChange }: Props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -68,7 +70,10 @@ const ProductsItem = ({ item }: Props) => {
       ).map((row, index) => ( */}
       <TableRow>
         <TableCell>
-          <Checkbox />
+          <Checkbox
+            checked={selectedItems.includes(item._id)}
+            onChange={() => handleCheckboxChange(item._id)}
+          />
         </TableCell>
         <TableCell>
           <Grid
@@ -82,7 +87,7 @@ const ProductsItem = ({ item }: Props) => {
             <Grid item>{item?.title}</Grid>
           </Grid>
         </TableCell>
-        <TableCell>{item?.brandId}</TableCell>
+        <TableCell>{item?.brandName}</TableCell>
         <TableCell>{item?.productPrice}</TableCell>
         <TableCell>{item?.salePrice}</TableCell>
         <TableCell>{item?.stock}</TableCell>

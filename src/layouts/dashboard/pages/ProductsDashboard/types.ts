@@ -4,6 +4,7 @@ export interface ProductInfo {
   productPrice: number;
   salePrice: number;
   brandId: string;
+  brandName?: string;
   stock: number;
   images:
     | {
