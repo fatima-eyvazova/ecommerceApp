@@ -15,7 +15,7 @@ const Testimonials = () => {
     <div className="new-collection-testimonials">
       <div className="container">
         <div className="new-collection">
-          <img src="src/assets/images/banner-7.webp" alt="collection" />
+          <img src="/src/assets/images/bg-img-s.webp" alt="collection" />
           <div className="new-collection-content">
             <h2>
               Accent Your <br />

@@ -1,5 +1,5 @@
 footer {
-  .container {
+  .container-footer {
     .footer-top {
       display: flex;
       align-items: center;
@@ -175,7 +175,7 @@ footer {
 
 @media only screen and (max-width: 767px) {
   footer {
-    .container {
+    .container-footer {
       .footer-top {
         .footer-top-container {
           display: block;
@@ -186,6 +186,18 @@ footer {
           .payment-img {
             display: none;
           }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  footer {
+    .container-footer {
+      .footer-top {
+        .footer-top-container {
+          width: 90%;
         }
       }
     }

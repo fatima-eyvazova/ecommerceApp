@@ -232,12 +232,14 @@ const ProductsDashboard = () => {
               list={list}
               selectedBrand={selectedBrand}
               selectedItems={selectedItems}
+              setUpdateList={setUpdateList}
               setSelectedItems={setSelectedItems}
               totalCount={totalCount}
               page={page}
               perPage={perPage}
               setPage={setPage}
               setPerPage={setPerPage}
+              setOpen={setOpen}
             />
           </div>
         </div>

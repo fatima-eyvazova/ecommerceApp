@@ -57,7 +57,7 @@
       padding: 75px 71px 80px;
       text-align: center;
       width: 32vw;
-      height: 534px;
+      // height: 534px;
       .section-title {
         text-align: center;
         h2 {
@@ -203,6 +203,23 @@
             }
           }
         }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1280px) {
+  .new-collection-testimonials {
+    .container {
+      .new-collection {
+        img {
+          width: 46vw;
+          height: 88vh;
+        }
+      }
+      .testimonials {
+        width: 43vw;
+        height: 526px;
       }
     }
   }

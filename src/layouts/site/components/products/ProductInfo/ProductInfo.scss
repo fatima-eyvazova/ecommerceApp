@@ -11,6 +11,12 @@ $main-color: #454545;
     .swiper-details {
       height: 50vw;
       margin-bottom: 10px;
+      .swiper-button-prev {
+        display: none;
+      }
+      .swiper-button-next {
+        display: none;
+      }
       .slide-item {
         figure {
           &::-webkit-scrollbar {
@@ -20,33 +26,33 @@ $main-color: #454545;
           overflow: hidden;
           overflow-y: auto;
           overflow-x: auto;
+
           img {
-            width: 629px;
-            height: 861px;
-            height: auto;
+            width: 564px !important;
+            height: 781px !important;
             transition: transform 0.3s ease-in-out;
           }
-          &::before {
-            content: "+";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            color: #ffffff;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease-in-out;
-          }
+          // &::before {
+          //   content: "+";
+          //   position: absolute;
+          //   top: 50%;
+          //   left: 50%;
+          //   transform: translate(-50%, -50%);
+          //   font-size: 24px;
+          //   color: #ffffff;
+          //   opacity: 0;
+          //   pointer-events: none;
+          //   transition: opacity 0.3s ease-in-out;
+          // }
 
-          &:hover img {
-            transform: scale(1.2);
-            cursor: crosshair;
-          }
+          // &:hover img {
+          //   transform: scale(1.2);
+          //   cursor: crosshair;
+          // }
 
-          &:hover::before {
-            opacity: 1;
-          }
+          // &:hover::before {
+          //   opacity: 1;
+          // }
         }
       }
     }
@@ -59,6 +65,7 @@ $main-color: #454545;
             width: 130px;
             height: auto;
             transition: transform 0.3s ease-in-out;
+            cursor: pointer;
           }
         }
       }
@@ -277,24 +284,21 @@ $main-color: #454545;
     }
   }
 }
-// width: 40vw;
-@media only screen and (min-width: 768px) and (max-width: 1024px) {
-  .product-info {
-    display: block;
-    .images-swiper {
-      .swiper-details {
-        height: 100%;
-        .swiper-wrapper {
-          height: 60vh;
-          .slide-item {
-            figure {
-              img {
-                width: 400px !important;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
+// @media only screen and (min-width: 768px) and (max-width: 1024px) {
+//   .product-info {
+//     display: block;
+//     .images-swiper {
+//       .swiper-details {
+//         .swiper-wrapper {
+//           .slide-item {
+//             figure {
+//               img {
+//                 height: 500px !important;
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

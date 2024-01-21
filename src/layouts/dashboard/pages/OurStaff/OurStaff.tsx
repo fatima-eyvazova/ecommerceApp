@@ -9,9 +9,9 @@ import { makeRequest } from "../../../../services/api";
 import { GetAdmin } from "./types";
 
 const OurStaff = () => {
-  const [open, setOpen] = useState(false);
   const [updateList, setUpdateList] = useState(false);
   const [adminList, setAdminList] = useState<GetAdmin[]>([]);
+
   const adminInfo = useSelector((state: RootState) => state.auth.user);
   const token = useSelector((state: RootState) => state.auth.token);
   const userRole = adminInfo?.role;
@@ -32,14 +32,6 @@ const OurStaff = () => {
     }
   }, [token, updateList]);
 
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
-
-  const closeDrawer = () => {
-    setOpen(false);
-  };
-
   if (userRole !== "superadmin") {
     return null;
   }
@@ -53,11 +45,7 @@ const OurStaff = () => {
             <OurStaffFilter setUpdateList={setUpdateList} />
           </div>
           <div className="ourstaff-bottom">
-            <OurStaffTable
-              list={adminList}
-              setOpen={setOpen}
-              setUpdateList={setUpdateList}
-            />
+            <OurStaffTable list={adminList} setUpdateList={setUpdateList} />
           </div>
         </div>
       </div>

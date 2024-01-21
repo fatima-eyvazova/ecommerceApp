@@ -29,7 +29,6 @@ interface Props {
 
 const AddStaff = ({ setOpen, setUpdateList }: Props) => {
   const [err, setErr] = useState("");
-  const dispatch = useDispatch();
   const { token } = useSelector((state: RootState) => state.auth);
 
   const schema = Yup.object({

@@ -1,37 +1,40 @@
+import { useDispatch } from "react-redux";
 // react-icons
 import { GoPlus } from "react-icons/go";
 import { LuMinus } from "react-icons/lu";
 import { MdDelete } from "react-icons/md";
 
 import "./BasketItem.scss";
-import { useDispatch } from "react-redux";
 import {
   addToBasket,
   removeItem,
   decreaseItem,
 } from "../../../../../redux/slices/site/basketSlice";
+import { BasketProduct } from "../../../../../redux/types";
 
-type Props = {
-  id: string | number;
-  name: string;
-  price: number;
-  quantity: number;
-  subtotal: number;
-};
-
-const BasketItem = ({ id, name, price, quantity, subtotal }: Props) => {
+const BasketItem = (product: BasketProduct) => {
   const dispatch = useDispatch();
 
   const handleIncreaseQuantity = () => {
-    dispatch(addToBasket({ id, name, price, quantity: 1 }));
+    dispatch(addToBasket({ ...product, quantity: 1 }));
   };
 
   const removeItemFromBasket = () => {
-    dispatch(removeItem({ id, subtotal }));
+    dispatch(removeItem({ _id: product?._id, subtotal: product?.subtotal }));
   };
 
   const decreaseItemByOne = () => {
-    dispatch(decreaseItem({ id, price }));
+    dispatch(
+      decreaseItem({
+        _id: product?._id,
+        price: product?.salePrice || product?.productPrice,
+      })
+    );
+  };
+
+  const image = product?.images?.[0] as {
+    url: string;
+    public_id: string;
   };
 
   return (
@@ -39,25 +42,26 @@ const BasketItem = ({ id, name, price, quantity, subtotal }: Props) => {
       <tr>
         <td className="product-img">
           <img
-            src="//dilan-1.myshopify.com/cdn/shop/products/12_ec7e7dce-ed1c-4cd3-8aa1-71c3e316df11_85x.jpg?v=1525694886"
-            alt="product"
+            src={image?.url}
+            alt={`product - ${product?.title}`}
+            style={{ objectFit: "contain", width: 100 }}
           />
         </td>
-        <td className="product-name">{name}</td>
+        <td className="product-name">{product?.title}</td>
         <td className="product-price-cart">
-          <span className="money">${price}</span>
+          <span className="money">${product?.salePrice}</span>
         </td>
         <td className="product-quantity">
           <div className="cart-plus-minus">
             <LuMinus className="minus-icon" onClick={decreaseItemByOne} />
             <span className="count">
-              <span>{quantity}</span>
+              <span>{product?.quantity}</span>
             </span>
             <GoPlus className="plus-icon" onClick={handleIncreaseQuantity} />
           </div>
         </td>
         <td className="product-subtotal">
-          <span className="money">${subtotal}</span>
+          <span className="money">${product?.subtotal}</span>
         </td>
         <td className="product-remove" onClick={removeItemFromBasket}>
           <MdDelete style={{ fontSize: "18px" }} />

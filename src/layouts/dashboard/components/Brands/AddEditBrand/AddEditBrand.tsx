@@ -9,6 +9,11 @@ import { makeRequest } from "../../../../../services/api";
 import { RootState } from "../../../../../redux/types";
 import { getBase64 } from "../../../../../utils/convertToBase64";
 import { selectItem } from "../../../../../redux/slices/dashboard/selectedItemSlice";
+import { GetBrandItem } from "../../../pages/Brands/types";
+
+// import Input from "@mui/material/Input";
+// import InputAdornment from "@mui/material/InputAdornment";
+// import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
 interface FormValues {
   name: string;
@@ -28,6 +33,7 @@ const AddEditBrand = ({ setOpen, setUpdateList }: Props) => {
   const itemData = useSelector(
     (state: RootState) => state.selectedItem.itemData
   );
+  const item = itemData?.item as GetBrandItem;
   const oneMb = 1048576;
   const fourMb = oneMb * 4;
 
@@ -45,7 +51,7 @@ const AddEditBrand = ({ setOpen, setUpdateList }: Props) => {
     formState: { errors, isValid, isLoading, isDirty },
   } = useForm({
     defaultValues: {
-      name: itemData?.item?.name || "",
+      name: item?.name || "",
       image: "",
     },
     mode: "onChange",
@@ -104,8 +110,8 @@ const AddEditBrand = ({ setOpen, setUpdateList }: Props) => {
   };
 
   useEffect(() => {
-    setUrl(itemData?.item?.image?.url || "");
-  }, [itemData?.item?.image?.url]);
+    setUrl(item?.image?.url || "");
+  }, [item?.image?.url]);
 
   useEffect(() => {
     return () => {
@@ -115,6 +121,27 @@ const AddEditBrand = ({ setOpen, setUpdateList }: Props) => {
 
   const isBtnDisabled =
     !isValid || isLoading || (!isDirty && itemData?.status !== "edit");
+
+  const imagePreviewStyle = {
+    width: "100px",
+    height: "100px",
+    border: "2px dashed #dcdee3",
+    margin: "3px",
+    position: "relative",
+  };
+
+  const imageStyle = {
+    width: "100%",
+    height: "100%",
+    zIndex: 3,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "32px",
+    userSelect: "none",
+    opacity: 0.3,
+    cursor: "pointer",
+  };
 
   return (
     <Box style={{ padding: "50px", width: "40vw" }}>
@@ -157,8 +184,10 @@ const AddEditBrand = ({ setOpen, setUpdateList }: Props) => {
         <div className="App">
           <h2>Add Image:</h2>
           <input
+            id="images-file-upload"
             type="file"
             style={{
+              display: "none",
               width: "200px",
             }}
             size={fourMb}
@@ -170,6 +199,21 @@ const AddEditBrand = ({ setOpen, setUpdateList }: Props) => {
               setErr("");
             }}
           />
+          <label
+            htmlFor="images-file-upload"
+            style={{
+              width: "130px",
+              padding: "14px ",
+              backgroundColor: "#4CAF50",
+              color: "white",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+            }}
+          >
+            Upload Images
+          </label>
+
           {!!errors.image?.message && (
             <p style={{ color: "red" }}>{errors.image?.message}</p>
           )}
@@ -177,6 +221,7 @@ const AddEditBrand = ({ setOpen, setUpdateList }: Props) => {
           {err && <p style={{ color: "red" }}>{err}</p>}
         </div>
         <Button
+          style={{ marginTop: 20 }}
           variant="contained"
           color="primary"
           size="large"

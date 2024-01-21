@@ -16,23 +16,48 @@ import { TiSocialGooglePlus } from "react-icons/ti";
 import { TbBrandPinterest } from "react-icons/tb";
 import { CiStar } from "react-icons/ci";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./ProductInfo.scss";
 import { addToBasket } from "../../../../../redux/slices/site/basketSlice";
+import { GetProductItem } from "../../../../dashboard/pages/ProductsDashboard/types";
+import { RootState } from "../../../../../redux/types";
+import { handleWishList as handleWishListAction } from "../../../../../redux/slices/site/wishListSlice";
 
-const ProductInfo = () => {
+type ProductInfoProps = {
+  product: GetProductItem;
+};
+
+const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
   const [quantity, setQuantity] = useState<number>(1);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
-
   const dispatch = useDispatch();
+
+  const wishListProducts = useSelector(
+    (state: RootState) => state.wishList.wishListProducts
+  );
+  const isFoundElement = wishListProducts.some(
+    (item) => item._id === product?._id
+  );
+  const [color, setColor] = useState<boolean>(isFoundElement);
+
   const addToCart = () => {
     dispatch(
-      addToBasket({ id: 1, price: 200, quantity, name: "Product 1111" })
+      addToBasket({
+        ...product,
+        quantity,
+      })
     );
   };
+
   const swiper1Ref = useRef<SwiperRef | null>(null);
+  const productImages = product?.images as { url: string; public_id: string }[];
+
+  const handleWishList = () => {
+    dispatch(handleWishListAction(product));
+    setColor((prev) => !prev);
+  };
 
   return (
     <section className="product-info">
@@ -58,29 +83,13 @@ const ProductInfo = () => {
           modules={[FreeMode, Navigation, Thumbs]}
           className="swiper-details"
         >
-          <SwiperSlide className="slide-item">
-            <figure>
-              <img src="/src/assets/images/1.webp" alt="swiper" />
-            </figure>
-          </SwiperSlide>
-          <SwiperSlide className="slide">
-            <figure>
-              <img src="/src/assets/images/2.webp" alt="swiper" />
-            </figure>
-          </SwiperSlide>
-          <SwiperSlide className="slide">
-            <figure>
-              <img
-                src="/src/assets/images/3_861d7348-c426-4c39-9565-59e278a304ac.webp"
-                alt="swiper"
-              />
-            </figure>
-          </SwiperSlide>
-          <SwiperSlide className="slide">
-            <figure>
-              <img src="/src/assets/images/4.webp" alt="swiper" />
-            </figure>
-          </SwiperSlide>
+          {productImages?.map((image) => (
+            <SwiperSlide className="slide-item" key={image.public_id}>
+              <figure>
+                <img src={image?.url} alt="swiper" />
+              </figure>
+            </SwiperSlide>
+          ))}
         </Swiper>
 
         <Swiper
@@ -92,26 +101,18 @@ const ProductInfo = () => {
           modules={[FreeMode, Navigation, Thumbs]}
           className="swiper-images"
         >
-          <SwiperSlide className="slide-image">
-            <img src="/src/assets/images/1.webp" alt="swiper" />
-          </SwiperSlide>
-          <SwiperSlide className="slide-image">
-            <img src="/src/assets/images/2.webp" alt="swiper" />
-          </SwiperSlide>
-          <SwiperSlide className="slide-image">
-            <img
-              src="/src/assets/images/3_861d7348-c426-4c39-9565-59e278a304ac.webp"
-              alt="swiper"
-            />
-          </SwiperSlide>
-          <SwiperSlide className="slide-image">
-            <img src="/src/assets/images/4.webp" alt="swiper" />
-          </SwiperSlide>
+          {productImages?.map((image) => (
+            <SwiperSlide className="slide-image">
+              <figure>
+                <img src={image?.url} alt="swiper" />
+              </figure>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
       <div className="product-details-info">
         <div className="info-content">
-          <h4>Adquiera Mas</h4>
+          <h4>{product?.title}</h4>
           <span>
             <CiStar />
             <CiStar />
@@ -124,20 +125,18 @@ const ProductInfo = () => {
             <div className="new-price">$ 150.00</div>
           </div>
           <div className="in-stock">
-            <IoMdCheckboxOutline className="icon-checkbox" />
-            <span>In Stock</span>
+            {
+              <>
+                {product?.stock > 0 ? (
+                  <IoMdCheckboxOutline className="icon-checkbox" />
+                ) : (
+                  "x"
+                )}
+              </>
+            }
+            <span>{product?.stock > 0 ? "In Stock" : "Out of Stock"}</span>
           </div>
-          <div className="sku">
-            <span className="title">SKU#:</span>
-            <span className="variant-sku">102511</span>
-          </div>
-          <p className="description">
-            valle, la vivienda en la vigilancia específica, el reemplazo o la
-            consolidación de la cama, un hombre obsesionado con la reducción de
-            opciones de apuestas ilegales. Wow, mercado muy atractivo, de mis
-            visitantes. Tiempo de desarrollo reciente para odiar, un bar beef
-            tiempo.
-          </p>
+          <p className="description">{product?.description}</p>
           <form className="cart-input">
             <label>Qty:</label>
             <input
@@ -155,8 +154,11 @@ const ProductInfo = () => {
               <HiOutlineShoppingBag className="add-icon" />
               <span className="add-btn"> Add to cart</span>
             </div>
-            <div className="favorites">
-              <GrFavorite className="favorite-icon" />
+            <div className="favorites" onClick={handleWishList}>
+              <GrFavorite
+                className="favorite-icon"
+                style={{ color: color ? "red" : "black" }}
+              />
             </div>
           </div>
           <div className="social-share">

@@ -143,10 +143,6 @@ const BrandsTable = ({
   selectedItems,
   setSelectedItems,
 }: Props) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  // const [selectedItems, setSelectedItems] = React.useState<string[]>([]);
-
   const handleCheckboxChange = (itemId: string) => {
     const updatedSelectedItems = selectedItems.includes(itemId)
       ? selectedItems.filter((id) => id !== itemId)
@@ -154,19 +150,6 @@ const BrandsTable = ({
 
     setSelectedItems(updatedSelectedItems);
   };
-  // const handleDeleteSelected = async () => {
-  //   const res = await makeRequest("/brands", "delete", {
-  //     selectedItems,
-  //   });
-  //   const data = res?.data as { data: unknown; success: boolean };
-
-  //   const isSuccess = data && data?.success;
-
-  //   if (isSuccess) {
-  //     setUpdateList((prev) => !prev);
-  //     setSelectedItems([]);
-  //   }
-  // };
 
   const rows = [
     {
@@ -188,15 +171,6 @@ const BrandsTable = ({
       ),
     },
   ];
-
-  // const handleChangePage = (event, newPage) => {
-  //   setPage(newPage);
-  // };
-
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(parseInt(event.target.value, 10));
-  //   setPage(0);
-  // };
 
   function selectCheckboxes() {
     if (selectedItems.length === list.length) {
@@ -237,34 +211,7 @@ const BrandsTable = ({
               />
             ))
           : []}
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-              colSpan={3}
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              SelectProps={{
-                inputProps: {
-                  "aria-label": "rows per page",
-                },
-                native: true,
-              }}
-              // onPageChange={handleChangePage}
-              // onRowsPerPageChange={handleChangeRowsPerPage}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
       </Table>
-      {/* {selectedItems.length > 0 && (
-        <div>
-          <button onClick={handleDeleteSelected}>Delete Selected</button>
-        </div>
-      )} */}
     </TableContainer>
   );
 };

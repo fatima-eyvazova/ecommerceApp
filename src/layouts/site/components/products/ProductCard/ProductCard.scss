@@ -1,4 +1,5 @@
 .product-card {
+  display: flex;
   .container {
     &:hover {
       .product-image {
@@ -17,10 +18,10 @@
     .product-image {
       background-color: #fff;
       img {
+        object-fit: fill;
+        height: 380px;
         width: 300px;
-        height: auto;
         transition: transform 0.3s ease;
-        object-fit: contain;
       }
     }
     .product-action {

@@ -32,7 +32,7 @@ const Wishlist = () => {
           <div className="wishlist-items">
             <div className="wishlist-items-container">
               {wishlistProduct.map((product) => (
-                <ProductCard {...product} key={product.id} />
+                <ProductCard product={product} key={product._id} />
               ))}
             </div>
           </div>

@@ -1,18 +1,10 @@
 import { GetBrandItem } from "../layouts/dashboard/pages/Brands/types";
+import { GetProductItem } from "../layouts/dashboard/pages/ProductsDashboard/types";
 
-export type BasketProduct = {
-  id: string | number;
-  name: string;
-  price: number;
+export interface BasketProduct extends GetProductItem {
   subtotal: number;
   quantity: number;
-};
-
-export type WishListProduct = {
-  id: string | number;
-  name: string;
-  price: number;
-};
+}
 
 export type Profile = {
   token: string;
@@ -28,7 +20,7 @@ export type Profile = {
 
 export type SelectedItemDashboard = {
   itemData: {
-    item: GetBrandItem | null;
+    item: GetBrandItem | GetProductItem | null;
     status: "view" | "edit" | "delete" | "";
   };
 };
@@ -39,7 +31,7 @@ export type RootState = {
     total: number;
   };
   wishList: {
-    wishListProducts: WishListProduct[];
+    wishListProducts: GetProductItem[];
   };
   auth: Profile;
   selectedItem: SelectedItemDashboard;

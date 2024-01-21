@@ -22,7 +22,7 @@
     flex-direction: column;
     justify-content: center;
     background: white;
-    padding: 20px;
+    padding: 30px 20px 10px 20px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -36,7 +36,6 @@
     p {
       font-family: Verdana, Geneva, Tahoma, sans-serif;
       font-weight: 500;
-      margin-bottom: 15px;
       font-size: 18px;
     }
 
@@ -60,7 +59,7 @@
         &:hover {
           filter: brightness(0.9);
         }
-        padding: 10px 30px;
+        padding: 10px 25px;
         margin: 0 10px;
         cursor: pointer;
         border: none;

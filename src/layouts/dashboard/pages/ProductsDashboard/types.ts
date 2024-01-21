@@ -2,7 +2,7 @@ export interface ProductInfo {
   title: string;
   description: string;
   productPrice: number;
-  salePrice: number;
+  salePrice?: number;
   brandId: string;
   brandName?: string;
   stock: number;

@@ -4,19 +4,30 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
 import { IoIosArrowForward } from "react-icons/io";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { MainLayout } from "../../../components";
 import { ROUTES } from "../../../../../router/routeNames";
 import "../Login/Login.scss";
 import { makeRequest } from "../../../../../services/api";
 import { loginUser } from "../../../../../redux/slices/shared/authSlice";
-import { Profile } from "../../../../../redux/types";
+import { Profile, RootState } from "../../../../../redux/types";
+
+export type GetBasketItem = {
+  userId: string;
+  productCount: number;
+  productId: string;
+  _id: string;
+};
 
 const Login = () => {
   const [err, setErr] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const basketProducts = useSelector(
+    (state: RootState) => state.basket.basketProducts
+  );
 
   const schema = Yup.object({
     email: Yup.string()
@@ -40,11 +51,44 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
+  const postNewBasket = async (token: string) => {
+    try {
+      const list = basketProducts?.map((pr) => ({
+        productId: pr?._id,
+        productCount: pr?.quantity,
+      }));
+      const basketPayload = { basket: list };
+      const res = await makeRequest(
+        "/site/basket",
+        "post",
+        basketPayload,
+        token
+      );
+      console.log({ res });
+      return res;
+    } catch (error) {
+      console.error("Error posting basket:", error);
+    }
+  };
+
+  const getBasketFromDb = async (token: string) => {
+    try {
+      const resBasket = await makeRequest("/site/basket", "get", null, token);
+      console.log({ resBasket });
+      return resBasket;
+    } catch (error) {
+      console.error("Error posting basket:", error);
+    }
+  };
+
   const onSubmit = async (values: unknown) => {
     const res = await makeRequest("/login", "post", values);
 
     const data = res.data as {
-      data: { user?: { role: "superadmin" | "admin" | "client" } };
+      data: {
+        user?: { role: "superadmin" | "admin" | "client" };
+        token?: string;
+      };
       success: boolean;
     };
 
@@ -52,9 +96,19 @@ const Login = () => {
     if (isSuccess) {
       dispatch(loginUser(data?.data as Profile));
       const userRole = data?.data?.user?.role;
+      const token = data?.data?.token as string;
       if (userRole && (userRole === "admin" || userRole === "superadmin")) {
         navigate(ROUTES.orders);
       } else if (userRole && userRole === "client") {
+        const getBasketResponse = (await getBasketFromDb(token)) as {
+          data: { data?: GetBasketItem[] };
+        };
+        console.log({ getBasketResponse });
+
+        const basketList = getBasketResponse?.data?.data;
+        if (!basketList) {
+          await postNewBasket(token);
+        }
         navigate(ROUTES.home);
       }
     } else {

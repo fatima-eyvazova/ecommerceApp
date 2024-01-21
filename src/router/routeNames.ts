@@ -1,7 +1,7 @@
 export const ROUTES = {
   home: "/",
   products: "/products",
-  productDetails: "/products/:productId",
+  productDetails: "/products/:id",
   login: "/auth/login",
   register: "/auth/register",
   wishlist: "wishlist",
@@ -11,7 +11,7 @@ export const ROUTES = {
   orders: "/dashboard/orders",
   ourStaff: "/dashboard/ourStaff",
   dashboardProducts: "/dashboard/products",
-  productItem: "/dashboard/products/1",
+  productItem: "/dashboard/products/:id",
   brands: "/dashboard/brands",
   orderInvoice: "/dashboard/orders/orderInvoice",
 } as const;

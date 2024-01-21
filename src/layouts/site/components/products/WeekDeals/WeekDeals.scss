@@ -81,6 +81,11 @@
 @media only screen and (max-width: 767px) {
   .week-deals {
     .container {
+      .timer {
+        .item {
+          padding: 3px 10px !important;
+        }
+      }
       .products-swiper {
         .deals-swiper {
           .swiper-wrapper {

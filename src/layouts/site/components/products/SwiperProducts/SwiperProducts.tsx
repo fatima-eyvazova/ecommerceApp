@@ -10,41 +10,39 @@ import { FaArrowRightLong, FaArrowLeftLong } from "react-icons/fa6";
 
 import "./SwiperProducts.scss";
 import { ProductCard } from "../..";
-
-const data = [
-  {
-    id: 1,
-    name: "Product 111",
-    price: 200.0,
-  },
-  {
-    id: 2,
-    name: "Product 222",
-    price: 400.0,
-  },
-  {
-    id: 3,
-    name: "Product 333",
-    price: 340.0,
-  },
-  {
-    id: 4,
-    name: "Product 444",
-    price: 50.0,
-  },
-  {
-    id: 5,
-    name: "Product 555",
-    price: 180.0,
-  },
-  {
-    id: 6,
-    name: "Product 666",
-    price: 90.0,
-  },
-];
+import { useEffect, useState } from "react";
+import { RootState } from "../../../../../redux/types";
+import { useSelector } from "react-redux";
+import {
+  GetProductItem,
+  GetProducts,
+} from "../../../../dashboard/pages/ProductsDashboard/types";
+import { makeRequest } from "../../../../../services/api";
 
 const SwiperProducts = () => {
+  const [products, setProducts] = useState<GetProductItem[]>([]);
+
+  const { token } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await makeRequest("/site/products", "get", null, token);
+
+        const dataArray = res?.data?.data?.product;
+        if (Array.isArray(dataArray)) {
+          setProducts(dataArray);
+        } else {
+          console.error("Invalid data received:", res?.data?.data?.product);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchData();
+  }, [token]);
+
   return (
     <div className="swiper-elements">
       <div className="custom-buttons">
@@ -57,7 +55,7 @@ const SwiperProducts = () => {
       </div>
       <Swiper
         slidesPerView={4}
-        spaceBetween={30}
+        spaceBetween={10}
         loop={true}
         pagination={{
           clickable: true,
@@ -69,9 +67,9 @@ const SwiperProducts = () => {
         modules={[Pagination, Navigation]}
         className="swiper-product"
       >
-        {data.map((product) => (
-          <SwiperSlide className="slider" key={product.id}>
-            <ProductCard {...product} />
+        {products.slice(0, 10).map((product) => (
+          <SwiperSlide className="slider" key={product?._id}>
+            <ProductCard key={product._id} product={product} />
           </SwiperSlide>
         ))}
       </Swiper>

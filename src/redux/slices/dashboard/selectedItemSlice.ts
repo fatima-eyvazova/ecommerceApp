@@ -1,17 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { GetBrandItem } from "../../../layouts/dashboard/pages/Brands/types";
 import { SelectedItemDashboard } from "../../types";
 
-export interface SelectedItemState {
-  itemData: {
-    item: GetBrandItem | null;
-    status: "view" | "edit" | "delete" | "";
-  };
-}
-
-const initialState: SelectedItemState = {
+const initialState: SelectedItemDashboard = {
   itemData: {
     item: null,
     status: "",

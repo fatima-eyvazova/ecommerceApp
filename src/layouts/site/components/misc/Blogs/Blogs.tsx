@@ -6,7 +6,7 @@ const Blogs = () => {
       <div className="section-title">
         <h2>latest blog</h2>
       </div>
-      <div className="container">
+      <div className="container-blogs">
         <div className="content">
           <div className="blog-wrapper">
             <div className="blog-img">

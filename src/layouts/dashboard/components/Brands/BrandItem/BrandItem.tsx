@@ -41,41 +41,13 @@ const BrandItem = ({
 
   const dispatch = useDispatch();
 
-  // const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  //   [`&.${tableCellClasses.head}`]: {
-  //     backgroundColor: theme.palette.common.black,
-  //     color: theme.palette.common.white,
-  //     fontWeight: "bold",
-  //   },
-  //   [`&.${tableCellClasses.body}`]: {
-  //     fontSize: 14,
-  //   },
-  //   minWidth: "120px",
-  // }));
-
-  // const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  //   "&:nth-of-type(odd)": {
-  //     backgroundColor: theme.palette.action.hover,
-  //   },
-  //   "&:last-child td, &:last-child th": {
-  //     border: 0,
-  //   },
-  // }));
-
   const setSelectedItem = (status: "edit" | "view" | "delete") => {
     setOpen(true);
     dispatch(selectItem({ itemData: { item, status } }));
   };
 
-  // const emptyRows =
-  //   page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
   return (
     <TableBody>
-      {/* {(rowsPerPage > 0
-        ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        : rows
-      ).map((row, index) => ( */}
       <TableRow>
         <TableCell>
           <Checkbox
@@ -132,12 +104,6 @@ const BrandItem = ({
           )}
         </TableCell>
       </TableRow>
-      {/* ))} */}
-      {/* {emptyRows > 0 && (
-        <StyledTableRow style={{ height: 53 * emptyRows }}>
-          <StyledTableCell colSpan={6} />
-        </StyledTableRow>
-      )} */}
     </TableBody>
   );
 };

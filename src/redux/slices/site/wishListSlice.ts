@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { WishListProduct } from "../../types";
+import { GetProductItem } from "../../../layouts/dashboard/pages/ProductsDashboard/types";
 
 export interface WishListState {
-  wishListProducts: WishListProduct[];
+  wishListProducts: GetProductItem[];
 }
 
 const initialState: WishListState = {
@@ -14,14 +14,14 @@ export const wishListSlice = createSlice({
   name: "wishList",
   initialState,
   reducers: {
-    handleWishList: (state, action: PayloadAction<WishListProduct>) => {
+    handleWishList: (state, action: PayloadAction<GetProductItem>) => {
       const foundElement = state.wishListProducts.find((item) => {
-        return item.id === action.payload.id;
+        return item._id === action.payload._id;
       });
 
       if (foundElement) {
         state.wishListProducts = state.wishListProducts.filter(
-          (item) => item.id !== action.payload.id
+          (item) => item._id !== action.payload._id
         );
       } else {
         state.wishListProducts.unshift(action.payload);

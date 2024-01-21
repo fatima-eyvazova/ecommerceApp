@@ -7,17 +7,46 @@ import "./Basket.scss";
 import { RootState } from "../../../../redux/types";
 import { clearBasket } from "../../../../redux/slices/site/basketSlice";
 import { ROUTES } from "../../../../router/routeNames";
+import { makeRequest } from "../../../../services/api";
+import { useEffect, useState } from "react";
+import { GetBasketItem } from "../Auth/Login/Login";
 
 function Basket() {
   const basketProducts = useSelector(
     (state: RootState) => state.basket.basketProducts
   );
   const total = useSelector((state: RootState) => state.basket.total);
+  const { token, user } = useSelector((state: RootState) => state.auth);
+  const [basketDb, setBasketDb] = useState<GetBasketItem[]>([]);
   const dispatch = useDispatch();
 
   const clearBasketItems = () => {
     dispatch(clearBasket());
   };
+
+  const getBasketFromDb = async (token: string) => {
+    try {
+      const resBasket = await makeRequest("/site/basket", "get", null, token);
+      console.log({ resBasket });
+      return resBasket;
+    } catch (error) {
+      console.error("Error posting basket:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (token && user?.role === "client") {
+      getBasketFromDb(token).then((res) => {
+        console.log({ res });
+        const dbBasketList = res?.data as {
+          data: GetBasketItem[];
+        };
+        if (dbBasketList?.data) {
+          setBasketDb(dbBasketList.data);
+        }
+      });
+    }
+  }, [token]);
 
   return (
     <MainLayout>
@@ -45,7 +74,7 @@ function Basket() {
                           </tr>
                         </thead>
                         {basketProducts.map((product) => (
-                          <BasketItem key={product.id} {...product} />
+                          <BasketItem key={product._id} {...product} />
                         ))}
                       </table>
                     </div>

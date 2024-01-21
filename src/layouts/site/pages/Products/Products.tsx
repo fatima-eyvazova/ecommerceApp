@@ -11,40 +11,33 @@ import {
   RatedProducts,
 } from "../../components";
 import "./Products.scss";
+import { makeRequest } from "../../../../services/api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../redux/types";
+import { useEffect, useState } from "react";
 
 const Products = () => {
-  const data = [
-    {
-      id: 1,
-      name: "Product 111",
-      price: 200.0,
-    },
-    {
-      id: 2,
-      name: "Product 222",
-      price: 400.0,
-    },
-    {
-      id: 3,
-      name: "Product 333",
-      price: 340.0,
-    },
-    {
-      id: 4,
-      name: "Product 444",
-      price: 50.0,
-    },
-    {
-      id: 5,
-      name: "Product 555",
-      price: 180.0,
-    },
-    {
-      id: 6,
-      name: "Product 666",
-      price: 90.0,
-    },
-  ];
+  const [products, setProducts] = useState([]);
+
+  const { token } = useSelector((state: RootState) => state.auth);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await makeRequest("/site/products", "get", null, token);
+
+        const dataArray = res?.data?.data?.product;
+        if (Array.isArray(dataArray)) {
+          setProducts(dataArray);
+        } else {
+          console.error("Invalid data received:", res?.data?.data?.product);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchData();
+  }, [token]);
   return (
     <MainLayout>
       <div className="products">
@@ -100,7 +93,7 @@ const Products = () => {
                     </div>
                   </div>
                   <div className="shop-items">
-                    {data.map((product) => (
+                    {products.map((product) => (
                       <ProductCard {...product} key={product.id} />
                     ))}
                   </div>

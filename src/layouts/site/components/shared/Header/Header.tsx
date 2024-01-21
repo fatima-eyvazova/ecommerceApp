@@ -68,16 +68,21 @@ const Header = () => {
                           <div className="shop-item">
                             <div className="shop-img">
                               <img
-                                src="/src/assets/images/3_861d7348-c426-4c39-9565-59e278a304ac.webp"
-                                alt="shop"
+                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                                // @ts-ignore
+                                src={product?.images?.[0]?.url}
+                                alt={`product - ${product.title}`}
                               />
                             </div>
                             <h3 className="shop-title">
-                              <Link to="/" className="title-item">
-                                {product.name}
+                              <Link
+                                to={`/products/${product?._id}`}
+                                className="title-item"
+                              >
+                                {product?.title}
                               </Link>
                               <span className="price-item">
-                                $ {product.price}
+                                $ {product?.salePrice}
                               </span>
                             </h3>
                           </div>

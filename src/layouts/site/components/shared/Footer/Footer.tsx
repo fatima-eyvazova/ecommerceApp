@@ -14,7 +14,7 @@ import "../Footer/Footer.scss";
 const Footer = () => {
   return (
     <footer>
-      <div className="container">
+      <div className="container-footer">
         <div className="footer-top">
           <div className="footer-top-container">
             <div className="logo-copyright">

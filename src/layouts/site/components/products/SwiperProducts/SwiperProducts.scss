@@ -47,6 +47,7 @@
   }
   .swiper-product {
     width: 80vw;
+    min-height: 570px !important;
     background-color: #f5f5f5;
     padding-top: 75px;
     padding-bottom: 80px;
@@ -54,11 +55,11 @@
     align-items: center;
     justify-content: center;
     .swiper-wrapper {
-      width: 100vw;
       display: flex;
-      gap: 30px;
       .slider {
         width: 19vw;
+        display: flex;
+        min-height: 570px;
         .product-card {
           .container {
             position: relative;
@@ -86,7 +87,7 @@
       }
     }
     .swiper-product {
-      width: 100vw;
+      width: 90vw;
       .swiper-wrapper {
         .slider {
           width: 75vw !important;

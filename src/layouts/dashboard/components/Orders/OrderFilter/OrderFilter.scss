@@ -4,8 +4,6 @@
   border-radius: 8px;
 
   .order-filter-container {
-    margin: 0 auto;
-
     h1 {
       font-size: 24px;
       margin-bottom: 20px;
@@ -14,13 +12,11 @@
     .filter-form {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
       gap: 20px;
       .top-filters {
         display: flex;
         justify-content: space-between;
         gap: 50px;
-        width: 80vw;
 
         .search,
         select {
@@ -37,7 +33,6 @@
 
       .bottom-filter {
         display: flex;
-        width: 81vw;
         justify-content: space-between;
         align-items: self-end;
         gap: 10px;

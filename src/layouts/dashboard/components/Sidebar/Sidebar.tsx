@@ -1,11 +1,10 @@
 import { useState } from "react";
-import {
-  FaBars,
-  FaUserAlt,
-  FaRegChartBar,
-  FaCommentAlt,
-  FaShoppingBag,
-} from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
+import { IoIosLogOut } from "react-icons/io";
+import { TbBrandSafari, TbBrand4Chan } from "react-icons/tb";
+import { RiAdminLine } from "react-icons/ri";
+import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -25,21 +24,21 @@ const Sidebar = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
     {
       path: ROUTES.orders,
       name: "Orders",
-      icon: <FaUserAlt />,
+      icon: <TbBrandSafari />,
     },
     {
       path: ROUTES.dashboardProducts,
       name: "Products",
-      icon: <FaCommentAlt />,
+      icon: <MdOutlineProductionQuantityLimits />,
     },
     {
       path: ROUTES.brands,
       name: "Brands",
-      icon: <FaShoppingBag />,
+      icon: <TbBrand4Chan />,
     },
     {
       name: "Log Out",
-      icon: <FaShoppingBag />,
+      icon: <IoIosLogOut />,
     },
   ];
 
@@ -47,7 +46,7 @@ const Sidebar = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
     menuItem.splice(2, 0, {
       path: ROUTES.ourStaff as never,
       name: "Our Staff",
-      icon: <FaRegChartBar />,
+      icon: <RiAdminLine />,
     });
   }
 

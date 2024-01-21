@@ -3,10 +3,10 @@
 }
 
 .sidebar {
-  background-color: #0b0a54;
+  background-color: #071554;
   color: white;
   transition: width 0.3s ease;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .top_section {
@@ -40,11 +40,15 @@
 
   .icon {
     margin-right: 10px;
+    svg {
+      font-size: 20px;
+    }
   }
 
   .link_text {
     display: none;
     margin-left: 10px;
+    font-size: 17px;
   }
 }
 

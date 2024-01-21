@@ -22,26 +22,28 @@ export const basketSlice = createSlice({
       action: PayloadAction<Omit<BasketProduct, "subtotal">>
     ) => {
       const found = state.basketProducts.find(
-        (item) => item.id === action.payload.id
+        (item) => item._id === action.payload._id
       );
 
       let subtotal = found?.subtotal;
 
       if (found && found.quantity) {
+        const price = found?.salePrice || found?.productPrice;
+
         if (action.payload.quantity > 1) {
           found.quantity += action.payload.quantity;
-          // TO-DO
-          subtotal = found.quantity * found.price;
-          state.total += found.price * action.payload.quantity;
+          subtotal = found.quantity * price;
+          state.total += price * action.payload.quantity;
         } else if (action.payload.quantity === 1 && found.subtotal) {
           found.quantity++;
-          found.subtotal = found.price * found.quantity;
-          state.total += found.price;
+          found.subtotal = price * found.quantity;
+          state.total += price;
         }
       } else {
-        subtotal = action.payload.price;
+        const price = action.payload?.salePrice || action.payload?.productPrice;
+        subtotal = price;
         if (action.payload.quantity > 1) {
-          subtotal = action.payload.price * action.payload.quantity;
+          subtotal = price * action.payload.quantity;
         }
 
         state.basketProducts.unshift({ ...action.payload, subtotal });
@@ -56,20 +58,20 @@ export const basketSlice = createSlice({
 
     removeItem: (
       state,
-      action: PayloadAction<{ id: string | number; subtotal: number }>
+      action: PayloadAction<{ _id: string | number; subtotal: number }>
     ) => {
       state.basketProducts = state.basketProducts.filter(
-        (item) => item.id !== action.payload.id
+        (item) => item._id !== action.payload._id
       );
       state.total -= action.payload.subtotal;
     },
 
     decreaseItem: (
       state,
-      action: PayloadAction<{ id: string | number; price: number }>
+      action: PayloadAction<{ _id: string | number; price: number }>
     ) => {
       const found = state.basketProducts.find(
-        (item) => item.id === action.payload.id
+        (item) => item._id === action.payload._id
       );
 
       if (found && found.quantity > 1) {
@@ -78,7 +80,7 @@ export const basketSlice = createSlice({
         state.total -= action.payload.price;
       } else if (found && found.quantity === 1) {
         state.basketProducts = state.basketProducts.filter(
-          (item) => item.id !== action.payload.id
+          (item) => item._id !== action.payload._id
         );
         state.total -= action.payload.price;
       }
