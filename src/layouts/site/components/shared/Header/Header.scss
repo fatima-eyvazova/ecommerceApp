@@ -73,6 +73,8 @@
           }
           .shopping-cart {
             position: absolute;
+            height: 500px;
+            overflow-x: auto;
             right: 0px;
             z-index: 201;
             top: 53px;

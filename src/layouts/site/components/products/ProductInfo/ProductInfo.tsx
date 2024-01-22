@@ -9,6 +9,7 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
 import { IoMdCheckboxOutline } from "react-icons/io";
+import { IoAlertOutline } from "react-icons/io5";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { GrFavorite } from "react-icons/gr";
 import { FaFacebookF, FaTwitter } from "react-icons/fa6";
@@ -113,13 +114,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
       <div className="product-details-info">
         <div className="info-content">
           <h4>{product?.title}</h4>
-          <span>
-            <CiStar />
-            <CiStar />
-            <CiStar />
-            <CiStar />
-            <CiStar />
-          </span>
+
           <div className="prices">
             <div className="old-price">$ 180.00</div>
             <div className="new-price">$ 150.00</div>
@@ -130,7 +125,7 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
                 {product?.stock > 0 ? (
                   <IoMdCheckboxOutline className="icon-checkbox" />
                 ) : (
-                  "x"
+                  <IoAlertOutline />
                 )}
               </>
             }

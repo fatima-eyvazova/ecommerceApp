@@ -19,8 +19,6 @@ import { RootState } from "../../../../../redux/types";
 
 const ProductDetails: React.FC = () => {
   const [product, setProduct] = useState<GetProductItem | null>(null);
-  const [quantity, setQuantity] = useState<number>(1);
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const { token } = useSelector((state: RootState) => state.auth);
   const { id } = useParams<{ id: string }>();
 

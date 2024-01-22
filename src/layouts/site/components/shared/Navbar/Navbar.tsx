@@ -41,19 +41,19 @@ const Navbar = () => {
                 </li>
 
                 <li className="item">
-                  <Link className="item-link" to={`/${ROUTES.wishlist}`}>
+                  <Link className="item-link" to={ROUTES.wishlist}>
                     My Wishlist
                   </Link>
                 </li>
 
                 <li className="item">
-                  <Link className="item-link" to={`/${ROUTES.basket}`}>
+                  <Link className="item-link" to={ROUTES.basket}>
                     My Cart
                   </Link>
                 </li>
 
                 <li className="item">
-                  <Link className="item-link" to={`/${ROUTES.checkout}`}>
+                  <Link className="item-link" to={ROUTES.checkout}>
                     Checkout
                   </Link>
                 </li>
@@ -94,10 +94,10 @@ const Navbar = () => {
               <Link className="link-page" to={ROUTES.products}>
                 Products
               </Link>
-              <Link className="link-page" to={ROUTES.wishlist}>
+              <Link className="link-page" to={`/${ROUTES.wishlist}`}>
                 Favorites
               </Link>
-              <Link className="link-page" to={ROUTES.basket}>
+              <Link className="link-page" to={`/${ROUTES.basket}`}>
                 Basket
               </Link>
             </div>

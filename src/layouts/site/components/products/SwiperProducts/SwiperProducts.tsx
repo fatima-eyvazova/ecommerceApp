@@ -13,10 +13,7 @@ import { ProductCard } from "../..";
 import { useEffect, useState } from "react";
 import { RootState } from "../../../../../redux/types";
 import { useSelector } from "react-redux";
-import {
-  GetProductItem,
-  GetProducts,
-} from "../../../../dashboard/pages/ProductsDashboard/types";
+import { GetProductItem } from "../../../../dashboard/pages/ProductsDashboard/types";
 import { makeRequest } from "../../../../../services/api";
 
 const SwiperProducts = () => {
@@ -39,7 +36,6 @@ const SwiperProducts = () => {
         console.error("Error fetching products:", error);
       }
     };
-
     fetchData();
   }, [token]);
 

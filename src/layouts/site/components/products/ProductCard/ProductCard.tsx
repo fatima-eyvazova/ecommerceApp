@@ -57,7 +57,11 @@ const ProductCard = ({ product }: Props) => {
 
   const starList = [1, 2, 3, 4, 5];
 
-  function viewedClick(value: number): void {
+  function viewedClick(
+    value: number,
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ): void {
+    e.stopPropagation();
     setColorClick(value);
   }
   function viewedOver(value: number): void {
@@ -136,7 +140,7 @@ const ProductCard = ({ product }: Props) => {
                   fontWeight="lg"
                   mb={1}
                 >
-                  <ProductModal />
+                  <ProductModal key={product._id} product={product} />
                 </Typography>
                 <Typography
                   id="modal-desc"
@@ -172,14 +176,12 @@ const ProductCard = ({ product }: Props) => {
                     />
                   ))}
                 </div>
-                <div className="price">
-                  <span className="money">Product Price $ {productPrice}</span>
+                <div className="sale-product-prices">
+                  <div className="product-price">$ {productPrice}</div>
+                  {salePrice ? (
+                    <div className="sale-price">{salePrice}</div>
+                  ) : null}
                 </div>
-                {salePrice ? (
-                  <div className="price">
-                    <span className="money">Sale Price $ {salePrice}</span>
-                  </div>
-                ) : null}
               </div>
               <div className="product-cart" onClick={addProductToBasket}>
                 <HiOutlineShoppingBag className="cart-icon" />

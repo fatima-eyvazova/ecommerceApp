@@ -39,7 +39,7 @@
         align-items: center;
         justify-content: center;
         gap: 10px;
-        .item {
+        .item-timer {
           display: flex;
           flex-direction: column;
           padding: 10px 18px;
@@ -82,7 +82,7 @@
   .week-deals {
     .container {
       .timer {
-        .item {
+        .item-timer {
           padding: 3px 10px !important;
         }
       }
@@ -90,24 +90,25 @@
         .deals-swiper {
           .swiper-wrapper {
             .slide {
-              width: 100vw !important;
-              height: 100vh !important;
-              .deal-product {
-                width: 100vw;
-                .item {
-                  width: 80vw;
-                  display: block;
-                  .deal-img-container {
-                    width: 100vw;
-                  }
-                  .deal-product-content {
-                    width: 100vw;
-                    p {
-                      width: 270px;
-                    }
-                  }
-                }
-              }
+              width: 100vw;
+              height: 100vh;
+              // .deal-product {
+              //   width: 100vw;
+              //   .item-deal {
+              //     width: 80vw;
+              //     display: flex;
+              //     flex-direction: column;
+              //     .deal-img-container {
+              //       width: 100vw;
+              //     }
+              //     .deal-product-content {
+              //       width: 100vw;
+              //       p {
+              //         width: 270px;
+              //       }
+              //     }
+              //   }
+              // }
             }
           }
         }
@@ -123,19 +124,19 @@
           .swiper-wrapper {
             .slide {
               width: 100vw !important;
-              .deal-product {
-                width: 100vw;
-                .item {
-                  width: 80vw;
-                  display: flex;
-                  .deal-product-content {
-                    width: 100vw;
-                    p {
-                      width: 270px;
-                    }
-                  }
-                }
-              }
+              // .deal-product {
+              //   width: 100vw;
+              //   .item-deal {
+              //     width: 80vw;
+              //     display: flex;
+              //     .deal-product-content {
+              //       width: 100vw;
+              //       p {
+              //         width: 270px;
+              //       }
+              //     }
+              //   }
+              // }
             }
           }
         }

@@ -90,6 +90,22 @@
             }
           }
         }
+        .sale-product-prices {
+          display: flex;
+          gap: 10px;
+
+          .product-price {
+            font-size: 20px;
+            text-decoration: line-through;
+            color: #454545;
+            font-weight: 600;
+          }
+          .sale-price {
+            font-size: 20px;
+            color: #f73f52;
+            font-weight: 600;
+          }
+        }
         .product-cart {
           &:hover {
             background-color: #26c6d0;

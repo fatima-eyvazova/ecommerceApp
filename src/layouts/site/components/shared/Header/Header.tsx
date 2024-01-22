@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { FaRegUserCircle } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { IoCloseSharp } from "react-icons/io5";
+import { CiLogin } from "react-icons/ci";
 
 import Navbar from "../Navbar/Navbar";
 import { RootState } from "../../../../../redux/types";
@@ -51,7 +52,7 @@ const Header = () => {
               )}
               {!token && (
                 <Link className="login-header" to={ROUTES.login}>
-                  <FaRegUserCircle className="user-icon" />
+                  <CiLogin className="user-icon" />
                 </Link>
               )}
               <div className="cart" onClick={basketMenu}>
