@@ -35,25 +35,19 @@ const Navbar = () => {
 
               <ul className="pages-menu">
                 <li className="item">
-                  <Link className="item-link" to={ROUTES.login}>
-                    My Account
-                  </Link>
-                </li>
-
-                <li className="item">
-                  <Link className="item-link" to={ROUTES.wishlist}>
+                  <Link className="item-link" to={`/${ROUTES.wishlist}`}>
                     My Wishlist
                   </Link>
                 </li>
 
                 <li className="item">
-                  <Link className="item-link" to={ROUTES.basket}>
+                  <Link className="item-link" to={`/${ROUTES.basket}`}>
                     My Cart
                   </Link>
                 </li>
 
                 <li className="item">
-                  <Link className="item-link" to={ROUTES.checkout}>
+                  <Link className="item-link" to={`/${ROUTES.checkout}`}>
                     Checkout
                   </Link>
                 </li>

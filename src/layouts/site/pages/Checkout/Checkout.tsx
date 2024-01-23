@@ -1,17 +1,34 @@
 import { Link } from "react-router-dom";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./Checkout.scss";
 import { ROUTES } from "../../../../router/routeNames";
 import { RootState } from "../../../../redux/types";
 import { CheckoutItem } from "../../components";
+import { makeRequest } from "../../../../services/api";
+import { clearBasket } from "../../../../redux/slices/site/basketSlice";
 
 const Checkout = () => {
   const basketProducts = useSelector(
     (state: RootState) => state.basket.basketProducts
   );
   const total = useSelector((state: RootState) => state.basket.total);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const disatch = useDispatch();
+
+  const createNewOrder = async () => {
+    const payload = {
+      products: basketProducts?.map((pr) => ({
+        productId: pr?._id,
+        productCount: pr?.quantity,
+      })),
+    };
+    const { data } = await makeRequest("/site/orders", "post", payload, token);
+    if (data) {
+      disatch(clearBasket());
+    }
+  };
 
   return (
     <div className="checkout">
@@ -43,7 +60,7 @@ const Checkout = () => {
                   />
                   <div className="user-inputs">
                     <input type="text" placeholder="First name (optional)" />
-                    <input type="text" placeholder="Last name " />
+                    <input type="text" placeholder="Last name" />
                   </div>
                   <input
                     className="address-input"
@@ -66,7 +83,7 @@ const Checkout = () => {
               <div className="container-right">
                 <div className="basket-items">
                   {basketProducts.map((product) => (
-                    <CheckoutItem key={product.id} {...product} />
+                    <CheckoutItem key={product._id} {...product} />
                   ))}
                 </div>
                 <div className="basket-info">
@@ -82,7 +99,7 @@ const Checkout = () => {
             </aside>
           </div>
           <div className="order-button">
-            <button>Complete order</button>
+            <button onClick={createNewOrder}>Complete order</button>
           </div>
         </div>
       </div>
