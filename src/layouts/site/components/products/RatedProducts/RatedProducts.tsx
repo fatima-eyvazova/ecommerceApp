@@ -24,7 +24,12 @@ const RatedProducts = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await makeRequest("/site/products", "get", null, token);
+        const res = await makeRequest(
+          "/site/products?perPage=100",
+          "get",
+          null,
+          token
+        );
 
         const dataArray = res?.data?.data?.product;
 
@@ -55,7 +60,7 @@ const RatedProducts = () => {
           >
             <SwiperSlide className="rated-slide">
               <div className="rated-items">
-                {products.slice(0, 3).map((item) => (
+                {products.slice(16, 19).map((item) => (
                   <div className="rated-item" key={item.id}>
                     {item.images && item.images.length > 0 && (
                       <img src={item.images[0].url} alt={item.name} />
@@ -70,7 +75,7 @@ const RatedProducts = () => {
             </SwiperSlide>
             <SwiperSlide className="rated-slide">
               <div className="rated-items">
-                {products.slice(3, 7).map((item) => (
+                {products.slice(20, 23).map((item) => (
                   <div className="rated-item" key={item.id}>
                     {item.images && item.images.length > 0 && (
                       <img src={item.images[0].url} alt={item.name} />
@@ -85,7 +90,7 @@ const RatedProducts = () => {
             </SwiperSlide>
             <SwiperSlide className="rated-slide">
               <div className="rated-items">
-                {products.slice(7, 11).map((item) => (
+                {products.slice(23, 26).map((item) => (
                   <div className="rated-item" key={item._id}>
                     {item.images && item.images.length > 0 && (
                       <img src={item.images[0].url} alt={item.name} />

@@ -26,7 +26,8 @@ $fourth-color: #7b35c8;
     margin-bottom: 8px;
     li {
       display: flex;
-      justify-content: space-between;
+      justify-content: start;
+      gap: 20px;
       align-items: center;
       .acardion-checkbox {
         display: flex;

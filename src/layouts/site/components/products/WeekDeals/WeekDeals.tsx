@@ -25,7 +25,12 @@ const WeekDeals = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await makeRequest("/site/products", "get", null, token);
+        const res = await makeRequest(
+          "/site/products?perPage=100",
+          "get",
+          null,
+          token
+        );
 
         const dataArray = res?.data?.data?.product;
         if (Array.isArray(dataArray)) {
@@ -119,7 +124,7 @@ const WeekDeals = () => {
             modules={[Pagination]}
             className="deals-swiper"
           >
-            {products.slice(6, 17).map((product) => (
+            {products.slice(11, 16).map((product) => (
               <SwiperSlide className="slider" key={product?._id}>
                 <DiscountProduct key={product._id} product={product} />
               </SwiperSlide>

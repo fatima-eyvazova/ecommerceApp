@@ -179,6 +179,7 @@ const FilterAccardions = ({
                       id={brand?._id}
                       checked={selectedBrands.includes(brand?._id)}
                       onChange={() => handleCheckBrand(brand?._id)}
+                      style={{ width: 20, height: 20 }}
                     />
                     <label htmlFor={brand?._id}>{brand?.name}</label>
                   </li>

@@ -3,7 +3,7 @@ import { CiCircleRemove } from "react-icons/ci";
 import Drawer from "@mui/material/Drawer";
 
 import "./OurStaffFilter.scss";
-import AddStaff from "../../../pages/OurStaff/AddStaff/AddStaff";
+import AddStaff from "../AddStaff/AddStaff";
 import { useEffect, useState } from "react";
 import { makeRequest } from "../../../../../services/api";
 // import { GetProductItem } from "../../../pages/ProductsDashboard/types";
@@ -20,13 +20,10 @@ const OurStaffFilter = ({ setUpdateList }: Props) => {
   const [list, setList] = useState<GetAdmin[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const [filteredAdminList, setFilteredAdminList] = useState<GetAdmin[]>([]);
-  const [adminList, setAdminList] = useState<GetAdmin[]>([]);
-
   const { token } = useSelector((state: RootState) => state.auth);
 
   const toggleDrawer = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     setOpen(!open);
   };
 
@@ -38,9 +35,10 @@ const OurStaffFilter = ({ setUpdateList }: Props) => {
     try {
       const res = await makeRequest("/dashboard/users", "get", null, token);
       const data = res?.data as { data: GetAdmin[] };
-      setAdminList(data?.data?.reverse());
+      setList(data?.data?.reverse());
+      searchAdmin(); // Update filtered list after fetching admins
     } catch (error) {
-      console.error("Error fetching brands:", error);
+      console.error("Error fetching admins:", error);
     }
   };
 
@@ -51,21 +49,26 @@ const OurStaffFilter = ({ setUpdateList }: Props) => {
   }, [token, setUpdateList]);
 
   const searchAdmin = () => {
+    console.log("adminList", list);
+    console.log("searchInput", searchInput);
+
+    const lowercaseSearchInput = searchInput.toLowerCase();
+
     const filteredList = list.filter((admin) =>
-      `${admin.name} ${admin.surname} ${admin.email}`
-        .toLowerCase()
-        .includes(searchInput.toLowerCase())
+      admin.name.toLowerCase().includes(lowercaseSearchInput)
     );
+
+    console.log("filteredList", filteredList);
     setFilteredAdminList(filteredList);
   };
 
   const handleResetButtonClick = () => {
     setSearchInput("");
-    fetchAdmins();
+    fetchAdmins(); // Fetch admins again to reset the list
   };
 
   return (
-    <form className="ourstaff-filter-form">
+    <form className="ourstaff-filter-form" onSubmit={(e) => e.preventDefault()}>
       <input
         type="text"
         placeholder="Search by name/surname/email"
@@ -74,7 +77,7 @@ const OurStaffFilter = ({ setUpdateList }: Props) => {
         onChange={(e) => setSearchInput(e.target.value)}
       />
       <button className="add-staff-btn" onClick={toggleDrawer}>
-        <MdPersonAddAlt clasName="add-icon" />
+        <MdPersonAddAlt className="add-icon" />
         <span className="add-text"> Add Staff</span>
         <Drawer
           anchor="right"
@@ -98,12 +101,7 @@ const OurStaffFilter = ({ setUpdateList }: Props) => {
           <AddStaff setOpen={setOpen} setUpdateList={setUpdateList} />
         </Drawer>
       </button>
-      <button
-        className="filter-btn"
-        onClick={() => {
-          searchAdmin();
-        }}
-      >
+      <button className="filter-btn" onClick={searchAdmin}>
         Filter
       </button>
       <button className="reset-btn" onClick={handleResetButtonClick}>

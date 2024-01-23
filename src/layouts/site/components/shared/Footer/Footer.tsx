@@ -108,7 +108,10 @@ const Footer = () => {
               </ul>
             </div>
             <div className="payment-img">
-              <img src="src/assets/images/payment-img_298x.png" alt="payment" />
+              <img
+                src="/src/assets/images/payment-img_298x.png"
+                alt="payment"
+              />
             </div>
           </div>
         </div>
