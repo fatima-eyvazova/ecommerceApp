@@ -30,6 +30,10 @@ const Products = () => {
   const [minMaxPrice, setMinMaxPrice] = useState({ min: 0, max: 0 });
   const [minPriceValue] = useDebounce(minMaxPrice.min, 500);
   const [maxPriceValue] = useDebounce(minMaxPrice.max, 500);
+  const [inOutStock, setInOutStock] = useState({
+    inStock: false,
+    outStock: false,
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +51,14 @@ const Products = () => {
 
         if (minMaxPrice.max) {
           constructedQuery += `&maxPrice=${minMaxPrice.max}`;
+        }
+
+        if (inOutStock.inStock) {
+          constructedQuery += `&stock=inStock`;
+        }
+
+        if (inOutStock.outStock) {
+          constructedQuery += `&stock=outStock`;
         }
 
         const res = await makeRequest(
@@ -77,6 +89,8 @@ const Products = () => {
     selectedBrands.length,
     minPriceValue,
     maxPriceValue,
+    inOutStock.inStock,
+    inOutStock.outStock,
   ]);
 
   // useEffect(() => {
@@ -121,6 +135,7 @@ const Products = () => {
                   setSelectedBrands={setSelectedBrands}
                   selectedBrands={selectedBrands}
                   setMinMaxPrice={setMinMaxPrice}
+                  setInOutStock={setInOutStock}
                 />
                 <RatedProducts />
               </div>

@@ -19,12 +19,16 @@ type Props = {
   setMinMaxPrice: React.Dispatch<
     React.SetStateAction<{ min: number; max: number }>
   >;
+  setInOutStock: React.Dispatch<
+    React.SetStateAction<{ inStock: boolean; outStock: boolean }>
+  >;
 };
 
 const FilterAccardions = ({
   selectedBrands,
   setSelectedBrands,
   setMinMaxPrice,
+  setInOutStock,
 }: Props) => {
   const [isExpanded1, setIsExpanded1] = useState(false);
   const [isExpanded2, setIsExpanded2] = useState(false);
@@ -81,22 +85,34 @@ const FilterAccardions = ({
         <AccordionDetails className="accordion-details">
           <Typography className="element">
             <div className="availability-details">
-              <div className="top">
-                <span className="selected">0 selected</span>
-                <span className="reset">Reset</span>
-              </div>
               <ul className="acardion-filter-list">
                 <li className="acardion-checkbox">
                   <input
                     type="checkbox"
                     id="instock-checkbox"
                     style={{ width: 20, height: 20 }}
+                    onChange={(e) =>
+                      setInOutStock((prev) => ({
+                        ...prev,
+                        inStock: e.target.checked,
+                      }))
+                    }
                   />
                   <label htmlFor="instock-checkbox">In stock</label>
                 </li>
                 <li className="acardion-checkbox">
-                  <input type="checkbox" />
-                  <span>Out of stock</span>
+                  <input
+                    type="checkbox"
+                    id="outstock-checkbox"
+                    style={{ width: 20, height: 20 }}
+                    onChange={(e) =>
+                      setInOutStock((prev) => ({
+                        ...prev,
+                        outStock: e.target.checked,
+                      }))
+                    }
+                  />
+                  <label htmlFor="outstock-checkbox">Out of stock</label>
                 </li>
               </ul>
             </div>
