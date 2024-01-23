@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { OrderTable, OrderFilter } from "../../components";
-import OrderStatus from "../../components/Orders/OrderStatus/OrderStatus";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { RootState } from "../../../../redux/types";
 import { makeRequest } from "../../../../services/api";
@@ -33,7 +32,6 @@ const Orders: React.FC = () => {
     <>
       <Sidebar>
         <OrderFilter />
-        <OrderStatus />
         <OrderTable list={list} />
       </Sidebar>
     </>
