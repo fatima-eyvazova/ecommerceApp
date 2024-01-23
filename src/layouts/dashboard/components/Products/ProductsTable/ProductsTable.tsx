@@ -148,9 +148,6 @@ const ProductsTable = ({
               }}
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              // ActionsComponent={TablePaginationActions}
             />
           </TableRow>
         </TableFooter>

@@ -80,10 +80,10 @@ const ProductsDashboard = () => {
               }
             }
 
-            productsWithBrandNames = products?.reverse();
+            productsWithBrandNames = products;
           }
 
-          setList(productsWithBrandNames || products?.reverse());
+          setList(productsWithBrandNames || products);
         } catch (error) {
           console.error("Error fetching brands:", error);
         }

@@ -15,8 +15,9 @@ import { RootState } from "../../../../../redux/types";
 import { useSelector } from "react-redux";
 import { GetProductItem } from "../../../../dashboard/pages/ProductsDashboard/types";
 import { makeRequest } from "../../../../../services/api";
+import { GetBasketItem } from "../../../pages/Auth/Login/Login";
 
-const SwiperProducts = () => {
+const SwiperProducts = ({ basketDb }: { basketDb: GetBasketItem[] }) => {
   const [products, setProducts] = useState<GetProductItem[]>([]);
 
   const { token } = useSelector((state: RootState) => state.auth);
@@ -63,9 +64,16 @@ const SwiperProducts = () => {
         modules={[Pagination, Navigation]}
         className="swiper-product"
       >
-        {products.slice(0, 10).map((product) => (
+        {products.map((product) => (
           <SwiperSlide className="slider" key={product?._id}>
-            <ProductCard key={product._id} product={product} />
+            <ProductCard
+              key={product._id}
+              product={product}
+              basketItem={
+                basketDb?.find((item) => item?.productId === product?._id) ||
+                null
+              }
+            />
           </SwiperSlide>
         ))}
       </Swiper>

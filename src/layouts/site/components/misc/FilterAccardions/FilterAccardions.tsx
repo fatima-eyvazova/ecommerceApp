@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 // mui
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -8,11 +8,29 @@ import AddIcon from "@mui/icons-material/Add";
 import HorizontalRuleIcon from "@mui/icons-material/HorizontalRule";
 
 import "./FilterAccardions.scss";
-const FilterAccardions = () => {
+import { makeRequest } from "../../../../../services/api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../redux/types";
+import { GetBrandItem } from "../../../../dashboard/pages/Brands/types";
+
+type Props = {
+  selectedBrands: string[];
+  setSelectedBrands: React.Dispatch<React.SetStateAction<string[]>>;
+  setMinMaxPrice: React.Dispatch<
+    React.SetStateAction<{ min: number; max: number }>
+  >;
+};
+
+const FilterAccardions = ({
+  selectedBrands,
+  setSelectedBrands,
+  setMinMaxPrice,
+}: Props) => {
   const [isExpanded1, setIsExpanded1] = useState(false);
   const [isExpanded2, setIsExpanded2] = useState(false);
-  const [isExpanded3, setIsExpanded3] = useState(false);
   const [isExpanded4, setIsExpanded4] = useState(false);
+  const [brands, setBrands] = useState<GetBrandItem[]>([]);
+  const { token } = useSelector((state: RootState) => state.auth);
 
   const handleAccordionClick1 = () => {
     setIsExpanded1(!isExpanded1);
@@ -20,13 +38,34 @@ const FilterAccardions = () => {
   const handleAccordionClick2 = () => {
     setIsExpanded2(!isExpanded2);
   };
-  const handleAccordionClick3 = () => {
-    setIsExpanded3(!isExpanded3);
-  };
 
   const handleAccordionClick4 = () => {
     setIsExpanded4(!isExpanded4);
   };
+
+  const fetchBrands = async () => {
+    try {
+      const res = await makeRequest("/dashboard/brands", "get", null, token);
+      const data = res?.data as { data: GetBrandItem[] };
+      setBrands(data?.data?.reverse());
+    } catch (error) {
+      console.error("Error fetching brands:", error);
+    }
+  };
+
+  const handleCheckBrand = (id: string) => {
+    if (!selectedBrands.includes(id)) {
+      setSelectedBrands((prev) => [...prev, id]);
+    } else {
+      setSelectedBrands((prev) => prev.filter((i) => i !== id));
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchBrands();
+    }
+  }, [token]);
 
   return (
     <div className="filter-products">
@@ -47,19 +86,17 @@ const FilterAccardions = () => {
                 <span className="reset">Reset</span>
               </div>
               <ul className="acardion-filter-list">
-                <li>
-                  <label className="acardion-checkbox">
-                    <input type="checkbox" />
-                    <span>In stock</span>
-                  </label>
-                  <span className="filter-count">(3)</span>
+                <li className="acardion-checkbox">
+                  <input
+                    type="checkbox"
+                    id="instock-checkbox"
+                    style={{ width: 20, height: 20 }}
+                  />
+                  <label htmlFor="instock-checkbox">In stock</label>
                 </li>
-                <li>
-                  <label className="acardion-checkbox">
-                    <input type="checkbox" />
-                    <span>Out of stock</span>
-                  </label>
-                  <span className="filter-count">(1)</span>
+                <li className="acardion-checkbox">
+                  <input type="checkbox" />
+                  <span>Out of stock</span>
                 </li>
               </ul>
             </div>
@@ -74,25 +111,33 @@ const FilterAccardions = () => {
         <AccordionDetails className="accordion-details">
           <Typography className="element">
             <div className="price-detalis">
-              <div className="top">
-                <span className="selected">The highest price is 646.00USD</span>
-                <span className="reset">Reset</span>
-              </div>
               <div className="filter-price">
                 <div className="field">
                   <label className="field-label">Min price:</label>
                   <input
                     className="field-input"
-                    type="text"
+                    type="number"
                     placeholder="Min Price"
+                    onChange={(e) =>
+                      setMinMaxPrice((prev) => ({
+                        ...prev,
+                        min: +e.target.value,
+                      }))
+                    }
                   />
                 </div>
                 <div className="field">
                   <label className="field-label">Max price:</label>
                   <input
                     className="field-input"
-                    type="text"
+                    type="number"
                     placeholder="Max Price"
+                    onChange={(e) =>
+                      setMinMaxPrice((prev) => ({
+                        ...prev,
+                        max: +e.target.value,
+                      }))
+                    }
                   />
                 </div>
               </div>
@@ -100,45 +145,7 @@ const FilterAccardions = () => {
           </Typography>
         </AccordionDetails>
       </Accordion>
-      <Accordion onChange={handleAccordionClick3} className="accordion3">
-        <AccordionSummary aria-controls="panel2a-content" id="panela-header">
-          <Typography className="title">Product type</Typography>
-          {isExpanded3 ? <HorizontalRuleIcon /> : <AddIcon />}
-        </AccordionSummary>
-        <AccordionDetails className="accordion-details">
-          <Typography className="element">
-            <div className="product-type-detalis">
-              <div className="top">
-                <span className="selected">0 selected</span>
-                <span className="reset">Reset</span>
-              </div>
-              <ul className="acardion-filter-list">
-                <li>
-                  <label className="acardion-checkbox">
-                    <input type="checkbox" name="Headset" />
-                    <span>Headset</span>
-                  </label>
-                  <span className="filter-count">(3)</span>
-                </li>
-                <li>
-                  <label className="acardion-checkbox">
-                    <input type="checkbox" name="Keycaps" />
-                    <span>Keycaps</span>
-                  </label>
-                  <span className="filter-count">(1)</span>
-                </li>
-                <li>
-                  <label className="acardion-checkbox">
-                    <input type="checkbox" name="Remote" />
-                    <span>Remote</span>
-                  </label>
-                  <span className="filter-count">(1)</span>
-                </li>
-              </ul>
-            </div>
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+
       <Accordion onChange={handleAccordionClick4} className="accordion4">
         <AccordionSummary aria-controls="panel2a-content" id="panela-header">
           <Typography className="title">Brand</Typography>
@@ -147,33 +154,20 @@ const FilterAccardions = () => {
         <AccordionDetails className="acardion-detalis">
           <Typography className="element">
             <div className="brand-detalis">
-              <div className="top">
-                <span className="selected">0 selected</span>
-                <span className="reset">Reset</span>
-              </div>
-              <ul className="acardion-filter-list">
-                <li>
-                  <label className="acardion-checkbox">
-                    <input type="checkbox" name="XFX" />
-                    <span>XFX</span>
-                  </label>
-                  <span className="filter-count">(3)</span>
-                </li>
-                <li>
-                  <label className="acardion-checkbox">
-                    <input type="checkbox" name="Sony PS5" />
-                    <span>Sony PS5</span>
-                  </label>
-                  <span className="filter-count">(1)</span>
-                </li>
-                <li>
-                  <label className="acardion-checkbox">
-                    <input type="checkbox" name="Vulture" />
-                    <span>Vulture</span>
-                  </label>
-                  <span className="filter-count">(1)</span>
-                </li>
-              </ul>
+              {brands.map((brand) => (
+                <ul className="acardion-filter-list" key={brand?._id}>
+                  <li className="acardion-checkbox">
+                    <input
+                      type="checkbox"
+                      name={brand?.name}
+                      id={brand?._id}
+                      checked={selectedBrands.includes(brand?._id)}
+                      onChange={() => handleCheckBrand(brand?._id)}
+                    />
+                    <label htmlFor={brand?._id}>{brand?.name}</label>
+                  </li>
+                </ul>
+              ))}
             </div>
           </Typography>
         </AccordionDetails>

@@ -1,8 +1,10 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { TablePagination } from "@mui/material";
+import { useDebounce } from "use-debounce";
 // react-icons
 import { IoIosArrowForward } from "react-icons/io";
-import { CgMenuGridR } from "react-icons/cg";
-import { IoIosMenu } from "react-icons/io";
 
 import {
   FilterAccardions,
@@ -12,24 +14,55 @@ import {
 } from "../../components";
 import "./Products.scss";
 import { makeRequest } from "../../../../services/api";
-import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/types";
-import { useEffect, useState } from "react";
+import {
+  GetProductItem,
+  GetProducts,
+} from "../../../dashboard/pages/ProductsDashboard/types";
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
-
+  const [products, setProducts] = useState<GetProductItem[]>([]);
   const { token } = useSelector((state: RootState) => state.auth);
+  const [page, setPage] = useState(0);
+  const [perPage, setPerPage] = useState(5);
+  const [totalCount, setTotalCount] = useState(0);
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [minMaxPrice, setMinMaxPrice] = useState({ min: 0, max: 0 });
+  const [minPriceValue] = useDebounce(minMaxPrice.min, 500);
+  const [maxPriceValue] = useDebounce(minMaxPrice.max, 500);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await makeRequest("/site/products", "get", null, token);
+        let constructedQuery = "";
+        if (selectedBrands.length) {
+          selectedBrands.forEach((brId) => {
+            constructedQuery += `&brandId=${brId}`;
+          });
+        }
 
-        const dataArray = res?.data?.data?.product;
+        if (minMaxPrice.min) {
+          constructedQuery += `&minPrice=${minMaxPrice.min}`;
+        }
+
+        if (minMaxPrice.max) {
+          constructedQuery += `&maxPrice=${minMaxPrice.max}`;
+        }
+
+        const res = await makeRequest(
+          `/site/products?isPublish=true&perPage=${perPage}&page=${
+            page + 1
+          }${constructedQuery}`,
+          "get",
+          null,
+          token
+        );
+        const prData = res?.data as { data: GetProducts };
+        const dataArray = prData?.data?.product;
+        setTotalCount(prData?.data?.totalCount || 0);
+
         if (Array.isArray(dataArray)) {
           setProducts(dataArray);
-        } else {
-          console.error("Invalid data received:", res?.data?.data?.product);
         }
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -37,7 +70,29 @@ const Products = () => {
     };
 
     fetchData();
-  }, [token]);
+  }, [
+    token,
+    page,
+    perPage,
+    selectedBrands.length,
+    minPriceValue,
+    maxPriceValue,
+  ]);
+
+  // useEffect(() => {
+  //   const userRole = user?.role;
+  //   if (userRole && userRole === "client") {
+  //     getBasketFromDb(token).then((data: { data?: GetBasketItem[] }) => {
+  //       const basketList = data?.data;
+  //       if (!basketList || !basketList?.length) {
+  //         postNewBasket(token);
+  //       } else if (basketList.length) {
+  //         setBasketDb(basketList);
+  //       }
+  //     });
+  //   }
+  // }, [token]);
+
   return (
     <MainLayout>
       <div className="products">
@@ -62,42 +117,42 @@ const Products = () => {
                 <div className="filter-title">
                   <h4>Categories</h4>
                 </div>
-                <FilterAccardions />
+                <FilterAccardions
+                  setSelectedBrands={setSelectedBrands}
+                  selectedBrands={selectedBrands}
+                  setMinMaxPrice={setMinMaxPrice}
+                />
                 <RatedProducts />
               </div>
               <div className="right">
                 <div className="right-container">
-                  <div className="shop-topbar-wrapper">
-                    <ul className="view-mode">
-                      <li>
-                        <Link to="/" className="icon-view">
-                          <CgMenuGridR className="icon" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/" className="icon-view change">
-                          <IoIosMenu className="icon" />
-                        </Link>
-                      </li>
-                    </ul>
-                    <div className="product-sorting">
-                      <form>
-                        <label>Sort by: </label>
-                        <select name="SortBy" id="SortBy">
-                          <option>Alphabetically, A-Z</option>
-                          <option>Alphabetically, Z-A</option>
-                          <option>Price, low to high</option>
-                          <option>Price, high to low</option>
-                        </select>
-                      </form>
-                    </div>
-                  </div>
                   <div className="shop-items">
                     {products.map((product) => (
-                      <ProductCard {...product} key={product.id} />
+                      <ProductCard key={product._id} product={product} />
                     ))}
                   </div>
                 </div>
+                <TablePagination
+                  rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                  colSpan={3}
+                  count={totalCount}
+                  rowsPerPage={perPage}
+                  page={page}
+                  SelectProps={{
+                    inputProps: {
+                      "aria-label": "rows per page",
+                    },
+                    native: true,
+                  }}
+                  onPageChange={(_, newPage) => {
+                    if (page < 0) return null;
+                    setPage(newPage);
+                  }}
+                  onRowsPerPageChange={(event) => {
+                    setPerPage(parseInt(event.target.value, 10));
+                    setPage(0);
+                  }}
+                />
               </div>
             </div>
           </div>

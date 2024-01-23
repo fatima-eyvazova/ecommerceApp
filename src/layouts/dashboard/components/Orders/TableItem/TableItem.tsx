@@ -13,8 +13,9 @@ import TableBody from "@mui/material/TableBody";
 import { styled } from "@mui/material/styles";
 
 import "./TableItem.scss";
+import { GetOrderItem } from "../../../pages/Orders/types";
 
-const TableItem = () => {
+const TableItem = ({ item }: { item: GetOrderItem }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [selectedAction, setSelectedAction] = useState("Delivered");
@@ -50,382 +51,44 @@ const TableItem = () => {
       border: 0,
     },
   }));
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  const rows = [
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 70",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 80",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 20",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ g40",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-  ];
   return (
-    <TableBody sx={{ overflow: "auto" }}>
-      {(rowsPerPage > 0
-        ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        : rows
-      ).map((row, index) => (
-        <StyledTableRow key={index}>
-          <StyledTableCell className="number">{row.name}</StyledTableCell>
-          <StyledTableCell className="time">{row.orderTime}</StyledTableCell>
-          <StyledTableCell className="name">{row.customerName}</StyledTableCell>
-          <StyledTableCell className="amount">{row.amount}</StyledTableCell>
-          <StyledTableCell className="status">{row.status}</StyledTableCell>
-          <StyledTableCell className="action">
-            <Select
-              value={selectedAction}
-              onChange={handleActionChange}
-              sx={{
-                width: "80%",
-                height: "30px",
-                borderRadius: "4px",
-                fontSize: "14px",
-              }}
-            >
-              <MenuItem value="Delivered">Delivered</MenuItem>
-              <MenuItem value="Pending">Pending</MenuItem>
-              <MenuItem value="Processing">Processing</MenuItem>
-              <MenuItem value="Cancel">Cancel</MenuItem>
-            </Select>
-          </StyledTableCell>
-          <StyledTableCell className="invoice" sx={{ textAlign: "center" }}>
-            <ButtonGroup size="small" variant="text">
-              <IconButton>
-                <BiReceipt />
-              </IconButton>
-              <IconButton>
-                <IoIosPersonAdd />
-              </IconButton>
-            </ButtonGroup>
-          </StyledTableCell>
-        </StyledTableRow>
-      ))}
-      {emptyRows > 0 && (
-        <StyledTableRow style={{ height: 53 * emptyRows }}>
-          <StyledTableCell colSpan={6} />
-        </StyledTableRow>
-      )}
-    </TableBody>
+    <StyledTableRow>
+      <StyledTableCell className="number">
+        {item?.createdAt?.split("T")?.[0]}
+      </StyledTableCell>
+      <StyledTableCell className="time">{item?.customer?.name}</StyledTableCell>
+      <StyledTableCell className="name">{item?.method}</StyledTableCell>
+      <StyledTableCell className="amount">{item?.total}</StyledTableCell>
+      <StyledTableCell className="status">{item?.status}</StyledTableCell>
+      <StyledTableCell className="action">
+        <Select
+          value={selectedAction}
+          onChange={handleActionChange}
+          sx={{
+            width: "80%",
+            height: "30px",
+            borderRadius: "4px",
+            fontSize: "14px",
+          }}
+        >
+          <MenuItem value="Delivered">Delivered</MenuItem>
+          <MenuItem value="Pending">Pending</MenuItem>
+          <MenuItem value="Processing">Processing</MenuItem>
+          <MenuItem value="Cancel">Cancel</MenuItem>
+        </Select>
+      </StyledTableCell>
+      <StyledTableCell className="invoice" sx={{ textAlign: "center" }}>
+        <ButtonGroup size="small" variant="text">
+          <IconButton>
+            <BiReceipt />
+          </IconButton>
+          <IconButton>
+            <IoIosPersonAdd />
+          </IconButton>
+        </ButtonGroup>
+      </StyledTableCell>
+    </StyledTableRow>
   );
 };
 

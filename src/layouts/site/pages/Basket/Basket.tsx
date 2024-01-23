@@ -20,14 +20,33 @@ function Basket() {
   const [basketDb, setBasketDb] = useState<GetBasketItem[]>([]);
   const dispatch = useDispatch();
 
-  const clearBasketItems = () => {
+  const removeItemFromDb = async (id: string) => {
+    try {
+      const resBasket = await makeRequest(
+        `/site/basket/${id}`,
+        "delete",
+        null,
+        token
+      );
+      return resBasket;
+    } catch (error) {
+      console.error("Error deleting item from basket:", error);
+    }
+  };
+
+  const clearBasketItems = async () => {
+    if (basketDb.length) {
+      for (const item of basketDb) {
+        await removeItemFromDb(item?._id);
+      }
+    }
+
     dispatch(clearBasket());
   };
 
   const getBasketFromDb = async (token: string) => {
     try {
       const resBasket = await makeRequest("/site/basket", "get", null, token);
-      console.log({ resBasket });
       return resBasket;
     } catch (error) {
       console.error("Error posting basket:", error);
@@ -37,7 +56,6 @@ function Basket() {
   useEffect(() => {
     if (token && user?.role === "client") {
       getBasketFromDb(token).then((res) => {
-        console.log({ res });
         const dbBasketList = res?.data as {
           data: GetBasketItem[];
         };
@@ -74,7 +92,15 @@ function Basket() {
                           </tr>
                         </thead>
                         {basketProducts.map((product) => (
-                          <BasketItem key={product._id} {...product} />
+                          <BasketItem
+                            key={product._id}
+                            product={product}
+                            basketItem={
+                              basketDb?.find(
+                                (item) => item?.productId === product?._id
+                              ) || null
+                            }
+                          />
                         ))}
                       </table>
                     </div>

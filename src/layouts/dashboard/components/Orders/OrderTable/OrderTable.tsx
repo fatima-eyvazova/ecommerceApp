@@ -22,6 +22,7 @@ import {
   TableFooter,
   TablePagination,
   Grid,
+  TableBody,
 } from "@mui/material";
 // react icons
 
@@ -29,6 +30,7 @@ import { BiReceipt } from "react-icons/bi";
 import { IoIosPersonAdd } from "react-icons/io";
 
 import TableItem from "../TableItem/TableItem";
+import { GetOrderItem } from "../../../pages/Orders/types";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -131,7 +133,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   minWidth: "120px",
 }));
 
-const OrderTable = () => {
+const OrderTable = ({ list }: { list: GetOrderItem[] }) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -364,7 +366,11 @@ const OrderTable = () => {
                 <StyledTableCell align="left">Invoice</StyledTableCell>
               </TableRow>
             </TableHead>
-            <TableItem />
+            <TableBody sx={{ overflow: "auto" }}>
+              {list?.length
+                ? list?.map((item) => <TableItem item={item} key={item?._id} />)
+                : null}
+            </TableBody>
           </Table>
         </Grid>
         <Grid item xs={12}>
