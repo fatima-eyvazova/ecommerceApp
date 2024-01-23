@@ -19,9 +19,12 @@ import { RootState } from "../../../../../redux/types";
 import { ProductModal } from "../..";
 import { Link, useNavigate } from "react-router-dom";
 import { GetProductItem } from "../../../../dashboard/pages/ProductsDashboard/types";
+import { GetBasketItem } from "../../../pages/Auth/Login/Login";
+import { makeRequest } from "../../../../../services/api";
 
 type Props = {
   product: GetProductItem;
+  basketItem: GetBasketItem | null;
 };
 
 const colors = {
@@ -29,9 +32,11 @@ const colors = {
   grey: "#a9a9a9",
 };
 
-const ProductCard = ({ product }: Props) => {
+const ProductCard = ({ product, basketItem }: Props) => {
   const { _id: id, title, productPrice, salePrice, images } = product;
   const [open, setOpen] = useState(false);
+  const [updating, setUpdating] = useState(false);
+  const { token, user } = useSelector((state: RootState) => state.auth);
 
   const [colorClick, setColorClick] = useState<number | undefined>(0);
   const [colorOver, setColorOver] = useState<number | undefined>(0);
@@ -45,9 +50,36 @@ const ProductCard = ({ product }: Props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const addProductToBasket = (e: React.ChangeEvent<HTMLDivElement>) => {
+  const updateItemInDb = async () => {
+    try {
+      if (basketItem) {
+        const resBasket = await makeRequest(
+          `/site/basket/${basketItem?._id}`,
+          "put",
+          {
+            productCount: basketItem?.productCount + 1,
+          },
+          token
+        );
+        return resBasket;
+      }
+    } catch (error) {
+      console.error("Error posting basket:", error);
+    }
+  };
+
+  const addProductToBasket = async (e: React.ChangeEvent<HTMLDivElement>) => {
+    setUpdating(true);
     e.stopPropagation();
+    console.log(111);
+
+    if (token && user?.role === "client") {
+      console.log(basketItem);
+
+      await updateItemInDb();
+    }
     dispatch(addToBasket({ ...product, quantity: 1 }));
+    setUpdating(false);
   };
 
   const handleWishList = () => {
@@ -183,7 +215,10 @@ const ProductCard = ({ product }: Props) => {
                   ) : null}
                 </div>
               </div>
-              <div className="product-cart" onClick={addProductToBasket}>
+              <div
+                className="product-cart"
+                onClick={!updating && addProductToBasket}
+              >
                 <HiOutlineShoppingBag className="cart-icon" />
               </div>
             </div>

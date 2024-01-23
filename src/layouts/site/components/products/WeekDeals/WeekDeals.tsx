@@ -6,6 +6,10 @@ import { Pagination } from "swiper/modules";
 
 import "../WeekDeals/WeekDeals.scss";
 import DiscountProduct from "../DiscountProduct/DiscountProduct";
+import { makeRequest } from "../../../../../services/api";
+import { GetProductItem } from "../../../../dashboard/pages/ProductsDashboard/types";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../redux/types";
 
 const WeekDeals = () => {
   const [remainingTime, setRemainingTime] = useState({
@@ -14,6 +18,28 @@ const WeekDeals = () => {
     minutes: 20,
     seconds: 19,
   });
+  const [products, setProducts] = useState<GetProductItem[]>([]);
+
+  const { token } = useSelector((state: RootState) => state.auth);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await makeRequest("/site/products", "get", null, token);
+
+        const dataArray = res?.data?.data?.product;
+        if (Array.isArray(dataArray)) {
+          setProducts(dataArray);
+        } else {
+          console.error("Invalid data received:", res?.data?.data?.product);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchData();
+  }, [token]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -52,6 +78,9 @@ const WeekDeals = () => {
     return () => clearInterval(interval);
   }, [remainingTime]);
 
+  const slidesPerView =
+    window.innerWidth <= 768 ? 1 : window.innerWidth <= 900 ? 1 : 2;
+
   return (
     <div className="week-deals">
       <div className="container">
@@ -60,19 +89,19 @@ const WeekDeals = () => {
         </div>
         <div className="timer">
           <div>
-            <div className="item">
+            <div className="item-timer">
               <span className="number">{remainingTime.days}</span>
               <span className="text">Days</span>
             </div>
-            <div className="item">
+            <div className="item-timer">
               <span className="number">{remainingTime.hours}</span>
               <span className="text">Hours</span>
             </div>
-            <div className="item">
+            <div className="item-timer">
               <span className="number">{remainingTime.minutes} </span>
               <span className="text">Min</span>
             </div>
-            <div className="item">
+            <div className="item-timer">
               <span className="number">{remainingTime.seconds}</span>
               <span className="text">Sec</span>
             </div>
@@ -80,7 +109,8 @@ const WeekDeals = () => {
         </div>
         <div className="products-swiper">
           <Swiper
-            slidesPerView={2}
+            slidesPerView={slidesPerView}
+            // slidesPerView={2}
             spaceBetween={30}
             pagination={{
               clickable: true,
@@ -89,21 +119,11 @@ const WeekDeals = () => {
             modules={[Pagination]}
             className="deals-swiper"
           >
-            <SwiperSlide className="slide">
-              <DiscountProduct />
-            </SwiperSlide>
-            <SwiperSlide className="slide">
-              <DiscountProduct />
-            </SwiperSlide>
-            <SwiperSlide className="slide">
-              <DiscountProduct />
-            </SwiperSlide>
-            <SwiperSlide className="slide">
-              <DiscountProduct />
-            </SwiperSlide>
-            <SwiperSlide className="slide">
-              <DiscountProduct />
-            </SwiperSlide>
+            {products.slice(6, 17).map((product) => (
+              <SwiperSlide className="slider" key={product?._id}>
+                <DiscountProduct key={product._id} product={product} />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </div>
       </div>

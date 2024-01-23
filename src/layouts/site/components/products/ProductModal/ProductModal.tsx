@@ -1,31 +1,34 @@
 import { FaRegHeart } from "react-icons/fa6";
 
 import "./ProductModal.scss";
+import { GetProductItem } from "../../../../dashboard/pages/ProductsDashboard/types";
 
-const ModalProduct = () => {
+type Props = {
+  product: GetProductItem;
+};
+const ModalProduct = ({ product }: Props) => {
+  const { _id: id, title, productPrice, salePrice, images } = product;
+
   return (
     <div className="modal-product">
       <div className="modal-container">
         <div className="modal-left">
-          <img src="/src/assets/images/product-img.webp" alt="modal" />
+          {images && images.length > 0 && (
+            <img
+              className="deal-product-img"
+              src={images[0].url}
+              alt={"product"}
+            />
+          )}
         </div>
         <div className="modal-right">
           <div className="modal-content">
-            <h3 className="product-title">Variable Product</h3>
+            <h3 className="product-title">{product?.title}</h3>
             <div className="product-price">
-              <span className="max-price">$500.00</span>
-              <span className="discount-price">$400.00</span>
+              <span className="max-price">{product?.productPrice}</span>
+              <span className="discount-price">{product?.salePrice}</span>
             </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a
-              convallis nisl, at aliquam dolor. Morbi in iaculis nunc. Nulla eu
-              mi at velit imperdiet sollicitudin sed vel risus. Quisque eleifend
-              lorem ipsum, et tempus nulla convallis nec.&nbsp;Nos aseguraremos
-              de que para publicar un comentario.&nbsp;Es un hecho establecido
-              hace demasiado tiempo que un lector se distraerá con el contenido
-              del texto de un sitio mientras que mira su diseño. El punto de
-              usar Lorem Ipsum es que tiene una distribución...
-            </p>
+            <p>{product?.description}</p>
             <div className="basket-favorites">
               <div className="plus-minus">
                 <input type="number" />
