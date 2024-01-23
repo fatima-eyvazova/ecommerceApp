@@ -82,7 +82,11 @@ const router = createBrowserRouter([
   },
   {
     path: ROUTES.orderInvoice,
-    element: <OrderInvoice />,
+    element: (
+      <InnerRouteGuard isClient={false}>
+        <OrderInvoice />
+      </InnerRouteGuard>
+    ),
   },
   {
     path: "auth",

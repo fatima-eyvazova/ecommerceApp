@@ -60,8 +60,6 @@ const Home = () => {
           const basketList = data?.data?.data;
 
           if (!basketList || !basketList?.length) {
-            console.log({ basketList });
-
             postNewBasket(token);
           } else if (basketList.length) {
             setBasketDb(basketList);

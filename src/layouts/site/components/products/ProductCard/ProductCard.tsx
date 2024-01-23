@@ -71,11 +71,8 @@ const ProductCard = ({ product, basketItem }: Props) => {
   const addProductToBasket = async (e: React.ChangeEvent<HTMLDivElement>) => {
     setUpdating(true);
     e.stopPropagation();
-    console.log(111);
 
     if (token && user?.role === "client") {
-      console.log(basketItem);
-
       await updateItemInDb();
     }
     dispatch(addToBasket({ ...product, quantity: 1 }));
