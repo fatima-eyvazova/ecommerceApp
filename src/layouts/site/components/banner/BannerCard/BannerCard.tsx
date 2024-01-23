@@ -29,7 +29,7 @@ const BannerCard = () => {
         <div className="container">
           <div className="banner-item-b">
             <img
-              src="/src/assets/images/rrr.webp"
+              src="/src/assets/images/www.webp"
               alt="banner image"
               className="img-b"
             />

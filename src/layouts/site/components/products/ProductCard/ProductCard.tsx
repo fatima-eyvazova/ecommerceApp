@@ -208,7 +208,7 @@ const ProductCard = ({ product, basketItem }: Props) => {
                 <div className="sale-product-prices">
                   <div className="product-price">$ {productPrice}</div>
                   {salePrice ? (
-                    <div className="sale-price">{salePrice}</div>
+                    <div className="sale-price">$ {salePrice}</div>
                   ) : null}
                 </div>
               </div>
