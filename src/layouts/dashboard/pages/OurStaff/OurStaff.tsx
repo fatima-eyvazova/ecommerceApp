@@ -12,6 +12,8 @@ const OurStaff = () => {
   const [updateList, setUpdateList] = useState(false);
   const [adminList, setAdminList] = useState<GetAdmin[]>([]);
 
+  const [filteredAdminList, setFilteredAdminList] = useState<GetAdmin[]>([]);
+
   const adminInfo = useSelector((state: RootState) => state.auth.user);
   const token = useSelector((state: RootState) => state.auth.token);
   const userRole = adminInfo?.role;
@@ -21,6 +23,7 @@ const OurStaff = () => {
       const res = await makeRequest("/dashboard/users", "get", null, token);
       const data = res?.data as { data: GetAdmin[] };
       setAdminList(data?.data?.reverse());
+      setFilteredAdminList(data?.data?.reverse());
     } catch (error) {
       console.error("Error fetching brands:", error);
     }
@@ -35,6 +38,9 @@ const OurStaff = () => {
   if (userRole !== "superadmin") {
     return null;
   }
+  const handleFilter = (filteredList: GetAdmin[]) => {
+    setFilteredAdminList(filteredList);
+  };
 
   return (
     <Sidebar>
@@ -42,10 +48,16 @@ const OurStaff = () => {
         <div className="our-staff-container">
           <div className="top-ourstaff">
             <h1>All Staff</h1>
-            <OurStaffFilter setUpdateList={setUpdateList} />
+            <OurStaffFilter
+              setUpdateList={setUpdateList}
+              onFilter={handleFilter}
+            />
           </div>
           <div className="ourstaff-bottom">
-            <OurStaffTable list={adminList} setUpdateList={setUpdateList} />
+            <OurStaffTable
+              list={filteredAdminList}
+              setUpdateList={setUpdateList}
+            />
           </div>
         </div>
       </div>

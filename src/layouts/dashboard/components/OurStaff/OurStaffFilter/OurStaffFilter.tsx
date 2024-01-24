@@ -13,13 +13,13 @@ import { RootState } from "../../../../../redux/types";
 
 interface Props {
   setUpdateList: React.Dispatch<React.SetStateAction<boolean>>;
+  onFilter: (filteredList: GetAdmin[]) => void;
 }
 
-const OurStaffFilter = ({ setUpdateList }: Props) => {
+const OurStaffFilter = ({ setUpdateList, onFilter }: Props) => {
   const [open, setOpen] = useState(false);
   const [list, setList] = useState<GetAdmin[]>([]);
   const [searchInput, setSearchInput] = useState("");
-  const [filteredAdminList, setFilteredAdminList] = useState<GetAdmin[]>([]);
   const { token } = useSelector((state: RootState) => state.auth);
 
   const toggleDrawer = (e: React.FormEvent<HTMLFormElement>) => {
@@ -36,7 +36,7 @@ const OurStaffFilter = ({ setUpdateList }: Props) => {
       const res = await makeRequest("/dashboard/users", "get", null, token);
       const data = res?.data as { data: GetAdmin[] };
       setList(data?.data?.reverse());
-      searchAdmin(); // Update filtered list after fetching admins
+      searchAdmin();
     } catch (error) {
       console.error("Error fetching admins:", error);
     }
@@ -49,22 +49,17 @@ const OurStaffFilter = ({ setUpdateList }: Props) => {
   }, [token, setUpdateList]);
 
   const searchAdmin = () => {
-    console.log("adminList", list);
-    console.log("searchInput", searchInput);
-
     const lowercaseSearchInput = searchInput.toLowerCase();
-
     const filteredList = list.filter((admin) =>
       admin.name.toLowerCase().includes(lowercaseSearchInput)
     );
-
-    console.log("filteredList", filteredList);
-    setFilteredAdminList(filteredList);
+    setUpdateList(false);
+    onFilter(filteredList);
   };
 
   const handleResetButtonClick = () => {
     setSearchInput("");
-    fetchAdmins(); // Fetch admins again to reset the list
+    fetchAdmins();
   };
 
   return (

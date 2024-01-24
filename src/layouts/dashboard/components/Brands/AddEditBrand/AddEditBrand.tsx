@@ -11,10 +11,6 @@ import { getBase64 } from "../../../../../utils/convertToBase64";
 import { selectItem } from "../../../../../redux/slices/dashboard/selectedItemSlice";
 import { GetBrandItem } from "../../../pages/Brands/types";
 
-// import Input from "@mui/material/Input";
-// import InputAdornment from "@mui/material/InputAdornment";
-// import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-
 interface FormValues {
   name: string;
   image: File[] | string;
@@ -121,27 +117,6 @@ const AddEditBrand = ({ setOpen, setUpdateList }: Props) => {
 
   const isBtnDisabled =
     !isValid || isLoading || (!isDirty && itemData?.status !== "edit");
-
-  const imagePreviewStyle = {
-    width: "100px",
-    height: "100px",
-    border: "2px dashed #dcdee3",
-    margin: "3px",
-    position: "relative",
-  };
-
-  const imageStyle = {
-    width: "100%",
-    height: "100%",
-    zIndex: 3,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: "32px",
-    userSelect: "none",
-    opacity: 0.3,
-    cursor: "pointer",
-  };
 
   return (
     <Box style={{ padding: "50px", width: "40vw" }}>

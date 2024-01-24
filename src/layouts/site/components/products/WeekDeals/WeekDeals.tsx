@@ -72,7 +72,6 @@ const WeekDeals = () => {
                 hours: 23,
               }));
             } else {
-              console.log("Timer expired!");
               clearInterval(interval);
             }
           }
