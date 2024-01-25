@@ -8,7 +8,6 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { BiReceipt } from "react-icons/bi";
 import { IoIosPersonAdd } from "react-icons/io";
-import TableBody from "@mui/material/TableBody";
 
 import { styled } from "@mui/material/styles";
 
@@ -16,21 +15,12 @@ import "./TableItem.scss";
 import { GetOrderItem } from "../../../pages/Orders/types";
 
 const TableItem = ({ item }: { item: GetOrderItem }) => {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [selectedAction, setSelectedAction] = useState("Delivered");
 
-  const handleActionChange = (event) => {
-    setSelectedAction(event.target.value);
+  const handleActionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedAction(e.target.value);
   };
 
-  const StyledSelect = styled(Select)({
-    minWidth: "80px",
-  });
-
-  const StyledMenuItem = styled(MenuItem)({
-    fontSize: 14,
-  });
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: theme.palette.common.black,
@@ -72,8 +62,8 @@ const TableItem = ({ item }: { item: GetOrderItem }) => {
             fontSize: "14px",
           }}
         >
-          <MenuItem value="Delivered">Delivered</MenuItem>
           <MenuItem value="Pending">Pending</MenuItem>
+          <MenuItem value="Delivered">Delivered</MenuItem>
           <MenuItem value="Processing">Processing</MenuItem>
           <MenuItem value="Cancel">Cancel</MenuItem>
         </Select>

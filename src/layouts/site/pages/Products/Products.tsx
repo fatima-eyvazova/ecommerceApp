@@ -148,7 +148,7 @@ const Products = () => {
                   </div>
                 </div>
                 <TablePagination
-                  rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                  rowsPerPageOptions={[6, 11, 26]}
                   colSpan={3}
                   count={totalCount}
                   rowsPerPage={perPage}

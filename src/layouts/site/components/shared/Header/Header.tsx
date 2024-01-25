@@ -60,7 +60,7 @@ const Header = () => {
                 <div className="count">
                   <span>{itemCount}</span>
                 </div>
-                {isOpen && (
+                {basketProducts.length > 0 && isOpen && (
                   <div className="shopping-cart">
                     <div className="shop-cart-wrap">
                       <IoCloseSharp className="close-icon" />

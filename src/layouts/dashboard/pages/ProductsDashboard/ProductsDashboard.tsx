@@ -26,6 +26,7 @@ const ProductsDashboard = () => {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [selectedBrand, setSelectedBrand] = useState("");
   const [totalCount, setTotalCount] = useState(0);
+  const [searchInput, setSearchInput] = useState("");
 
   const [updateList, setUpdateList] = useState(false);
   const [list, setList] = useState<GetProductItem[]>([]);
@@ -93,8 +94,6 @@ const ProductsDashboard = () => {
     }
   }, [token, updateList, page, perPage, selectedBrand]);
 
-  const [searchInput, setSearchInput] = useState("");
-
   const fetchProducts = async () => {
     try {
       const res = await makeRequest("/dashboard/products", "get", null, token);
@@ -124,8 +123,8 @@ const ProductsDashboard = () => {
   const handleOrderChange = (orderBy: "asc" | "disc") => {
     const sorted =
       orderBy === "asc"
-        ? [...list].sort((a, b) => a.salePrice - b.salePrice)
-        : [...list].sort((a, b) => b.salePrice - a.salePrice);
+        ? [...list].sort((a, b) => Number(a.salePrice) - Number(b.salePrice))
+        : [...list].sort((a, b) => Number(b.salePrice) - Number(a.salePrice));
     setList(sorted);
   };
 

@@ -6,7 +6,6 @@ import "./OurStaffFilter.scss";
 import AddStaff from "../AddStaff/AddStaff";
 import { useEffect, useState } from "react";
 import { makeRequest } from "../../../../../services/api";
-// import { GetProductItem } from "../../../pages/ProductsDashboard/types";
 import { GetAdmin } from "../../../pages/OurStaff/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../redux/types";
@@ -14,15 +13,20 @@ import { RootState } from "../../../../../redux/types";
 interface Props {
   setUpdateList: React.Dispatch<React.SetStateAction<boolean>>;
   onFilter: (filteredList: GetAdmin[]) => void;
+  setFilteredAdminList: (filteredList: GetAdmin[]) => void;
 }
 
-const OurStaffFilter = ({ setUpdateList, onFilter }: Props) => {
+const OurStaffFilter = ({
+  setUpdateList,
+  onFilter,
+  setFilteredAdminList,
+}: Props) => {
   const [open, setOpen] = useState(false);
   const [list, setList] = useState<GetAdmin[]>([]);
   const [searchInput, setSearchInput] = useState("");
   const { token } = useSelector((state: RootState) => state.auth);
 
-  const toggleDrawer = (e: React.FormEvent<HTMLFormElement>) => {
+  const toggleDrawer = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setOpen(!open);
   };
@@ -35,8 +39,11 @@ const OurStaffFilter = ({ setUpdateList, onFilter }: Props) => {
     try {
       const res = await makeRequest("/dashboard/users", "get", null, token);
       const data = res?.data as { data: GetAdmin[] };
-      setList(data?.data?.reverse());
+      const adminList = data?.data?.reverse() || [];
+
+      setList(adminList);
       searchAdmin();
+      setFilteredAdminList(adminList);
     } catch (error) {
       console.error("Error fetching admins:", error);
     }
@@ -54,6 +61,7 @@ const OurStaffFilter = ({ setUpdateList, onFilter }: Props) => {
       admin.name.toLowerCase().includes(lowercaseSearchInput)
     );
     setUpdateList(false);
+    setFilteredAdminList(filteredList);
     onFilter(filteredList);
   };
 

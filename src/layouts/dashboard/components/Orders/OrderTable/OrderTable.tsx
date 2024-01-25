@@ -18,16 +18,12 @@ import {
   TableHead,
   TableRow,
   TableCell,
-  // TableItem,
   TableFooter,
-  TablePagination,
   Grid,
   TableBody,
+  TablePagination,
 } from "@mui/material";
 // react icons
-
-import { BiReceipt } from "react-icons/bi";
-import { IoIosPersonAdd } from "react-icons/io";
 
 import TableItem from "../TableItem/TableItem";
 import { GetOrderItem } from "../../../pages/Orders/types";
@@ -36,6 +32,7 @@ interface TablePaginationActionsProps {
   count: number;
   page: number;
   rowsPerPage: number;
+
   onPageChange: (
     event: React.MouseEvent<HTMLButtonElement>,
     newPage: number
@@ -133,219 +130,37 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   minWidth: "120px",
 }));
 
-const OrderTable = ({ list }: { list: GetOrderItem[] }) => {
-  const [page, setPage] = React.useState(0);
+interface OrderTableProps {
+  list: GetOrderItem[];
+  searchInput: string;
+  totalCount: number;
+  page: number;
+  perPage: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setPerPage: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const OrderTable: React.FC<OrderTableProps> = ({
+  list,
+  searchInput,
+  totalCount,
+  page,
+  perPage,
+  setPage,
+  setPerPage,
+}) => {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const rows = [
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 0",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jkjbkony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-    {
-      name: 1063,
-      orderTime: "Jan 2, 2024 10:30 AM",
-      customerName: "Jony",
-      amount: "$ 90",
-      status: "Delivered",
-      action: "Delivered",
-      invoice: (
-        <>
-          <button type="button">
-            <BiReceipt />
-          </button>
-          <button>
-            <IoIosPersonAdd />
-          </button>
-        </>
-      ),
-    },
-  ];
+  if (!list) {
+    return <div>Loading...</div>;
+  }
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+  const filteredList = list.filter((item) => {
+    const productsString = String(item.customer.name);
+    return (
+      productsString.toLowerCase().includes(searchInput.toLowerCase()) || null
+    );
+  });
 
   return (
     <TableContainer component={Paper}>
@@ -367,8 +182,10 @@ const OrderTable = ({ list }: { list: GetOrderItem[] }) => {
               </TableRow>
             </TableHead>
             <TableBody sx={{ overflow: "auto" }}>
-              {list?.length
-                ? list?.map((item) => <TableItem item={item} key={item?._id} />)
+              {filteredList.length
+                ? filteredList.map((item) => (
+                    <TableItem item={item} key={item?._id} />
+                  ))
                 : null}
             </TableBody>
           </Table>
@@ -377,10 +194,10 @@ const OrderTable = ({ list }: { list: GetOrderItem[] }) => {
           <TableFooter>
             <TableRow>
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                rowsPerPageOptions={[5, 10, 25]}
                 colSpan={3}
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
+                count={totalCount}
+                rowsPerPage={perPage}
                 page={page}
                 SelectProps={{
                   inputProps: {
@@ -388,9 +205,14 @@ const OrderTable = ({ list }: { list: GetOrderItem[] }) => {
                   },
                   native: true,
                 }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
+                onPageChange={(_, newPage) => {
+                  if (page < 0) return null;
+                  setPage(newPage);
+                }}
+                onRowsPerPageChange={(event) => {
+                  setPerPage(parseInt(event.target.value, 10));
+                  setPage(0);
+                }}
               />
             </TableRow>
           </TableFooter>

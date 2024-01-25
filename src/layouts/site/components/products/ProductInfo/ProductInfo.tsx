@@ -145,10 +145,20 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
             />
           </form>
           <div className="add-to-cart-favorites">
-            <div className="add-to-cart" onClick={addToCart}>
-              <HiOutlineShoppingBag className="add-icon" />
-              <span className="add-btn"> Add to cart</span>
-            </div>
+            {product?.stock > 0 ? (
+              <div className="add-to-cart" onClick={addToCart}>
+                <HiOutlineShoppingBag className="add-icon" />
+                <span className="add-btn"> Add to cart</span>
+              </div>
+            ) : (
+              <div
+                className="add-to-cart"
+                style={{ pointerEvents: "none", opacity: 0.5 }}
+              >
+                <HiOutlineShoppingBag className="add-icon" />
+                <span className="add-btn"> Add to cart</span>
+              </div>
+            )}
             <div className="favorites" onClick={handleWishList}>
               <GrFavorite
                 className="favorite-icon"

@@ -10,8 +10,6 @@ import { GetAdmin } from "./types";
 
 const OurStaff = () => {
   const [updateList, setUpdateList] = useState(false);
-  const [adminList, setAdminList] = useState<GetAdmin[]>([]);
-
   const [filteredAdminList, setFilteredAdminList] = useState<GetAdmin[]>([]);
 
   const adminInfo = useSelector((state: RootState) => state.auth.user);
@@ -22,8 +20,8 @@ const OurStaff = () => {
     try {
       const res = await makeRequest("/dashboard/users", "get", null, token);
       const data = res?.data as { data: GetAdmin[] };
-      setAdminList(data?.data?.reverse());
-      setFilteredAdminList(data?.data?.reverse());
+      const adminList = data?.data?.reverse() || [];
+      setFilteredAdminList(adminList);
     } catch (error) {
       console.error("Error fetching brands:", error);
     }
@@ -51,6 +49,7 @@ const OurStaff = () => {
             <OurStaffFilter
               setUpdateList={setUpdateList}
               onFilter={handleFilter}
+              setFilteredAdminList={setFilteredAdminList}
             />
           </div>
           <div className="ourstaff-bottom">

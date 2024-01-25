@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import "./NotFoundPage.scss";
 
 const NotFoundPage = ({ children }: { children?: JSX.Element }) => {
   const navigate = useNavigate();
@@ -8,16 +9,7 @@ const NotFoundPage = ({ children }: { children?: JSX.Element }) => {
   };
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        gap: 40,
-      }}
-    >
+    <div className="not-found-container">
       <h1>Page Was Not Found!</h1>
       {children ? children : <button onClick={redirectToHome}>Return</button>}
     </div>

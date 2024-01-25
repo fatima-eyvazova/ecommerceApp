@@ -87,11 +87,13 @@ const ProductsTable = ({
     ? list.filter((item) => item.brandId === selectedBrand)
     : list;
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage: number) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
