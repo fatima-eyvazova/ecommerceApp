@@ -87,7 +87,7 @@ const ProductsTable = ({
     ? list.filter((item) => item.brandId === selectedBrand)
     : list;
 
-  const handleChangePage = (newPage: number) => {
+  const handleChangePage = (_: unknown, newPage: number) => {
     setPage(newPage);
   };
 
@@ -97,6 +97,8 @@ const ProductsTable = ({
     setPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+  console.log(page);
 
   return (
     <TableContainer component={Paper}>

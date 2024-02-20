@@ -46,6 +46,7 @@ const Orders: React.FC = () => {
           token
         );
         const prData = res?.data as { data: GetOrdersData };
+
         const dataArray = prData?.data?.data;
         setTotalCount(prData?.data?.totalCount || 0);
         setList(dataArray);
