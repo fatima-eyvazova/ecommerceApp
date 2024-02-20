@@ -138,6 +138,7 @@ interface OrderTableProps {
   perPage: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setPerPage: React.Dispatch<React.SetStateAction<number>>;
+  setList: React.Dispatch<React.SetStateAction<GetOrderItem[]>>;
 }
 
 const OrderTable: React.FC<OrderTableProps> = ({
@@ -148,9 +149,8 @@ const OrderTable: React.FC<OrderTableProps> = ({
   perPage,
   setPage,
   setPerPage,
+  setList,
 }) => {
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
   if (!list) {
     return <div>Loading...</div>;
   }
@@ -184,7 +184,7 @@ const OrderTable: React.FC<OrderTableProps> = ({
             <TableBody sx={{ overflow: "auto" }}>
               {filteredList.length
                 ? filteredList.map((item) => (
-                    <TableItem item={item} key={item?._id} />
+                    <TableItem item={item} key={item?._id} setList={setList} />
                   ))
                 : null}
             </TableBody>

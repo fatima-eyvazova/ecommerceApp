@@ -6,20 +6,27 @@ import IconButton from "@mui/material/IconButton";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { styled } from "@mui/material/styles";
 import { BiReceipt } from "react-icons/bi";
 import { IoIosPersonAdd } from "react-icons/io";
 
-import { styled } from "@mui/material/styles";
-
 import "./TableItem.scss";
 import { GetOrderItem } from "../../../pages/Orders/types";
+import { makeRequest } from "../../../../../services/api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../redux/types";
 
-const TableItem = ({ item }: { item: GetOrderItem }) => {
+interface TableItemProps {
+  setList: React.Dispatch<React.SetStateAction<GetOrderItem[]>>;
+  item: GetOrderItem;
+}
+
+const TableItem: React.FC<TableItemProps> = ({
+  item,
+  setList,
+}: TableItemProps) => {
   const [selectedAction, setSelectedAction] = useState("Delivered");
-
-  const handleActionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedAction(e.target.value);
-  };
+  const token = useSelector((state: RootState) => state.auth.token);
 
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -42,6 +49,25 @@ const TableItem = ({ item }: { item: GetOrderItem }) => {
     },
   }));
 
+  const handleStatusChange = async (orderId: string, newStatus: string) => {
+    try {
+      await makeRequest(
+        `/dashboard/orders/${orderId}`,
+        "put",
+
+        { status: newStatus },
+        token
+      );
+      setList((orders) =>
+        orders.map((order) =>
+          order._id === orderId ? { ...order, status: newStatus } : order
+        )
+      );
+    } catch (error) {
+      console.error("Error updating order status:", error);
+    }
+  };
+
   return (
     <StyledTableRow>
       <StyledTableCell className="number">
@@ -53,19 +79,22 @@ const TableItem = ({ item }: { item: GetOrderItem }) => {
       <StyledTableCell className="status">{item?.status}</StyledTableCell>
       <StyledTableCell className="action">
         <Select
-          value={selectedAction}
-          onChange={handleActionChange}
           sx={{
             width: "80%",
             height: "30px",
             borderRadius: "4px",
             fontSize: "14px",
           }}
+          value={selectedAction}
+          onChange={(e) => {
+            setSelectedAction(e.target.value);
+            handleStatusChange(item._id, e.target.value);
+          }}
         >
-          <MenuItem value="Pending">Pending</MenuItem>
-          <MenuItem value="Delivered">Delivered</MenuItem>
-          <MenuItem value="Processing">Processing</MenuItem>
-          <MenuItem value="Cancel">Cancel</MenuItem>
+          <MenuItem value="pending">Pending</MenuItem>
+          <MenuItem value="delivered">Delivered</MenuItem>
+          <MenuItem value="processing">Processing</MenuItem>
+          <MenuItem value="cancel">Cancel</MenuItem>
         </Select>
       </StyledTableCell>
       <StyledTableCell className="invoice" sx={{ textAlign: "center" }}>

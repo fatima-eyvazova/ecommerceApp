@@ -13,7 +13,6 @@ import {
 import { ROUTES } from "./routeNames";
 import {
   Brands,
-  OrderInvoice,
   Orders,
   OurStaff,
   ProductsDashboard,
@@ -79,14 +78,6 @@ const router = createBrowserRouter([
   {
     path: ROUTES.basket,
     element: <Basket />,
-  },
-  {
-    path: ROUTES.orderInvoice,
-    element: (
-      <InnerRouteGuard isClient={false}>
-        <OrderInvoice />
-      </InnerRouteGuard>
-    ),
   },
   {
     path: "auth",

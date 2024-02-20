@@ -78,6 +78,7 @@ const Orders: React.FC = () => {
           perPage={perPage}
           setPage={setPage}
           setPerPage={setPerPage}
+          setList={setList}
         />
       </Sidebar>
     </>

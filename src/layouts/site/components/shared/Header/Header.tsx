@@ -42,9 +42,6 @@ const Header = () => {
               <img src="/src/assets/images/logo.png" alt="logo" />
             </div>
             <div className="header-right-site">
-              <div className="default-message">
-                <p>Default welcome msg!</p>
-              </div>
               {userRole === "client" && token && (
                 <div className="login-header" onClick={logOutUserHandler}>
                   <FaRegUserCircle className="user-icon" />

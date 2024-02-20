@@ -57,7 +57,7 @@ const OrderFilter = ({
             />
             <select value="" onChange={handleStatusChange}>
               <option value="">Select Status</option>
-              <option value="">Delivered</option>
+              <option value="Delivered">Delivered</option>
               <option value="Pending">Pending</option>
               <option value="Processing">Processing</option>
               <option value="Cancel">Cancel</option>

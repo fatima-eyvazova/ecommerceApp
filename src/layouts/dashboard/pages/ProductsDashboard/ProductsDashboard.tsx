@@ -113,6 +113,7 @@ const ProductsDashboard = () => {
 
   const handleResetButtonClick = () => {
     setSearchInput("");
+    setSelectedBrand("");
     fetchProducts();
   };
 

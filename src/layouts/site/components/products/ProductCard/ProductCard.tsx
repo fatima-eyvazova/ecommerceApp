@@ -38,9 +38,6 @@ const ProductCard = ({ product, basketItem }: Props) => {
   const [updating, setUpdating] = useState(false);
   const { token, user } = useSelector((state: RootState) => state.auth);
 
-  const [colorClick, setColorClick] = useState<number | undefined>(0);
-  const [colorOver, setColorOver] = useState<number | undefined>(0);
-
   const wishListProducts = useSelector(
     (state: RootState) => state.wishList.wishListProducts
   );
@@ -83,22 +80,6 @@ const ProductCard = ({ product, basketItem }: Props) => {
     dispatch(handleWishListAction(product));
     setColor((prev) => !prev);
   };
-
-  const starList = [1, 2, 3, 4, 5];
-
-  function viewedClick(
-    value: number,
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ): void {
-    e.stopPropagation();
-    setColorClick(value);
-  }
-  function viewedOver(value: number): void {
-    setColorOver(value);
-  }
-  function viewedLive(): void {
-    setColorOver(undefined);
-  }
 
   const handleOpen = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
@@ -189,22 +170,6 @@ const ProductCard = ({ product, basketItem }: Props) => {
             <h4>{title}</h4>
             <div className="product-price-cart">
               <div className="rating-price">
-                <div className="product-rating">
-                  {starList.map((star) => (
-                    <FaRegStar
-                      className="icon-star"
-                      key={star}
-                      onMouseOver={() => viewedOver(star + 1)}
-                      onMouseLeave={viewedLive}
-                      onClick={() => viewedClick(star + 1)}
-                      color={
-                        (colorClick || colorOver) > star
-                          ? colors.orange
-                          : colors.grey
-                      }
-                    />
-                  ))}
-                </div>
                 <div className="sale-product-prices">
                   <div className="product-price">$ {productPrice}</div>
                   {salePrice ? (
