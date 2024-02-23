@@ -47,61 +47,40 @@ const Checkout = () => {
         </div>
       </header>
       <div className="wrapper-checkout">
-        <div className="checkout-container">
-          <div className="checkout-content">
-            <div className="left">
-              <div className="left-container">
-                <h2 className="heading-delivery">Delivery</h2>
-                <form>
-                  <input
-                    className="region-input"
-                    type="text"
-                    placeholder="Country/Region"
-                  />
-                  <div className="user-inputs">
-                    <input type="text" placeholder="First name (optional)" />
-                    <input type="text" placeholder="Last name" />
+        {basketProducts.length > 0 ? (
+          <div className="checkout-container">
+            <div className="checkout-content">
+              <aside className="right">
+                <div className="container-right">
+                  <div className="basket-items">
+                    {basketProducts.map((product) => (
+                      <CheckoutItem key={product._id} {...product} />
+                    ))}
                   </div>
-                  <input
-                    className="address-input"
-                    type="text"
-                    placeholder="Address"
-                  />
-                </form>
-                <div className="payment">
-                  <h2 className="heading">Payment</h2>
-                  <p className="text">
-                    All transactions are secure and encrypted.
-                  </p>
-                  <div className="cash">
-                    <span className="item">Cash on Delivery (COD)</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <aside className="right">
-              <div className="container-right">
-                <div className="basket-items">
-                  {basketProducts.map((product) => (
-                    <CheckoutItem key={product._id} {...product} />
-                  ))}
-                </div>
-                <div className="basket-info">
-                  <div className="info-total">
-                    <span className="total-left">Total</span>
-                    <div className="total-right">
-                      <span className="usd">USD</span>
-                      <span className="price">${total}</span>
+                  <div className="basket-info">
+                    <div className="info-total">
+                      <span className="total-left">Total</span>
+                      <div className="total-right">
+                        <span className="usd">USD</span>
+                        <span className="price">${total}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </aside>
+              </aside>
+            </div>
+            <div className="order-button">
+              <button onClick={createNewOrder}>Complete order</button>
+            </div>
           </div>
-          <div className="order-button">
-            <button onClick={createNewOrder}>Complete order</button>
+        ) : (
+          <div className="order-total-empty">
+            <h5>Your order has been received</h5>
+            <Link className="text" to={ROUTES.home}>
+              CONTINUE SHOPPING
+            </Link>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

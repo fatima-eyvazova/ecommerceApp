@@ -27,11 +27,6 @@ type Props = {
   basketItem: GetBasketItem | null;
 };
 
-const colors = {
-  orange: "#FFBA5A",
-  grey: "#a9a9a9",
-};
-
 const ProductCard = ({ product, basketItem }: Props) => {
   const { _id: id, title, productPrice, salePrice, images } = product;
   const [open, setOpen] = useState(false);
@@ -76,7 +71,9 @@ const ProductCard = ({ product, basketItem }: Props) => {
     setUpdating(false);
   };
 
-  const handleWishList = () => {
+  const handleWishList = (event: React.ChangeEvent<HTMLDivElement>): void => {
+    event.preventDefault();
+    event.stopPropagation();
     dispatch(handleWishListAction(product));
     setColor((prev) => !prev);
   };

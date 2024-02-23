@@ -44,12 +44,12 @@ const Header = () => {
             <div className="header-right-site">
               {userRole === "client" && token && (
                 <div className="login-header" onClick={logOutUserHandler}>
-                  <FaRegUserCircle className="user-icon" />
+                  <CiLogin className="user-icon" />
                 </div>
               )}
               {!token && (
                 <Link className="login-header" to={ROUTES.login}>
-                  <CiLogin className="user-icon" />
+                  <FaRegUserCircle className="user-icon" />
                 </Link>
               )}
               <div className="cart" onClick={basketMenu}>

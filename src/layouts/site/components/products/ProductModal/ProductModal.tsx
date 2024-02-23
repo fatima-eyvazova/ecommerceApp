@@ -25,8 +25,8 @@ const ModalProduct = ({ product }: Props) => {
           <div className="modal-content">
             <h3 className="product-title">{product?.title}</h3>
             <div className="product-price">
-              <span className="max-price">{product?.productPrice}</span>
-              <span className="discount-price">{product?.salePrice}</span>
+              <span className="max-price">{product?.productPrice} $</span>
+              <span className="discount-price">{product?.salePrice} $</span>
             </div>
             <p>{product?.description}</p>
             <div className="basket-favorites">

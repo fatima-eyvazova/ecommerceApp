@@ -38,13 +38,44 @@
     align-items: center;
     justify-content: center;
     margin-top: 30px;
+    .order-total-empty {
+      width: 30vw;
+      background-color: #fff;
+      border: 1px solid #eaeaea;
+      margin-top: 50px;
+      padding: 40px;
+      h5 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 25px;
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        margin-bottom: 39px;
+      }
+      .text {
+        &:hover {
+          color: #fff;
+          background-color: #26c6d0;
+        }
+        padding: 14px 20px 15px;
+        border-radius: 5px;
+        color: #454545;
+        cursor: pointer;
+        font-size: 14px;
+        letter-spacing: 0.2px;
+        line-height: 1;
+        margin: 5px 0 0;
+        text-transform: uppercase;
+        background-color: #d8d8d8;
+        transition: all 0.3s ease 0s;
+        text-decoration: none;
+      }
+    }
     .checkout-container {
       .checkout-content {
         display: flex;
         justify-content: space-between;
         width: 80vw;
         .left {
-          width: 40vw;
           .left-container {
             .heading-delivery {
               line-height: 1.2;

@@ -55,14 +55,18 @@ const ProductsDashboard = () => {
           const constructBrandQuery = selectedBrand
             ? `&brandId=${selectedBrand}`
             : "";
+
+          const searchQuery = searchInput ? `&search=${searchInput}` : "";
+
           const prRes = await makeRequest(
             `/dashboard/products?perPage=${perPage}&page=${
               page + 1
-            }${constructBrandQuery}`,
+            }${constructBrandQuery}${searchQuery}`,
             "get",
             null,
             token
           );
+
           const data = res?.data as { data: GetBrandItem[] };
           const prData = prRes?.data as { data: GetProducts };
           const products = prData?.data?.product;
@@ -92,7 +96,7 @@ const ProductsDashboard = () => {
 
       fetchBrandsAndProducts();
     }
-  }, [token, updateList, page, perPage, selectedBrand]);
+  }, [token, updateList, page, perPage, selectedBrand, searchInput]);
 
   const fetchProducts = async () => {
     try {
@@ -104,11 +108,9 @@ const ProductsDashboard = () => {
     }
   };
 
-  const searchProduct = () => {
-    const filteredList = list.filter((product) =>
-      product.title.toLowerCase().includes(searchInput.toLowerCase())
-    );
-    setList(filteredList);
+  const searchProduct = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const inputValue: string = e.target.value.toLowerCase();
+    setSearchInput(inputValue);
   };
 
   const handleResetButtonClick = () => {
@@ -180,8 +182,9 @@ const ProductsDashboard = () => {
                 placeholder="Search Product"
                 className="input-search"
                 value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
+                onChange={searchProduct}
               />
+
               <select
                 className="brand"
                 value={selectedBrand}
@@ -215,9 +218,9 @@ const ProductsDashboard = () => {
               <div className="filter-reset">
                 <button
                   className="filter-btn"
-                  onClick={() => {
-                    searchProduct();
-                  }}
+                  // onClick={() => {
+                  //   searchProduct();
+                  // }}
                 >
                   Filter
                 </button>
